@@ -1,10 +1,11 @@
 import { View, StyleSheet } from "react-native";
 import {BoardSquare} from "../BoardSquare/BoardSquare";
+import {LETTERS} from  "../Board/board.js";
 
 export const Board = () => {
     const blackSquareSource = require("../../assets/board/blacksquare.jpg");
     const whiteSquareSource = require("../../assets/board/whitesquare.jpg");
-
+    console.log("inside board");
     const rows = [];
     for (let row = 1; row <= 8; row++) {
 
@@ -16,6 +17,8 @@ export const Board = () => {
                 <BoardSquare
                     key={`square-${row}-${col}`}
                     src={isWhiteSquare ? whiteSquareSource : blackSquareSource}
+                    letter={LETTERS[col.toString()]}
+                    number={row}
                 />
             );
         }
