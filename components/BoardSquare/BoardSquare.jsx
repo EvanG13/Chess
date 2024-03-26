@@ -14,13 +14,26 @@ const styles = StyleSheet.create({
     square: {
         width: 45,
         height: 45,
+        position: 'relative',
     },
-    image: {
-        flex: 1,
-        resizeMode: "cover",
-    },
+
     pieceImg: {
         width: 45,
         height: 45,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 2, 
     },
+
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        position: 'absolute', 
+        top: 0,
+        left: 0,
+        width: '100%', 
+        height: '100%',
+    },
+
 });
