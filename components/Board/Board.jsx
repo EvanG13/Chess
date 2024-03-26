@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import {BoardSquare} from "../BoardSquare/BoardSquare";
 import {LETTERS} from  "../Board/board.js";
-
+import Pawn from "../../pieces/Pawn";
 export const Board = () => {
     const blackSquareSource = require("../../assets/board/blacksquare.jpg");
     const whiteSquareSource = require("../../assets/board/whitesquare.jpg");
@@ -19,6 +19,7 @@ export const Board = () => {
                     src={isWhiteSquare ? whiteSquareSource : blackSquareSource}
                     letter={LETTERS[col.toString()]}
                     number={row}
+                    piece={new Pawn("black", "a", 1)}
                 />
             );
         }

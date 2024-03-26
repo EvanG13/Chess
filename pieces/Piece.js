@@ -1,5 +1,5 @@
 
-abstract class Piece {
+   class Piece {
   constructor(color, src, letter, number, name) {
     this.color = color;
     this.src = src;
@@ -7,8 +7,6 @@ abstract class Piece {
     this.number = number;
     this.name = name;
   }
-
-  abstract isValidMove(destLetter, destNumber);
 
   move(destLetter, destNumber){
 

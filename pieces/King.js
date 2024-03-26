@@ -5,7 +5,7 @@ const blackKingSource = require("../../assets/pieces/blackking.jpg");
 class King extends Piece {
 
     constructor(color, letter, number) {
-        super(color, color == black ? blackPawnSource : whitePawnSource, letter, number, "pawn");
+        super(color, color == black ? blackKingSource : whiteKingSource, letter, number, "king");
     }
 
     isValidMove(destLetter, destNumber){

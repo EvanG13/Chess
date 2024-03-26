@@ -1,11 +1,14 @@
-import Piece from "./Piece.js";
-const whiteQueenSource = require("../../assets/pieces/whitequeen.jpg");
-const blackQueenSource = require("../../assets/pieces/blackqueen.jpg");
 
-class Knight extends Piece {
+import Piece from "./Piece.js";
+const whiteQueenSource =  "../assets/pieces1/wq.svg";
+const blackQueenSource =  "../assets/pieces1/bq.svg";
+
+class Queen extends Piece {
 
     constructor(color, letter, number) {
-        super(color, color == black ? blackQueenSource : whiteQueenSource, letter, number, "queen");
+       const src = color === 'black' ? blackQueenSource : whiteQueenSource;
+        super(color, src, letter, number, "queen");
+        
     }
 
     isValidMove(destLetter, destNumber){

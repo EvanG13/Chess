@@ -1,11 +1,14 @@
+
 import Piece from "./Piece.js";
-const whiteBishopSource = require("../../assets/pieces/whitebishop.jpg");
-const blackBishopSource = require("../../assets/pieces/blackbishop.jpg");
+const whiteBishopSource =  "../assets/pieces1/wb.svg";
+const blackBishopSource =  "../assets/pieces1/bb.svg";
 
 class Bishop extends Piece {
 
     constructor(color, letter, number) {
-        super(color, color == black ? blackPawnSource : whitePawnSource, letter, number, "bishop");
+       const src = color === 'black' ? blackBishopSource : whiteBishopSource;
+        super(color, src, letter, number, "bishop");
+        
     }
 
     isValidMove(destLetter, destNumber){

@@ -1,12 +1,14 @@
 
 import Piece from "./Piece.js";
-const whitePawnSource = require("../../assets/pieces/whitepawn.jpg");
-const blackPawnSource = require("../../assets/pieces/blackpawn.jpg");
+const whitePawnSource =  "../assets/pieces1/wp.svg";
+const blackPawnSource =  "../assets/pieces1/bp.svg";
 
 class Pawn extends Piece {
 
     constructor(color, letter, number) {
-        super(color, color == black ? blackPawnSource : whitePawnSource, letter, number, "pawn");
+       const src = color === 'black' ? blackPawnSource : whitePawnSource;
+        super(color, src, letter, number, "pawn");
+        
     }
 
     isValidMove(destLetter, destNumber){
