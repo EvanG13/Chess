@@ -12,7 +12,7 @@ export const Board = () => {
     const numberCol = ['8', '7', '6', '5', '4', '3', '2', '1'];
     
     //TODO: fetch the board from the backend with sockets 
-  
+    
 
     return (
         <View style={styles.boardContainer}>

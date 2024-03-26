@@ -1,5 +1,5 @@
 
-   class Piece {
+  class Piece {
   constructor(color, src, letter, number, name) {
     this.color = color;
     this.src = src;
