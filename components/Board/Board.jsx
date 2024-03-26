@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import {BoardSquare} from "../BoardSquare/BoardSquare";
 import {LETTERS} from  "../Board/board.js";
 import Pawn from "../../pieces/Pawn";
@@ -8,34 +8,61 @@ import React, {useEffect, useState} from "react";
 export const Board = () => {
     const [board, setBoard] = useState(getStartingBoard()); // 8x8 array
     const rows = [];
-    for (let row = 1; row <= 8; row++) {
-        const columns = [];
-        for (let col = 1; col <= 8; col++) {
+    const letterRow = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    const numberCol = ['8', '7', '6', '5', '4', '3', '2', '1'];
+    
+    //TODO: fetch the board from the backend with sockets 
+  
 
-            columns.push(
-                <BoardSquare
-                    key={`square-${row}-${col}`}
-                    src={board[row-1][col-1].src}
-                    letter={board[row-1][col-1].letter}
-                    number={board[row-1][col-1].number}
-                    piece={board[row-1][col-1].piece}
-                />
-            );
+    return (
+        <View style={styles.boardContainer}>
+            <View style={styles.boardWithNumbers}>
+                <View style={styles.board}>
+                    {
+                        board.map((row, index) => {
+                            return (
+                                <View key={`row-${row}`} style={{ flexDirection: "row" }}>
+                                     <View key={`number-${index}`}>{numberCol[index]}</View>
+                                        {
+                                        row.map((square, squareIndex) => {
+                                            return (
+                                                <BoardSquare
+                                                    key={`square-${square.letter}-${square.number}`}
+                                                    src={square.src}
+                                                    letter={square.letter}
+                                                    number={square.number}
+                                                    piece={square.piece}
+                                                />
+                                            );
+                                        }) 
+                                    }
+                                </View>
+                            );
+                        })
+                    }
+        </View>
+        </View>
+        <View style = {{flexDirection: "row"}}>
+        {
+            letterRow.map((letter, i) => {
+                return (
+                    <View key={`letter-${i}`} style={{width: 45, marginLeft: 4}}>
+                       <Text>{letter}</Text>
+                    </View>
+                );
+            })
         }
-
-        rows.push(
-            <View key={`row-${row}`} style={{ flexDirection: "row" }}>
-                {columns}
-            </View>
-        );
-    }
-
-    return <View style={styles.board}>{rows}</View>;
+        </View>
+       
+    </View>);
 };
 
 const styles = StyleSheet.create({
     board: {
         flexDirection: "column"
+    },
+    boardWithNumbers: {
+        flexDirection: "row"
     },
 });
 
