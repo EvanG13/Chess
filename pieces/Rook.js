@@ -1,7 +1,7 @@
 
 import Piece from "./Piece.js";
-const whiteRookSource =  "../assets/pieces1/wr.svg";
-const blackRookSource =  "../assets/pieces1/br.svg";
+const whiteRookSource =  require("../assets/gothicPieces/wr.png");
+const blackRookSource =  require("../assets/gothicPieces/br.png");
 
 class Rook extends Piece {
 

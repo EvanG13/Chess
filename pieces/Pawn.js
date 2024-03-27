@@ -1,7 +1,7 @@
 
 import Piece from "./Piece.js";
-const whitePawnSource =  "../assets/pieces1/wp.svg";
-const blackPawnSource =  "../assets/pieces1/bp.svg";
+const whitePawnSource =  require("../assets/gothicPieces/wp.png");
+const blackPawnSource =  require("../assets/gothicPieces/bp.png");
 
 class Pawn extends Piece {
 

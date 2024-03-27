@@ -1,6 +1,6 @@
 import Piece from "./Piece.js";
-const whiteKnightSource =  "../assets/pieces1/wn.svg";
-const blackKnightSource =  "../assets/pieces1/bn.svg";
+const whiteKnightSource =  require("../assets/gothicPieces/wn.png");
+const blackKnightSource =  require("../assets/gothicPieces/bn.png");
 
 class Knight extends Piece {
 
