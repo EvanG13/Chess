@@ -1,18 +1,14 @@
 import { View, StyleSheet, Text } from "react-native";
 import {BoardSquare} from "../BoardSquare/BoardSquare";
-import {LETTERS} from  "../Board/board.js";
-import Pawn from "../../pieces/Pawn";
 import getStartingBoard from "../Board/board.js";
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 
 export const Board = () => {
     const [board, setBoard] = useState(getStartingBoard()); // 8x8 array
-    const rows = [];
     const letterRow = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
     const numberCol = ['8', '7', '6', '5', '4', '3', '2', '1'];
     
     //TODO: fetch the board from the backend with sockets 
-    
 
     return (
         <View style={styles.boardContainer}>
@@ -21,8 +17,8 @@ export const Board = () => {
                     {
                         board.map((row, index) => {
                             return (
-                                <View key={`row-${row}`} style={{ flexDirection: "row" }}>
-                                     <View key={`number-${index}`}>{numberCol[index]}</View>
+                                <View key={`row-${index}`} style={{ flexDirection: "row" }}>
+                                    <View key={`number-${index}`}><Text>{numberCol[index]}</Text></View>
                                         {
                                         row.map((square, squareIndex) => {
                                             return (
@@ -40,9 +36,10 @@ export const Board = () => {
                             );
                         })
                     }
-        </View>
-        </View>
-        <View style = {{flexDirection: "row"}}>
+                </View>
+            </View>
+
+        <View style = {styles.letters}>
         {
             letterRow.map((letter, i) => {
                 return (
@@ -53,13 +50,24 @@ export const Board = () => {
             })
         }
         </View>
-       
-    </View>);
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
     board: {
-        flexDirection: "column"
+        flexDirection: "column",
+    },
+    boardContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    letters: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        width: "90%",
+        marginLeft: 40
     },
     boardWithNumbers: {
         flexDirection: "row"
