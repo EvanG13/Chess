@@ -1,6 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View} from 'react-native';
-import {Board} from "./components/Board/Board";
+import React from "react";
+
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, View } from "react-native";
+import { Board } from "./components/Board/Board";
 
 export default function App() {
   return (
@@ -12,16 +14,16 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: "white",
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    button: {
-        backgroundColor: "black",
-    },
-    text: {
-        color: "white",
-    }
+  container: {
+    backgroundColor: "white",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  button: {
+    backgroundColor: "black"
+  },
+  text: {
+    color: "white"
+  }
 });
