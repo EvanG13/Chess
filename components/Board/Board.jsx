@@ -52,20 +52,20 @@ export const Board = () => {
 
 const styles = StyleSheet.create({
   board: {
-    flexDirection: "column",
+    flexDirection: "column"
   },
   boardContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   letters: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     width: "90%",
-    marginLeft: 40,
+    marginLeft: 40
   },
   boardWithNumbers: {
-    flexDirection: "row",
-  },
+    flexDirection: "row"
+  }
 });

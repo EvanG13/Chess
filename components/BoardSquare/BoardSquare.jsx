@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   square: {
     width: 45,
     height: 45,
-    position: "relative",
+    position: "relative"
   },
   pieceImg: {
     width: 45,
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    zIndex: 3,
+    zIndex: 3
   },
   image: {
     flex: 1,
@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100%",
-    height: "100%",
-  },
+    height: "100%"
+  }
 });

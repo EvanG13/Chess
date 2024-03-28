@@ -1,3 +1,5 @@
+import React from "react";
+
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import { Board } from "./components/Board/Board";
@@ -16,12 +18,12 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   button: {
-    backgroundColor: "black",
+    backgroundColor: "black"
   },
   text: {
-    color: "white",
-  },
+    color: "white"
+  }
 });
