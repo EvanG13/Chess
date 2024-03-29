@@ -1,11 +1,13 @@
-import {View, ImageBackground, StyleSheet, Image} from "react-native";
+import {View, ImageBackground, StyleSheet, Image, Pressable} from "react-native";
 
-export const BoardSquare = ({ src, letter, number, piece }) => {
+export const BoardSquare = ({ src, letter, number, piece, isSelected, selectSquare }) => {
     return (
-        <View style={styles.square}>
-            {piece!= null && <Image source={piece.src} style={styles.pieceImg}/>}
-            <ImageBackground source={src} style={styles.image} />
-        </View>
+        <Pressable style={styles.square} onPress={() => selectSquare(number, letter)}>
+            <View style= {isSelected ? styles.selectedSquare : styles.square }>
+                {piece!= null && <Image source={piece.src} style={styles.pieceImg}/>}
+                <ImageBackground source={src} style={styles.image} />
+            </View>
+        </Pressable>
     );
 };
 
@@ -14,6 +16,13 @@ const styles = StyleSheet.create({
         width: 45,
         height: 45,
         position: 'relative',
+    },
+    selectedSquare: {
+        width: 45,
+        height: 45,
+        boxSizing: 'border-box',
+        position: 'relative',
+        border: 'solid 1px red',
     },
     pieceImg: {
         width: 45,
