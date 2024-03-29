@@ -58,6 +58,7 @@ export const Board = () => {
 
     return (
         <View style={styles.boardContainer}>
+            <h1>{`${isWhiteTurn ? "white" : "black"} player to move.` }</h1>
             <View style={styles.boardWithNumbers}>
                 <View style={styles.board}>
                     {
