@@ -18,6 +18,14 @@ export const LETTERS = {
   7: "g",
   8: "h"
 };
+
+//returns the column number of the letter
+export const getNumberFromLetter = (letter) => {
+  return (
+    parseInt(Object.keys(LETTERS).find((key) => LETTERS[key] === letter)) - 1
+  );
+};
+
 //each row has a number and each column has a letter
 
 const getStartingBoard = () => {

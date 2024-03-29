@@ -8,7 +8,9 @@ class King extends Piece {
     super(color, src, letter, number, "king");
   }
 
-  isValidMove(destLetter, destNumber) {}
+  isValidMove(destLetter, destNumber) {
+    console.info("Rook", destLetter, destNumber);
+  }
 }
 
 export default King;

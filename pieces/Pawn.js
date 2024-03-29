@@ -8,7 +8,9 @@ class Pawn extends Piece {
     super(color, src, letter, number, "pawn");
   }
 
-  isValidMove(destLetter, destNumber) {}
+  isValidMove(destLetter, destNumber) {
+    console.info("Rook", destLetter, destNumber);
+  }
 }
 
 export default Pawn;
