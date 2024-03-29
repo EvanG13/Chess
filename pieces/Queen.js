@@ -8,7 +8,7 @@ class Queen extends Piece {
     super(color, src, letter, number, "queen");
   }
 
-  isValidMove(destLetter, destNumber) {}
+  isValidMove(destLetter, destNumber) {console.log("Rook", destLetter, destNumber);}
 }
 
 export default Queen;

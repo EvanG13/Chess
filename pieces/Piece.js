@@ -13,6 +13,7 @@ class Piece {
     //1b. make the piece at destLetter destNumber this piece
     //2. possibly need to rerender the board.jsx somehow...
     //3. possibly could animate this process???
+    {console.log("Rook", destLetter, destNumber);}
   }
 }
 

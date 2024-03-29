@@ -8,7 +8,7 @@ class Bishop extends Piece {
     super(color, src, letter, number, "bishop");
   }
 
-  isValidMove(destLetter, destNumber) {}
+  isValidMove(destLetter, destNumber)   {console.log("Rook", destLetter, destNumber);}
 }
 
 export default Bishop;
