@@ -17,5 +17,10 @@
     "semi": ["error", "always"],
     "comma-dangle": ["error", "never"],
     "no-console": ["warn", { "allow": ["info", "error"] }]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
