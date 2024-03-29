@@ -38,7 +38,9 @@ const styles = StyleSheet.create({
     height: 45,
     boxSizing: "border-box",
     position: "relative",
-    border: "solid 1px red"
+    border: "solid 1px red",
+    borderColor: "red",
+    borderWidth: 1
   },
   pieceImg: {
     width: 45,

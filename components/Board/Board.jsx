@@ -1,8 +1,7 @@
 import { View, StyleSheet, Text } from "react-native";
 import { BoardSquare } from "../BoardSquare/BoardSquare";
-import getStartingBoard from "../Board/board.js";
 import React, { useState } from "react";
-import { getNumberFromLetter } from "../Board/board.js";
+import getStartingBoard, { getNumberFromLetter } from "../Board/board.js";
 
 export const Board = () => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
@@ -20,8 +19,8 @@ export const Board = () => {
     if (selectedSquare.length === 0) {
       if (board[row][col].piece) {
         if (
-          (board[row][col].piece.color == "white" && isWhiteTurn) ||
-          (board[row][col].piece.color == "black" && !isWhiteTurn)
+          (board[row][col].piece.color === "white" && isWhiteTurn) ||
+          (board[row][col].piece.color === "black" && !isWhiteTurn)
         ) {
           setSelectedSquare([row, col]);
         }
@@ -40,10 +39,11 @@ export const Board = () => {
       }
       //player tries to take opponent's piece
       else if (
-        (board[row][col].piece.color == "black" &&
-          board[selectedSquare[0]][selectedSquare[1]].piece.color == "white") ||
-        (board[row][col].piece.color == "white" &&
-          board[selectedSquare[0]][selectedSquare[1]].piece.color == "black")
+        (board[row][col].piece.color === "black" &&
+          board[selectedSquare[0]][selectedSquare[1]].piece.color ===
+            "white") ||
+        (board[row][col].piece.color === "white" &&
+          board[selectedSquare[0]][selectedSquare[1]].piece.color === "black")
       ) {
         //move the piece from selected square to destination square and take the opponent's piece
         const newBoard = [...board];
@@ -70,7 +70,7 @@ export const Board = () => {
 
   return (
     <View style={styles.boardContainer}>
-      <h1>{`${isWhiteTurn ? "white" : "black"} player to move.`}</h1>
+      <Text>{`${isWhiteTurn ? "white" : "black"} player to move.`}</Text>
       <View style={styles.boardWithNumbers}>
         <View style={styles.board}>
           {board.map((row, index) => {
