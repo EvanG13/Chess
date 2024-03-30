@@ -36,50 +36,50 @@ const getStartingBoard = () => {
   startingBoard[0][0] = {
     src: whiteSquareSource,
     letter: "a",
-    number: 1,
-    piece: new Rook("black", "a", 1)
+    number: 0,
+    piece: new Rook("black", "a", 0)
   };
   startingBoard[0][1] = {
     src: blackSquareSource,
     letter: "b",
-    number: 1,
-    piece: new Knight("black", "b", 1)
+    number: 0,
+    piece: new Knight("black", "b", 0)
   };
   startingBoard[0][2] = {
     src: whiteSquareSource,
     letter: "c",
-    number: 1,
-    piece: new Bishop("black", "c", 1)
+    number: 0,
+    piece: new Bishop("black", "c", 0)
   };
   startingBoard[0][3] = {
     src: blackSquareSource,
     letter: "d",
-    number: 1,
-    piece: new Queen("black", "d", 1)
+    number: 0,
+    piece: new Queen("black", "d", 0)
   };
   startingBoard[0][4] = {
     src: whiteSquareSource,
     letter: "e",
-    number: 1,
-    piece: new King("black", "e", 1)
+    number: 0,
+    piece: new King("black", "e", 0)
   };
   startingBoard[0][5] = {
     src: blackSquareSource,
     letter: "f",
-    number: 1,
-    piece: new Bishop("black", "f", 1)
+    number: 0,
+    piece: new Bishop("black", "f", 0)
   };
   startingBoard[0][6] = {
     src: whiteSquareSource,
     letter: "g",
-    number: 1,
-    piece: new Knight("black", "g", 1)
+    number: 0,
+    piece: new Knight("black", "g", 0)
   };
   startingBoard[0][7] = {
     src: blackSquareSource,
     letter: "h",
-    number: 1,
-    piece: new Rook("black", "h", 1)
+    number: 0,
+    piece: new Rook("black", "h", 0)
   };
 
   // second rows (the black pawns)
@@ -89,8 +89,8 @@ const getStartingBoard = () => {
       row.push({
         src: (i + j) % 2 === 0 ? whiteSquareSource : blackSquareSource,
         letter: LETTERS[j.toString()],
-        number: i,
-        piece: new Pawn("black", LETTERS[j.toString()], i)
+        number: i-1,
+        piece: new Pawn("black", LETTERS[j.toString()], i-1)
       });
     }
     startingBoard.push(row);
@@ -103,7 +103,7 @@ const getStartingBoard = () => {
       row.push({
         src: (i + j) % 2 === 0 ? whiteSquareSource : blackSquareSource,
         letter: LETTERS[j.toString()],
-        number: i,
+        number: i-1,
         piece: null
       });
     }
@@ -117,8 +117,8 @@ const getStartingBoard = () => {
       row.push({
         src: (i + j) % 2 === 0 ? whiteSquareSource : blackSquareSource,
         letter: LETTERS[j.toString()],
-        number: i,
-        piece: new Pawn("white", LETTERS[j.toString()], i)
+        number: i-1,
+        piece: new Pawn("white", LETTERS[j.toString()], i-1)
       });
     }
     startingBoard.push(row);
@@ -128,50 +128,50 @@ const getStartingBoard = () => {
   startingBoard[7][0] = {
     src: blackSquareSource,
     letter: "a",
-    number: 8,
-    piece: new Rook("white", "a", 8)
+    number: 7,
+    piece: new Rook("white", "a", 7)
   };
   startingBoard[7][1] = {
     src: whiteSquareSource,
     letter: "b",
-    number: 8,
-    piece: new Knight("white", "b", 8)
+    number: 7,
+    piece: new Knight("white", "b", 7)
   };
   startingBoard[7][2] = {
     src: blackSquareSource,
     letter: "c",
-    number: 8,
-    piece: new Bishop("white", "c", 8)
+    number: 7,
+    piece: new Bishop("white", "c", 7)
   };
   startingBoard[7][3] = {
     src: whiteSquareSource,
     letter: "d",
-    number: 8,
-    piece: new Queen("white", "d", 8)
+    number: 7,
+    piece: new Queen("white", "d", 7)
   };
   startingBoard[7][4] = {
     src: blackSquareSource,
     letter: "e",
-    number: 8,
-    piece: new King("white", "e", 8)
+    number: 7,
+    piece: new King("white", "e", 7)
   };
   startingBoard[7][5] = {
     src: whiteSquareSource,
     letter: "f",
-    number: 8,
-    piece: new Bishop("white", "f", 8)
+    number: 7,
+    piece: new Bishop("white", "f", 7)
   };
   startingBoard[7][6] = {
     src: blackSquareSource,
     letter: "g",
-    number: 8,
-    piece: new Knight("white", "g", 8)
+    number: 7,
+    piece: new Knight("white", "g", 7)
   };
   startingBoard[7][7] = {
     src: whiteSquareSource,
     letter: "h",
-    number: 8,
-    piece: new Rook("white", "h", 8)
+    number: 7,
+    piece: new Rook("white", "h", 7)
   };
   return startingBoard;
 };
