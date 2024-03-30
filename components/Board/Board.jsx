@@ -2,19 +2,21 @@ import { View, StyleSheet, Text } from "react-native";
 import { BoardSquare } from "../BoardSquare/BoardSquare";
 import React, { useState } from "react";
 import getStartingBoard, { getNumberFromLetter } from "../Board/board.js";
+import { LETTERS } from "../Board/board.js";
 
 export const Board = () => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
   const [board, setBoard] = useState(getStartingBoard()); // 8x8 array
+  const [validMoves, setValidMoves] = useState([]);
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const numberCol = ["8", "7", "6", "5", "4", "3", "2", "1"];
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
   //TODO: fetch the board from the backend with sockets
 
   const selectSquare = (number, letter) => {
-    let row = number - 1;
+    let row = number;
     let col = getNumberFromLetter(letter);
-
+    
     //no piece is selected currently
     if (selectedSquare.length === 0) {
       if (board[row][col].piece) {
@@ -23,6 +25,7 @@ export const Board = () => {
           (board[row][col].piece.color === "black" && !isWhiteTurn)
         ) {
           setSelectedSquare([row, col]);
+          setValidMoves([...board[row][col].piece.getValidMoves(board)]);
         }
       }
       return;
@@ -35,6 +38,7 @@ export const Board = () => {
         board[selectedSquare[0]][selectedSquare[1]].piece.color
       ) {
         setSelectedSquare([]);
+        setValidMoves([]);
         return;
       }
       //player tries to take opponent's piece
@@ -47,11 +51,13 @@ export const Board = () => {
       ) {
         //move the piece from selected square to destination square and take the opponent's piece
         const newBoard = [...board];
-        newBoard[row][col].piece =
-          board[selectedSquare[0]][selectedSquare[1]].piece;
+        newBoard[row][col].piece = board[selectedSquare[0]][selectedSquare[1]].piece;
+        newBoard[row][col].piece.letter = LETTERS[col+1];
+        newBoard[row][col].piece.number = row;
         newBoard[selectedSquare[0]][selectedSquare[1]].piece = null;
         setBoard(newBoard);
         setSelectedSquare([]);
+        setValidMoves([]);
         let newTurn = !isWhiteTurn;
         setIsWhiteTurn(newTurn);
         return;
@@ -61,9 +67,12 @@ export const Board = () => {
     const newBoard = [...board];
     newBoard[row][col].piece =
       board[selectedSquare[0]][selectedSquare[1]].piece;
+      newBoard[row][col].piece.letter = LETTERS[col+1];
+      newBoard[row][col].piece.number = row;
     newBoard[selectedSquare[0]][selectedSquare[1]].piece = null;
     setBoard(newBoard);
     setSelectedSquare([]);
+    setValidMoves([]);
     let newTurn = !isWhiteTurn;
     setIsWhiteTurn(newTurn);
   };
@@ -82,6 +91,7 @@ export const Board = () => {
                 {row.map((square, squareIndex) => {
                   return (
                     <BoardSquare
+                      isHighlighted={validMoves.some((move) => move[0] === square.number && move[1] === getNumberFromLetter(square.letter) )}
                       key={`square-${square.letter}-${square.number}`}
                       src={square.src}
                       letter={square.letter}
@@ -89,7 +99,7 @@ export const Board = () => {
                       piece={square.piece}
                       selectSquare={selectSquare}
                       isSelected={
-                        selectedSquare[0] === square.number - 1 &&
+                        selectedSquare[0] === square.number &&
                         selectedSquare[1] === getNumberFromLetter(square.letter)
                       }
                     />
