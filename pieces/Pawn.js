@@ -64,7 +64,6 @@ class Pawn extends Piece {
         ]);
       }
     }
-    console.log("validMoves", validMoves);
     return validMoves;
   }
 
