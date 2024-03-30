@@ -1,3 +1,5 @@
+import { getNumberFromLetter } from "../components/Board/board";
+
 class Piece {
   constructor(color, src, letter, number, name) {
     this.color = color;
@@ -5,6 +7,10 @@ class Piece {
     this.letter = letter;
     this.number = number;
     this.name = name;
+  }
+  
+  convertLetterToNumber(letter) {
+    return getNumberFromLetter(letter);
   }
 
   move(destLetter, destNumber) {
