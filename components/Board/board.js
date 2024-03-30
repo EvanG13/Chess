@@ -89,8 +89,8 @@ const getStartingBoard = () => {
       row.push({
         src: (i + j) % 2 === 0 ? whiteSquareSource : blackSquareSource,
         letter: LETTERS[j.toString()],
-        number: i-1,
-        piece: new Pawn("black", LETTERS[j.toString()], i-1)
+        number: i - 1,
+        piece: new Pawn("black", LETTERS[j.toString()], i - 1)
       });
     }
     startingBoard.push(row);
@@ -103,7 +103,7 @@ const getStartingBoard = () => {
       row.push({
         src: (i + j) % 2 === 0 ? whiteSquareSource : blackSquareSource,
         letter: LETTERS[j.toString()],
-        number: i-1,
+        number: i - 1,
         piece: null
       });
     }
@@ -117,8 +117,8 @@ const getStartingBoard = () => {
       row.push({
         src: (i + j) % 2 === 0 ? whiteSquareSource : blackSquareSource,
         letter: LETTERS[j.toString()],
-        number: i-1,
-        piece: new Pawn("white", LETTERS[j.toString()], i-1)
+        number: i - 1,
+        piece: new Pawn("white", LETTERS[j.toString()], i - 1)
       });
     }
     startingBoard.push(row);

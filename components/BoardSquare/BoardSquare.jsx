@@ -22,7 +22,10 @@ export const BoardSquare = ({
     >
       <View style={isSelected ? styles.selectedSquare : styles.square}>
         {piece != null && <Image source={piece.src} style={styles.pieceImg} />}
-        <ImageBackground source={src} style={isHighlighted ? styles.isValidMove : styles.image } />
+        <ImageBackground
+          source={src}
+          style={isHighlighted ? styles.isValidMove : styles.image}
+        />
       </View>
     </Pressable>
   );
@@ -68,6 +71,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100%",
-    height: "100%",
+    height: "100%"
   }
 });

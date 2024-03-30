@@ -8,7 +8,7 @@ class Piece {
     this.number = number;
     this.name = name;
   }
-  
+
   convertLetterToNumber(letter) {
     return getNumberFromLetter(letter);
   }

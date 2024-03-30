@@ -16,7 +16,7 @@ export const Board = () => {
   const selectSquare = (number, letter) => {
     let row = number;
     let col = getNumberFromLetter(letter);
-    
+
     //no piece is selected currently
     if (selectedSquare.length === 0) {
       if (board[row][col].piece) {
@@ -51,8 +51,9 @@ export const Board = () => {
       ) {
         //move the piece from selected square to destination square and take the opponent's piece
         const newBoard = [...board];
-        newBoard[row][col].piece = board[selectedSquare[0]][selectedSquare[1]].piece;
-        newBoard[row][col].piece.letter = LETTERS[col+1];
+        newBoard[row][col].piece =
+          board[selectedSquare[0]][selectedSquare[1]].piece;
+        newBoard[row][col].piece.letter = LETTERS[col + 1];
         newBoard[row][col].piece.number = row;
         newBoard[selectedSquare[0]][selectedSquare[1]].piece = null;
         setBoard(newBoard);
@@ -67,8 +68,8 @@ export const Board = () => {
     const newBoard = [...board];
     newBoard[row][col].piece =
       board[selectedSquare[0]][selectedSquare[1]].piece;
-      newBoard[row][col].piece.letter = LETTERS[col+1];
-      newBoard[row][col].piece.number = row;
+    newBoard[row][col].piece.letter = LETTERS[col + 1];
+    newBoard[row][col].piece.number = row;
     newBoard[selectedSquare[0]][selectedSquare[1]].piece = null;
     setBoard(newBoard);
     setSelectedSquare([]);
@@ -91,7 +92,11 @@ export const Board = () => {
                 {row.map((square, squareIndex) => {
                   return (
                     <BoardSquare
-                      isHighlighted={validMoves.some((move) => move[0] === square.number && move[1] === getNumberFromLetter(square.letter) )}
+                      isHighlighted={validMoves.some(
+                        (move) =>
+                          move[0] === square.number &&
+                          move[1] === getNumberFromLetter(square.letter)
+                      )}
                       key={`square-${square.letter}-${square.number}`}
                       src={square.src}
                       letter={square.letter}
