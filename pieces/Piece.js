@@ -23,7 +23,6 @@ class Piece {
   }
 
   isValidMove(row, col, validMoves) {
-    let square = [row, col];
     return validMoves.some((move) => move[0] === row && move[1] === col);
   }
 }

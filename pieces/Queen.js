@@ -34,7 +34,6 @@ class Queen extends Piece {
         newCol >= 0 &&
         board[newRow][newCol].piece === null
       ) {
-        console.log(newRow + " " + newCol);
         validMoves.push([newRow, newCol]);
         newRow += dirs[i][0];
         newCol += dirs[i][1];
@@ -46,7 +45,6 @@ class Queen extends Piece {
         }
       }
     }
-    console.log(validMoves);
     return validMoves;
   }
 }
