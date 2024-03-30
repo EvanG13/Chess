@@ -6,10 +6,7 @@ class King extends Piece {
   constructor(color, letter, number) {
     const src = color === "black" ? blackKingSource : whiteKingSource;
     super(color, src, letter, number, "king");
-  }
-
-  isValidMove(destLetter, destNumber) {
-    console.info("Rook", destLetter, destNumber);
+    this.hasMoved = false;
   }
 
   //TODO: check for isCheck

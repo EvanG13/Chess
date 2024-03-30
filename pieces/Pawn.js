@@ -66,10 +66,6 @@ class Pawn extends Piece {
     }
     return validMoves;
   }
-
-  isValidMove(destLetter, destNumber) {
-    console.info("Rook", destLetter, destNumber);
-  }
 }
 
 export default Pawn;

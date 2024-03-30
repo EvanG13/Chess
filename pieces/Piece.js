@@ -21,6 +21,11 @@ class Piece {
     //3. possibly could animate this process???
     console.info("Rook", destLetter, destNumber);
   }
+
+  isValidMove(row, col, validMoves) {
+    let square = [row, col];
+    return validMoves.some((move) => move[0] === row && move[1] === col);
+  }
 }
 
 export default Piece;
