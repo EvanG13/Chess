@@ -1,3 +1,5 @@
+import { getNumberFromLetter } from "../components/Board/board";
+
 class Piece {
   constructor(color, src, letter, number, name) {
     this.color = color;
@@ -7,6 +9,10 @@ class Piece {
     this.name = name;
   }
 
+  convertLetterToNumber(letter) {
+    return getNumberFromLetter(letter);
+  }
+
   move(destLetter, destNumber) {
     //1. update the board array
     //1a. make the piece at this.letter and this.number null
@@ -14,6 +20,10 @@ class Piece {
     //2. possibly need to rerender the board.jsx somehow...
     //3. possibly could animate this process???
     console.info("Rook", destLetter, destNumber);
+  }
+
+  isValidMove(row, col, validMoves) {
+    return validMoves.some((move) => move[0] === row && move[1] === col);
   }
 }
 
