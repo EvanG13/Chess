@@ -47,15 +47,17 @@ class King extends Piece {
     }
     //remove the king from the board as we are testing the state after the move
     board[this.number][col].piece = null;
-    for(let i = 0; i < validMoves.length; i++) {
-      let dummyKing = new King(this.color, LETTERS[validMoves[i][1]+1], validMoves[i][0]);
-      
-     
-      if(dummyKing.isCheck(board)) {
+    for (let i = 0; i < validMoves.length; i++) {
+      let dummyKing = new King(
+        this.color,
+        LETTERS[validMoves[i][1] + 1],
+        validMoves[i][0]
+      );
+
+      if (dummyKing.isCheck(board)) {
         validMoves.splice(i, 1);
         i--;
       }
-   
     }
     //put the king back on the board. Is this necessary? is the board a copy or ref?
     board[this.number][col].piece = this;
@@ -66,7 +68,6 @@ class King extends Piece {
     const knight = new Knight(this.color, this.letter, this.number);
     const bishop = new Bishop(this.color, this.letter, this.number);
     const rook = new Rook(this.color, this.letter, this.number);
-    console.log(knight, bishop, rook)
     let dummyPiece = null;
     //check for knights
     let validMoves = knight.getValidMoves(board);
@@ -80,8 +81,7 @@ class King extends Piece {
     //check for bishops or queens
     validMoves = bishop.getValidMoves(board);
     for (let i = 0; i < validMoves.length; i++) {
-     
-      dummyPiece =  board[validMoves[i][0]][validMoves[i][1]].piece;
+      dummyPiece = board[validMoves[i][0]][validMoves[i][1]].piece;
       if (dummyPiece == null) continue;
       if (
         (dummyPiece.name === "bishop" || dummyPiece.name === "queen") &&
@@ -136,10 +136,7 @@ class King extends Piece {
     for (let i = 0; i < validMoves.length; i++) {
       dummyPiece = board[validMoves[i][0]][validMoves[i][1]].piece;
       if (dummyPiece == null) continue;
-      if (
-        dummyPiece.name === "king"  &&
-        dummyPiece.color != this.color
-      ) {
+      if (dummyPiece.name === "king" && dummyPiece.color != this.color) {
         return true;
       }
     }
