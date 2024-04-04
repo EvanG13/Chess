@@ -102,6 +102,47 @@ class King extends Piece {
         return true;
       }
     }
+    //check for kings
+    const directions = [
+      [1, 0],
+      [1, 1],
+      [1, -1],
+      [-1, 0],
+      [-1, 1],
+      [-1, -1],
+      [0, 1],
+      [0, -1]
+    ];
+    const col = this.convertLetterToNumber(this.letter);
+    validMoves = [];
+    let newRow;
+    let newCol;
+
+    for (let i = 0; i < directions.length; i++) {
+      newRow = this.number + directions[i][0];
+      newCol = col + directions[i][1];
+
+      if (newRow > 7 || newRow < 0 || newCol > 7 || newCol < 0) {
+        continue;
+      }
+
+      if (
+        board[newRow][newCol].piece === null ||
+        board[newRow][newCol].piece.color != this.color
+      ) {
+        validMoves.push([newRow, newCol]);
+      }
+    }
+    for (let i = 0; i < validMoves.length; i++) {
+      dummyPiece = board[validMoves[i][0]][validMoves[i][1]].piece;
+      if (dummyPiece == null) continue;
+      if (
+        dummyPiece.name === "king"  &&
+        dummyPiece.color != this.color
+      ) {
+        return true;
+      }
+    }
 
     //check for pawns
     let direction = this.color === "black" ? 1 : -1;
