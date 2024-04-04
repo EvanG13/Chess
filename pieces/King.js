@@ -45,15 +45,20 @@ class King extends Piece {
         validMoves.push([newRow, newCol]);
       }
     }
-
+    //remove the king from the board as we are testing the state after the move
+    board[this.number][col].piece = null;
     for(let i = 0; i < validMoves.length; i++) {
       let dummyKing = new King(this.color, LETTERS[validMoves[i][1]+1], validMoves[i][0]);
+      
+     
       if(dummyKing.isCheck(board)) {
         validMoves.splice(i, 1);
         i--;
-        console.log("removing move");
       }
+   
     }
+    //put the king back on the board. Is this necessary? is the board a copy or ref?
+    board[this.number][col].piece = this;
     return validMoves;
   }
 
