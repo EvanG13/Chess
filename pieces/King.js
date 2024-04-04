@@ -58,7 +58,6 @@ class King extends Piece {
   }
 
   isCheck(board) {
-    console.log(board)
     const knight = new Knight(this.color, this.letter, this.number);
     const bishop = new Bishop(this.color, this.letter, this.number);
     const rook = new Rook(this.color, this.letter, this.number);
@@ -67,7 +66,7 @@ class King extends Piece {
     //check for knights
     let validMoves = knight.getValidMoves(board);
     for (let i = 0; i < validMoves.length; i++) {
-      dummyPiece = board[(validMoves[i][0], validMoves[i][1])].piece;
+      dummyPiece = board[validMoves[i][0]][validMoves[i][1]].piece;
       if (dummyPiece == null) continue;
       if (dummyPiece.name === "knight" && dummyPiece.color != this.color) {
         return true;
@@ -76,7 +75,8 @@ class King extends Piece {
     //check for bishops or queens
     validMoves = bishop.getValidMoves(board);
     for (let i = 0; i < validMoves.length; i++) {
-      dummyPiece = board[(validMoves[i][0], validMoves[i][1])].piece;
+     
+      dummyPiece =  board[validMoves[i][0]][validMoves[i][1]].piece;
       if (dummyPiece == null) continue;
       if (
         (dummyPiece.name === "bishop" || dummyPiece.name === "queen") &&
@@ -88,7 +88,7 @@ class King extends Piece {
     //check for rooks or queens
     validMoves = rook.getValidMoves(board);
     for (let i = 0; i < validMoves.length; i++) {
-      dummyPiece = board[(validMoves[i][0], validMoves[i][1])].piece;
+      dummyPiece = board[validMoves[i][0]][validMoves[i][1]].piece;
       if (dummyPiece == null) continue;
       if (
         (dummyPiece.name === "rook" || dummyPiece.name === "queen") &&
@@ -99,7 +99,7 @@ class King extends Piece {
     }
 
     //check for pawns
-    let direction = this.color === "black" ? -1 : 1;
+    let direction = this.color === "black" ? 1 : -1;
     let pawnSquares = [];
     if (
       this.number + direction >= 0 &&
@@ -123,9 +123,9 @@ class King extends Piece {
     }
     for (let i = 0; i < pawnSquares.length; i++) {
       if (
-        board[(pawnSquares[i][0], pawnSquares[i][1])].piece != null &&
-        board[(pawnSquares[i][0], pawnSquares[i][1])].piece.name === "pawn" &&
-        board[(pawnSquares[i][0], pawnSquares[i][1])].piece.color != this.color
+        board[pawnSquares[i][0]][pawnSquares[i][1]].piece != null &&
+        board[pawnSquares[i][0]][pawnSquares[i][1]].piece.name === "pawn" &&
+        board[pawnSquares[i][0]][pawnSquares[i][1]].piece.color != this.color
       ) {
         return true;
       }
