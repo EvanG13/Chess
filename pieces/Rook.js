@@ -5,7 +5,7 @@ const blackRookSource = require("../assets/gothicPieces/br.png");
 class Rook extends Piece {
   constructor(color, letter, number) {
     const src = color === "black" ? blackRookSource : whiteRookSource;
-    super(color, src, letter, number, "pawn");
+    super(color, src, letter, number, "rook");
   }
 
   getValidMoves(board) {

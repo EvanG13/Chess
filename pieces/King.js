@@ -4,7 +4,7 @@ const blackKingSource = require("../assets/gothicPieces/bk.png");
 import Knight from "./Knight.js";
 import Bishop from "./Bishop.js";
 import Rook from "./Rook.js";
-
+import { LETTERS } from "../components/Board/board.js";
 
 class King extends Piece {
   constructor(color, letter, number) {
@@ -45,20 +45,31 @@ class King extends Piece {
         validMoves.push([newRow, newCol]);
       }
     }
+
+    for(let i = 0; i < validMoves.length; i++) {
+      let dummyKing = new King(this.color, LETTERS[validMoves[i][1]+1], validMoves[i][0]);
+      if(dummyKing.isCheck(board)) {
+        validMoves.splice(i, 1);
+        i--;
+        console.log("removing move");
+      }
+    }
     return validMoves;
   }
 
   isCheck(board) {
+    console.log(board)
     const knight = new Knight(this.color, this.letter, this.number);
     const bishop = new Bishop(this.color, this.letter, this.number);
     const rook = new Rook(this.color, this.letter, this.number);
+    console.log(knight, bishop, rook)
+    let dummyPiece = null;
     //check for knights
     let validMoves = knight.getValidMoves(board);
-    let dummyPiece;
     for (let i = 0; i < validMoves.length; i++) {
       dummyPiece = board[(validMoves[i][0], validMoves[i][1])].piece;
       if (dummyPiece == null) continue;
-      if (dummyPiece.type === "knight" && dummyPiece.color != this.color) {
+      if (dummyPiece.name === "knight" && dummyPiece.color != this.color) {
         return true;
       }
     }
@@ -68,7 +79,7 @@ class King extends Piece {
       dummyPiece = board[(validMoves[i][0], validMoves[i][1])].piece;
       if (dummyPiece == null) continue;
       if (
-        (dummyPiece.type === "bishop" || dummyPiece.type === "queen") &&
+        (dummyPiece.name === "bishop" || dummyPiece.name === "queen") &&
         dummyPiece.color != this.color
       ) {
         return true;
@@ -76,12 +87,11 @@ class King extends Piece {
     }
     //check for rooks or queens
     validMoves = rook.getValidMoves(board);
-
     for (let i = 0; i < validMoves.length; i++) {
       dummyPiece = board[(validMoves[i][0], validMoves[i][1])].piece;
       if (dummyPiece == null) continue;
       if (
-        (dummyPiece.type === "rook" || dummyPiece.type === "queen") &&
+        (dummyPiece.name === "rook" || dummyPiece.name === "queen") &&
         dummyPiece.color != this.color
       ) {
         return true;
@@ -114,7 +124,7 @@ class King extends Piece {
     for (let i = 0; i < pawnSquares.length; i++) {
       if (
         board[(pawnSquares[i][0], pawnSquares[i][1])].piece != null &&
-        board[(pawnSquares[i][0], pawnSquares[i][1])].piece.type === "pawn" &&
+        board[(pawnSquares[i][0], pawnSquares[i][1])].piece.name === "pawn" &&
         board[(pawnSquares[i][0], pawnSquares[i][1])].piece.color != this.color
       ) {
         return true;
