@@ -70,7 +70,7 @@ class King extends Piece {
     const rook = new Rook(this.color, this.letter, this.number);
     let dummyPiece = null;
     //check for knights
-    let validMoves = knight.getValidMoves(board);
+    let validMoves = knight.getAllMoves(board);
     for (let i = 0; i < validMoves.length; i++) {
       dummyPiece = board[validMoves[i][0]][validMoves[i][1]].piece;
       if (dummyPiece == null) continue;
@@ -79,7 +79,7 @@ class King extends Piece {
       }
     }
     //check for bishops or queens
-    validMoves = bishop.getValidMoves(board);
+    validMoves = bishop.getAllMoves(board);
     for (let i = 0; i < validMoves.length; i++) {
       dummyPiece = board[validMoves[i][0]][validMoves[i][1]].piece;
       if (dummyPiece == null) continue;
@@ -91,7 +91,7 @@ class King extends Piece {
       }
     }
     //check for rooks or queens
-    validMoves = rook.getValidMoves(board);
+    validMoves = rook.getAllMoves(board);
     for (let i = 0; i < validMoves.length; i++) {
       dummyPiece = board[validMoves[i][0]][validMoves[i][1]].piece;
       if (dummyPiece == null) continue;
@@ -173,6 +173,7 @@ class King extends Piece {
         return true;
       }
     }
+    return false;
   }
 
   isCheckMate(board) {

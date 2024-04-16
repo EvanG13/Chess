@@ -9,8 +9,9 @@ class Pawn extends Piece {
     super(color, src, letter, number, "pawn");
   }
 
-  getValidMoves(board) {
-    //console.log(this.number, this.letter);
+  getValidMoves(board, kingSquare) {
+    const col = this.convertLetterToNumber(this.letter);
+    const row = this.number;
     let validMoves = [];
     let direction = 1; //if player is black
     if (this.color === "white") {
@@ -26,17 +27,32 @@ class Pawn extends Piece {
           this.convertLetterToNumber(this.letter)
         ].piece === null
       ) {
-        validMoves.push([
-          this.number + direction * 2,
-          this.convertLetterToNumber(this.letter)
-        ]);
+        //moving piece to check for if king is in check
+        board[row + direction * 2][col].piece = board[row][col].piece;
+        board[row][col].piece = null;
+        if (!board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
+          validMoves.push([
+            this.number + direction * 2,
+            this.convertLetterToNumber(this.letter)
+          ]);
+        }
+        //moving piece back after checking if king is in check
+        board[row][col].piece = board[row + direction * 2][col].piece;
+        board[row + direction * 2][col].piece = null;
       }
 
       if (this.number + direction >= 0 || this.number + direction <= 7) {
-        validMoves.push([
-          this.number + direction,
-          this.convertLetterToNumber(this.letter)
-        ]);
+        board[row + direction][col].piece = board[row][col].piece;
+        board[row][col].piece = null;
+        if (!board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
+          validMoves.push([
+            row + direction,
+            this.convertLetterToNumber(this.letter)
+          ]);
+        }
+        //moving piece back after checking if king is in check
+        board[row][col].piece = board[row + direction][col].piece;
+        board[row + direction][col].piece = null;
       }
     }
     //handle diagonal attacks
@@ -46,10 +62,15 @@ class Pawn extends Piece {
           this.convertLetterToNumber(this.letter) + 1
         ];
       if (upRight.piece !== null && upRight.piece.color !== this.color) {
-        validMoves.push([
-          this.number + direction,
-          this.convertLetterToNumber(this.letter) + 1
-        ]);
+        tempPiece = board[row + direction][col + 1].piece;
+        board[row + direction][col + 1].piece = board[row][col].piece;
+        board[row][col].piece = null;
+        if (!board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
+          validMoves.push([row + direction, col + 1]);
+        }
+        //moving piece back after checking if king is in check
+        board[row][col].piece = board[row + direction][col + 1].piece;
+        board[row + direction][col + 1].piece = tempPiece;
       }
     }
     if (this.convertLetterToNumber(this.letter) > 0) {
@@ -58,10 +79,15 @@ class Pawn extends Piece {
           this.convertLetterToNumber(this.letter) - 1
         ];
       if (upLeft.piece !== null && upLeft.piece.color !== this.color) {
-        validMoves.push([
-          this.number + direction,
-          this.convertLetterToNumber(this.letter) - 1
-        ]);
+        tempPiece = board[row + direction][col - 1].piece;
+        board[row + direction][col - 1].piece = board[row][col].piece;
+        board[row][col].piece = null;
+        if (!board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
+          validMoves.push([row + direction, col - 1]);
+        }
+        //moving piece back after checking if king is in check
+        board[row][col].piece = board[row + direction][col - 1].piece;
+        board[row + direction][col - 1].piece = tempPiece;
       }
     }
     return validMoves;
