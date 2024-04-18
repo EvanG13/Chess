@@ -17,8 +17,14 @@ const Main = ({ navigation }) => {
       <MainHeader navigation={navigation} />
       <View style={styles.mainBody}>
         <Text style={styles.siteHeader}>KysCleveEvan Chess</Text>
-        <View style={{ flexDirection: "row", justifyContent: "space-around", width: "100%"  }}>
-          <View style={{height: "80%", width: "40%", borderRadius: 10}}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-around",
+            width: "100%"
+          }}
+        >
+          <View style={{ height: "80%", width: "40%", borderRadius: 10 }}>
             <Image source={greenPieces} style={styles.greenPieces} />
             <Button
               title="Start Local Game"
@@ -33,7 +39,7 @@ const Main = ({ navigation }) => {
               navigation.navigate("tutorial");
             }}
           >
-            <Text style={{color: "white",  fontSize: 20}}>Chess Tutorial</Text>
+            <Text style={{ color: "white", fontSize: 20 }}>Chess Tutorial</Text>
             <Image source={tutorialImage} />
           </TouchableOpacity>
         </View>
@@ -50,7 +56,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%"
   },
-  siteHeader:{
+  siteHeader: {
     fontSize: 30,
     color: "white",
     marginBottom: "5%"
