@@ -54,7 +54,7 @@ class Queen extends Piece {
       if (newRow <= 7 && newRow >= 0 && newCol <= 7 && newCol >= 0) {
         if (board[newRow][newCol].piece.color !== this.color) {
           //moving piece to check if king is in check
-          tempPiece = board[newRow][newCol].piece;
+          let tempPiece = board[newRow][newCol].piece;
           board[newRow][newCol].piece = board[row][col].piece;
           board[row][col].piece = null;
           //isValid move if it does not place our king in check :)

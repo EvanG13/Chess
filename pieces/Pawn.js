@@ -62,7 +62,7 @@ class Pawn extends Piece {
           this.convertLetterToNumber(this.letter) + 1
         ];
       if (upRight.piece !== null && upRight.piece.color !== this.color) {
-        tempPiece = board[row + direction][col + 1].piece;
+        let tempPiece = board[row + direction][col + 1].piece;
         board[row + direction][col + 1].piece = board[row][col].piece;
         board[row][col].piece = null;
         if (!board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
@@ -79,7 +79,7 @@ class Pawn extends Piece {
           this.convertLetterToNumber(this.letter) - 1
         ];
       if (upLeft.piece !== null && upLeft.piece.color !== this.color) {
-        tempPiece = board[row + direction][col - 1].piece;
+        let tempPiece = board[row + direction][col - 1].piece;
         board[row + direction][col - 1].piece = board[row][col].piece;
         board[row][col].piece = null;
         if (!board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
