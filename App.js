@@ -2,14 +2,26 @@ import React from "react";
 
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import { Board } from "./components/Board/Board";
+import { Board } from "./components/Board/Board.jsx";
+import Main from "./components/Main/Main.jsx";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Register from "./components/Register/Register.jsx";
+import Login from "./components/Login/Login.jsx";
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Board />
+    <NavigationContainer >
+      <Stack.Navigator  style={styles.container}>
+        <Stack.Screen name="/" component={Main} />
+        <Stack.Screen name="localGame" component={Board} />
+        <Stack.Screen name="login" component={Login}/>
+        <Stack.Screen name="register" component={Register}/>
+      </Stack.Navigator>
       <StatusBar style="auto" />
-    </View>
+    </NavigationContainer>
   );
 }
 
