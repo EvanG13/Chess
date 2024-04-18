@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     flex: 1, // Take up remaining space
     marginLeft: 10,
-    marginRight: 10 
+    marginRight: 10
   },
   navItem: {
     backgroundColor: "black",
