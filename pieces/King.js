@@ -61,6 +61,14 @@ class King extends Piece {
     }
     //put the king back on the board. Is this necessary? is the board a copy or ref?
     board[this.number][col].piece = this;
+
+    //check for castling
+    if (this.canCastleQueenside(board)) {
+      validMoves.push([this.number, col - 2]);
+    }
+    if (this.canCastleKingside(board)) {
+      validMoves.push([this.number, col + 2]);
+    }
     return validMoves;
   }
 
@@ -194,6 +202,86 @@ class King extends Piece {
           this.convertLetterToNumber(this.letter)
         ]);
         if (validMoves.length > 0) return false;
+      }
+    }
+    return true;
+  }
+  canCastleQueenside(board) {
+    //if king has moved cannot castle
+    if (this.hasMoved) {
+      return false;
+    }
+    let kingCol = this.convertLetterToNumber(this.letter);
+    let homeRank = this.color === "white" ? 7 : 0;
+    //get the queenside rook
+    let rook = board[homeRank][0].piece;
+    if (rook == null) {
+      return false;
+    }
+    if (rook.name !== "rook" || rook.hasMoved) {
+      return false;
+    }
+
+    const betweenSquares = [
+      [homeRank, kingCol - 1],
+      [homeRank, kingCol - 2],
+      [homeRank, kingCol - 3]
+    ];
+    for (const square of betweenSquares) {
+      if (board[square[0]][square[1]].piece != null) {
+        return false;
+      }
+    }
+    if (this.isCheck(board)) {
+      return false;
+    }
+
+    //remove the square that the king does not go through
+    betweenSquares.splice(2, 1);
+    //check if the squares the king will move through are in check
+    for (const square of betweenSquares) {
+      let dummyKing = new King(this.color, LETTERS[square[1] + 1], square[0]);
+      if (dummyKing.isCheck(board)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  canCastleKingside(board) {
+    //if king has moved cannot castle
+    if (this.hasMoved) {
+      return false;
+    }
+    let kingCol = this.convertLetterToNumber(this.letter);
+    let homeRank = this.color === "white" ? 7 : 0;
+    //get the queenside rook
+    let rook = board[homeRank][7].piece;
+    if (rook == null) {
+      return false;
+    }
+    if (rook.name !== "rook" || rook.hasMoved) {
+      return false;
+    }
+
+    const betweenSquares = [
+      [homeRank, kingCol + 1],
+      [homeRank, kingCol + 2]
+    ];
+    for (const square of betweenSquares) {
+      if (board[square[0]][square[1]].piece != null) {
+        return false;
+      }
+    }
+    if (this.isCheck(board)) {
+      return false;
+    }
+
+    //check if the squares the king will move through are in check
+    for (const square of betweenSquares) {
+      let dummyKing = new King(this.color, LETTERS[square[1] + 1], square[0]);
+      if (dummyKing.isCheck(board)) {
+        return false;
       }
     }
     return true;
