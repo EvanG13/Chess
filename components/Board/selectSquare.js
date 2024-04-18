@@ -1,5 +1,7 @@
 import { getNumberFromLetter } from "../Board/board.js";
 import { LETTERS } from "../Board/board.js";
+import handleCheckmate from "./handleCheckmate.js";
+import King from "../../pieces/King.js";
 
 const selectSquare = (
   number,
@@ -83,6 +85,15 @@ const selectSquare = (
     setValidMoves([]);
     let newTurn = !isWhiteTurn;
     setIsWhiteTurn(newTurn);
+    // check if the new player is in checkmate
+    let newPlayerColor = isWhiteTurn ? "black" : "white";
+    let [kingRow, kingCol] = kingSquare[`${newPlayerColor}King`];
+    let king = new King(newPlayerColor, LETTERS[kingCol + 1], kingRow);
+    if (king.isCheckmate(newBoard)) {
+      //TODO: set the isCheckmate state to true in the parent component. That will trigger a modal to pop up and using the player whos turn it
+      //is, we can display the winner
+      handleCheckmate(newPlayerColor);
+    }
     return;
   } else {
     //deselecting current piece

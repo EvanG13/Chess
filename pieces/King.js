@@ -176,18 +176,26 @@ class King extends Piece {
     return false;
   }
 
-  isCheckMate(board) {
+  isCheckmate(board) {
     //check if king can move out of check
+    if (!this.isCheck(board)) return false;
     let validMoves = this.getValidMoves(board);
-    let dummyKing;
-    for (let i = 0; i < validMoves.length; i++) {
-      dummyKing = new King(this.color, validMoves[i][0], validMoves[i][1]);
-      if (!dummyKing.isCheck(board)) {
-        return false;
+    if (validMoves.length > 0) return false;
+    //check if any other piece can block the check
+    for (let row = 0; row < 8; row++) {
+      for (let col = 0; col < 8; col++) {
+        if (
+          board[row][col].piece == null ||
+          board[row][col].piece.color != this.color
+        )
+          continue;
+        validMoves = board[row][col].piece.getValidMoves(board, [
+          this.number,
+          this.convertLetterToNumber(this.letter)
+        ]);
+        if (validMoves.length > 0) return false;
       }
     }
-
-    //TODO: check if a piece can block the check (gonna be really annoying to implement)
     return true;
   }
 }
