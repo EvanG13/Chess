@@ -33,14 +33,18 @@ export const Board = () => {
 
   return (
     <View style={styles.boardContainer}>
-      <Text>{`${isWhiteTurn ? "white" : "black"} player to move.`}</Text>
+      <Text
+        style={{ color: "white", fontSize: 25, marginBottom: 10 }}
+      >{`${isWhiteTurn ? "white" : "black"} player to move.`}</Text>
       <View style={styles.boardWithNumbers}>
         <View style={styles.board}>
           {board.map((row, index) => {
             return (
               <View key={`row-${index}`} style={{ flexDirection: "row" }}>
-                <View key={`number-${index}`}>
-                  <Text>{numberCol[index]}</Text>
+                <View style={{ marginRight: 10 }} key={`number-${index}`}>
+                  <Text style={{ color: "white", fontSize: "13" }}>
+                    {numberCol[index]}
+                  </Text>
                 </View>
                 {row.map((square, squareIndex) => {
                   return (
@@ -91,7 +95,7 @@ export const Board = () => {
         {letterRow.map((letter, i) => {
           return (
             <View key={`letter-${i}`} style={{ width: 45, marginLeft: 4 }}>
-              <Text>{letter}</Text>
+              <Text style={{ color: "white" }}>{letter}</Text>
             </View>
           );
         })}
@@ -153,15 +157,18 @@ const styles = StyleSheet.create({
   boardContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "black"
   },
   letters: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     width: "90%",
-    marginLeft: 40
+    marginLeft: 40,
+    color: "white"
   },
   boardWithNumbers: {
-    flexDirection: "row"
+    flexDirection: "row",
+    color: "white"
   }
 });
