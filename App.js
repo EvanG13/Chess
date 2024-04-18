@@ -1,7 +1,7 @@
 import React from "react";
 
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 import { Board } from "./components/Board/Board.jsx";
 import Main from "./components/Main/Main.jsx";
 import { NavigationContainer } from "@react-navigation/native";
