@@ -10,28 +10,32 @@ import {
 const MainHeader = ({ navigation }) => {
   return (
     <View style={styles.mainHeader}>
+      <View style={styles.paddingLeft}></View>
       <View style={styles.navBar}>
-        <Button
+        <TouchableOpacity
           style={styles.navItem}
-          title="Home"
           onPress={() => {
-            navigation.navigate("main");
+            navigation.navigate("Chess");
           }}
-        />
-        <Button
+        >
+          <Text style={{ color: "white" }}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           style={styles.navItem}
-          title="Login"
           onPress={() => {
             navigation.navigate("login");
           }}
-        />
-        <Button
+        >
+          <Text style={{ color: "white" }}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           style={styles.navItem}
-          title="Register"
           onPress={() => {
             navigation.navigate("register");
           }}
-        />
+        >
+          <Text style={{ color: "white" }}>Register</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -41,19 +45,23 @@ const styles = StyleSheet.create({
   mainHeader: {
     flexDirection: "row",
     backgroundColor: "black",
-    width: "100%",
     height: 50,
-    justifyContent: "right",
+    width: "100%",
     alignItems: "center"
+  },
+  paddingLeft: {
+    flex: 1
   },
   navBar: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    width: "20%",
-    margin: "1%"
+    flex: 1, // Take up remaining space
+    marginLeft: 10, // Adjust margin according to your design
+    marginRight: 10 // Adjust margin according to your design
   },
   navItem: {
-    margin: 10
+    backgroundColor: "black",
+    color: "white"
   }
 });
 

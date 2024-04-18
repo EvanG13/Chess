@@ -32,7 +32,6 @@ const Main = ({ navigation }) => {
         >
           <Image source={tutorialImage} />
         </TouchableOpacity>
-        <Button title="Learn How to Play" />
       </View>
     </View>
   );
@@ -57,11 +56,12 @@ const styles = StyleSheet.create({
   },
   greenPieces: {
     width: "70%",
-    height: "60%"
+    height: "45%"
   },
   tutorial: {
     width: "70%",
-    height: "30%"
+    height: "40%",
+    marginBottom: "5%"
   }
 });
 
