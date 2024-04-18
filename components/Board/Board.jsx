@@ -12,6 +12,10 @@ export const Board = () => {
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const numberCol = ["8", "7", "6", "5", "4", "3", "2", "1"];
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
+  const [kingSquare, setKingSquare] = useState({
+    whiteKing: [7, 4],
+    blackKing: [0, 4]
+  });
 
   //TODO: fetch the board from the backend with sockets
 
@@ -50,7 +54,9 @@ export const Board = () => {
                           isWhiteTurn,
                           setIsWhiteTurn,
                           validMoves,
-                          setValidMoves
+                          setValidMoves,
+                          kingSquare,
+                          setKingSquare
                         );
                       }}
                       isSelected={
