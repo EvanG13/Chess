@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   mainHeader: {
     flexDirection: "row",
     backgroundColor: "black",
-    height: "10%",
+    height: 50,
     width: "100%",
     alignItems: "center"
   },
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     flex: 1, // Take up remaining space
-    marginLeft: 10,
-    marginRight: 10 
+    marginLeft: 10, // Adjust margin according to your design
+    marginRight: 10 // Adjust margin according to your design
   },
   navItem: {
     backgroundColor: "black",
