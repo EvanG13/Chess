@@ -1,4 +1,11 @@
-import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  SafeAreaView,
+  TouchableOpacity
+} from "react-native";
 import { BoardSquare } from "../BoardSquare/BoardSquare";
 import React, { useState } from "react";
 import getStartingBoard, { getNumberFromLetter } from "../Board/board.js";
@@ -96,17 +103,23 @@ export const Board = () => {
         transparent
       >
         <SafeAreaView style={[styles.fill, styles.grey]}>
-          <Button
-            title="X"
+          <TouchableOpacity
+            style={styles.darkGreen}
             onPress={() => {
               setShowWinner(false);
             }}
-          />
+          >
+            <Text style={[styles.darkGreen, styles.rightAlign]}>X</Text>
+          </TouchableOpacity>
           <Text style={styles.winnerText}>
             {isWhiteTurn ? "Black" : "White"} player has won!
           </Text>
-          <Button title="Rematch" onPress={handleRematch} />
-          <Button title="New Game" onPress={handleNewGame}></Button>
+          <TouchableOpacity style={styles.darkGreen} onPress={handleRematch}>
+            <Text style={styles.buttonText}>Rematch</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.darkGreen} onPress={handleNewGame}>
+            <Text style={styles.buttonText}>New Game</Text>
+          </TouchableOpacity>
         </SafeAreaView>
       </Modal>
     </View>
@@ -121,16 +134,21 @@ const styles = StyleSheet.create({
     flex: 1
   },
   winnerText: {
+    textAlign: "center",
+    color: "black",
+    backgroundColor: "white"
+  },
+  darkGreen: {
+    backgroundColor: "#006400",
+    color: "white"
+  },
+  buttonText: {
+    color: "white",
     textAlign: "center"
   },
-  upper: {
-    hieght: 100,
-    backgroundColor: "#DDD",
-    opacity: 0.5
-  },
-  lower: {
-    flex: 1,
-    backgroundColor: "white"
+  rightAlign: {
+    padding: "2%",
+    textAlign: "right"
   },
   boardContainer: {
     flex: 1,
