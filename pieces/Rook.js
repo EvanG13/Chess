@@ -6,6 +6,7 @@ class Rook extends Piece {
   constructor(color, letter, number) {
     const src = color === "black" ? blackRookSource : whiteRookSource;
     super(color, src, letter, number, "rook");
+    this.hasMoved = false;
   }
 
   getValidMoves(board, kingSquare) {
