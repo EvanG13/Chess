@@ -64,7 +64,7 @@ const selectSquare = (
     ) === true
   ) {
     const newBoard = [...board];
-    
+
     newBoard[row][col].piece =
       board[selectedSquare[0]][selectedSquare[1]].piece;
 
@@ -77,25 +77,27 @@ const selectSquare = (
       isWhiteTurn
         ? setKingSquare({ ...kingSquare, whiteKing: [row, col] })
         : setKingSquare({ ...kingSquare, blackKing: [row, col] });
-        //check if it was castling move
-        if(Math.abs(col - selectedSquare[1]) === 2){ //if king is moving more than one square
-          if(col < selectedSquare[1]){ // the castle is queenside
-            newBoard[row][col + 1].piece = newBoard[row][0].piece;//place the rook from queenside next to king
-            newBoard[row][0].piece = null; //remove the rook from queenside
-            newBoard[row][col + 1].piece.letter = LETTERS[col + 2];
-            newBoard[row][col + 1].piece.number = row;
-            newBoard[row][col+1].piece.hasMoved = true;
-          } 
-          else { //the castle is kingside
-            newBoard[row][col-1].piece = newBoard[row][7].piece;//place the rook from kingside next to king
-            newBoard[row][7].piece = null; //remove the rook from kingside
-            newBoard[row][col-1].piece.letter = LETTERS[col - 2];
-            newBoard[row][col-1].piece.number = row;
-            newBoard[row][col-1].piece.hasMoved = true;
-          }
+      //check if it was castling move
+      if (Math.abs(col - selectedSquare[1]) === 2) {
+        //if king is moving more than one square
+        if (col < selectedSquare[1]) {
+          // the castle is queenside
+          newBoard[row][col + 1].piece = newBoard[row][0].piece; //place the rook from queenside next to king
+          newBoard[row][0].piece = null; //remove the rook from queenside
+          newBoard[row][col + 1].piece.letter = LETTERS[col + 2];
+          newBoard[row][col + 1].piece.number = row;
+          newBoard[row][col + 1].piece.hasMoved = true;
+        } else {
+          //the castle is kingside
+          newBoard[row][col - 1].piece = newBoard[row][7].piece; //place the rook from kingside next to king
+          newBoard[row][7].piece = null; //remove the rook from kingside
+          newBoard[row][col - 1].piece.letter = LETTERS[col - 2];
+          newBoard[row][col - 1].piece.number = row;
+          newBoard[row][col - 1].piece.hasMoved = true;
         }
+      }
     }
-    if(newBoard[row][col].piece.name === "rook"){
+    if (newBoard[row][col].piece.name === "rook") {
       newBoard[row][col].piece.hasMoved = true;
     }
     newBoard[row][col].piece.letter = LETTERS[col + 1];
