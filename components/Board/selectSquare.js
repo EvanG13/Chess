@@ -1,6 +1,7 @@
 import { getNumberFromLetter } from "../Board/board.js";
 import { LETTERS } from "../Board/board.js";
 import King from "../../pieces/King.js";
+import convertToChessNotation from "../Logger/toChessNotation.js";
 
 const selectSquare = (
   number,
@@ -17,7 +18,9 @@ const selectSquare = (
   setKingSquare,
   setHasWon,
   hasWon,
-  setShowWinner
+  setShowWinner,
+  setLog,
+  log
 ) => {
   let row = number;
   let col = getNumberFromLetter(letter);
@@ -117,9 +120,23 @@ const selectSquare = (
     if (king.isCheckmate(newBoard)) {
       setHasWon(true);
       setShowWinner(true);
-      //TODO: set the isCheckmate state to true in the parent component. That will trigger a modal to pop up and using the player whos turn it
       //is, we can display the winner
     }
+    //update the move log
+    //build new log
+    const notation = convertToChessNotation(
+      newBoard[row][col].piece.name,
+      selectedSquare[0],
+      selectedSquare[1],
+      row,
+      col
+    );
+    const newBoardCopy = newBoard.map((row) => [
+      ...row.map((square) => ({ ...square }))
+    ]);
+    const move = { notation, board: newBoardCopy, isWhiteTurn: newTurn };
+    let newLog = [...log, move];
+    setLog(newLog);
     return;
   } else {
     //deselecting current piece
