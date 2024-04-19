@@ -11,7 +11,7 @@ const convertToChessNotation = (
   const startRowNum = 8 - startRow;
   const destRowNum = 8 - destRow;
 
-  return `${pieceName}${startColChar}${startRowNum}${destColChar}${destRowNum}`;
+  return `${pieceName}${startColChar}${startRowNum} - ${destColChar}${destRowNum}`;
 };
 
 export default convertToChessNotation;

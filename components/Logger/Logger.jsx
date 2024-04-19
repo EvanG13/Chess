@@ -11,11 +11,8 @@ const Logger = ({ log, setBoard, setIsWhiteTurn }) => {
     setBoard(clonedBoard);
     setMoveIndex(someIndex);
   };
-//TODO - set the moveIndex to the last move in the log when move is committed. 
-//TODO - if a move is made and the move index is not at the end of the log, splice all moves after new move index.
-  useEffect(() =>{
-    setMoveIndex(log.length - 1);
-  }, []) 
+  //TODO - set the moveIndex to the last move in the log when move is committed.
+  //TODO - if a move is made and the move index is not at the end of the log, splice all moves after new move index.
 
   return (
     <View style={styles.logger}>
@@ -39,9 +36,12 @@ const Logger = ({ log, setBoard, setIsWhiteTurn }) => {
 
 const styles = StyleSheet.create({
   logger: {
+    flexDirection: "row",
+    flexWrap: "wrap",
     backgroundColor: "white",
-    width: "100%",
+    width: "50vw",
     height: "20%",
+    overflow: "scroll"
   }
 });
 

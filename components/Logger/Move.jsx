@@ -10,7 +10,7 @@ const Move = ({
   setIsWhiteTurn
 }) => {
   return (
-    <View>
+    <View style={styles.move}>
       <Text
         style={isActive ? styles.isActive : styles.isNotActive}
         onPress={() => {
@@ -30,6 +30,11 @@ const styles = StyleSheet.create({
   },
   isNotActive: {
     color: "black"
+  },
+  move: {
+    marginLeft: 3,
+    marginRight: 3,
+    height: "fit-content"
   }
 });
 
