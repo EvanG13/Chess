@@ -13,14 +13,20 @@ export const BoardSquare = ({
   piece,
   isSelected,
   selectSquare,
-  isHighlighted
+  isHighlighted,
+  flipped
 }) => {
   return (
     <Pressable
       style={styles.square}
       onPress={() => selectSquare(number, letter)}
     >
-      <View style={isSelected ? styles.selectedSquare : styles.square}>
+      <View
+        style={[
+          isSelected ? styles.selectedSquare : styles.square,
+          flipped && styles.flipped
+        ]}
+      >
         {piece != null && <Image source={piece.src} style={styles.pieceImg} />}
         <ImageBackground
           source={src}
@@ -72,5 +78,8 @@ const styles = StyleSheet.create({
     left: 0,
     width: "100%",
     height: "100%"
+  },
+  flipped: {
+    transform: [{ rotate: "180deg" }]
   }
 });
