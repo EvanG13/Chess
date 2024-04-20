@@ -15,7 +15,7 @@ import { Modal } from "react-native";
 import Logger from "../Logger/Logger.jsx";
 import handleNewGame from "./handleNewGame";
 import handleRematch from "./handleRematch";
-import {Switch} from "react-native-switch";
+import { Switch } from "react-native-switch";
 
 export const Board = () => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
