@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import axios from "axios";
+import { BACKEND_BASE_URL } from "@env";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -12,6 +14,18 @@ const Login = () => {
       return;
     }
     //TODO: fetch request to backend
+    //https://jqvrnfo1z4.execute-api.us-east-1.amazonaws.com/dev
+    const response = await axios.post(BACKEND_BASE_URL + "login", {
+      email,
+      password
+    });
+
+    console.log(response);
+
+    if (response.data.status === 200) {
+      //TODO handle jwt token / create userProvider & put response.user in it
+      console.log("LOGIN SUCCESS");
+    }
   };
 
   return (

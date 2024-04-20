@@ -1,23 +1,38 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import axios from "axios";
+import { BACKEND_BASE_URL } from "@env";
 
 const Register = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleRegister = async () => {
-    if (email === "" || password === "" || confirmPassword === "") {
+    if (
+      email === "" ||
+      password === "" ||
+      confirmPassword === "" ||
+      username === ""
+    ) {
       alert("Please fill out all fields");
       return;
     }
+
     if (password !== confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
-    //TODO: fetch request to backend
+    const response = await axios.post(BACKEND_BASE_URL + "register", {
+      email,
+      username,
+      password
+    });
+
+    console.log(response);
   };
 
   return (
@@ -46,6 +61,13 @@ const Register = () => {
               placeholder="Email"
               value={email}
               onChangeText={setEmail}
+            />
+
+            <TextInput
+              style={styles.input}
+              placeholder="Username"
+              value={username}
+              onChangeText={setUsername}
             />
 
             <TextInput
