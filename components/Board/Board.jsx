@@ -15,6 +15,8 @@ import { Modal } from "react-native";
 import Logger from "../Logger/Logger.jsx";
 import handleNewGame from "./handleNewGame";
 import handleRematch from "./handleRematch";
+import {Switch} from "react-native-switch";
+
 export const Board = () => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
   const [board, setBoard] = useState(getStartingBoard()); // 8x8 array
@@ -28,76 +30,103 @@ export const Board = () => {
     whiteKing: [7, 4],
     blackKing: [0, 4]
   });
+  const [blackSideBoard, setBlackSideBoard] = useState(true);
 
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
-  const numberCol = ["8", "7", "6", "5", "4", "3", "2", "1"];
+  const numberCol = ["8. ", "7. ", "6. ", "5. ", "4. ", "3. ", "2. ", "1. "];
 
   //TODO: fetch the board from the backend with sockets
 
   return (
     <View style={styles.boardAndLogger}>
+      <Switch
+        value={blackSideBoard}
+        onValueChange={() => setBlackSideBoard(!blackSideBoard)}
+        disabled={false}
+        activeText={"White"}
+        inActiveText={"Black"}
+        circleSize={30}
+        barHeight={30}
+        circleBorderWidth={3}
+        backgroundActive={"#696969"}
+        backgroundInactive={"#696969"}
+        circleActiveColor={"white"}
+        circleInActiveColor={"#000000"}
+      />
       <View style={styles.boardContainer}>
         <Text
           style={{ color: "white", fontSize: 25, marginBottom: 10 }}
         >{`${isWhiteTurn ? "white" : "black"} player to move.`}</Text>
-        <View style={styles.boardWithNumbers}>
-          <View style={styles.board}>
-            {board.map((row, index) => {
-              return (
-                <View key={`row-${index}`} style={{ flexDirection: "row" }}>
+        <View style={[styles.board, blackSideBoard && styles.flipped]}>
+          {board.map((row, index) => {
+            return (
+              <View key={`row-${index}`} style={{ flexDirection: "row" }}>
+                {!blackSideBoard && (
                   <View style={{ marginRight: 10 }} key={`number-${index}`}>
                     <Text style={{ color: "white", fontSize: "13" }}>
                       {numberCol[index]}
                     </Text>
                   </View>
-                  {row.map((square, squareIndex) => {
-                    return (
-                      <BoardSquare
-                        isHighlighted={validMoves.some(
-                          (move) =>
-                            move[0] === square.number &&
-                            move[1] === getNumberFromLetter(square.letter)
-                        )}
-                        key={`square-${square.letter}-${square.number}`}
-                        src={square.src}
-                        letter={square.letter}
-                        number={square.number}
-                        piece={square.piece}
-                        selectSquare={() => {
-                          selectSquare(
-                            square.number,
-                            square.letter,
-                            board,
-                            setBoard,
-                            selectedSquare,
-                            setSelectedSquare,
-                            isWhiteTurn,
-                            setIsWhiteTurn,
-                            validMoves,
-                            setValidMoves,
-                            kingSquare,
-                            setKingSquare,
-                            setHasWon,
-                            hasWon,
-                            setShowWinner,
-                            setLog,
-                            log,
-                            setMoveIndex,
-                            moveIndex
-                          );
-                        }}
-                        isSelected={
-                          selectedSquare[0] === square.number &&
-                          selectedSquare[1] ===
-                            getNumberFromLetter(square.letter)
-                        }
-                      />
-                    );
-                  })}
-                </View>
-              );
-            })}
-          </View>
+                )}
+                {row.map((square, squareIndex) => {
+                  return (
+                    <BoardSquare
+                      isHighlighted={validMoves.some(
+                        (move) =>
+                          move[0] === square.number &&
+                          move[1] === getNumberFromLetter(square.letter)
+                      )}
+                      key={`square-${square.letter}-${square.number}`}
+                      src={square.src}
+                      letter={square.letter}
+                      number={square.number}
+                      piece={square.piece}
+                      selectSquare={() => {
+                        selectSquare(
+                          square.number,
+                          square.letter,
+                          board,
+                          setBoard,
+                          selectedSquare,
+                          setSelectedSquare,
+                          isWhiteTurn,
+                          setIsWhiteTurn,
+                          validMoves,
+                          setValidMoves,
+                          kingSquare,
+                          setKingSquare,
+                          setHasWon,
+                          hasWon,
+                          setShowWinner,
+                          setLog,
+                          log,
+                          setMoveIndex,
+                          moveIndex
+                        );
+                      }}
+                      isSelected={
+                        selectedSquare[0] === square.number &&
+                        selectedSquare[1] === getNumberFromLetter(square.letter)
+                      }
+                      flipped={blackSideBoard}
+                    />
+                  );
+                })}
+                {blackSideBoard && (
+                  <View style={{ marginRight: 10 }} key={`number-${index}`}>
+                    <Text
+                      style={[
+                        { color: "white", fontSize: "13" },
+                        styles.flipped
+                      ]}
+                    >
+                      {numberCol[index]}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            );
+          })}
         </View>
 
         <View style={styles.letters}>
@@ -194,5 +223,8 @@ const styles = StyleSheet.create({
   boardWithNumbers: {
     flexDirection: "row",
     color: "white"
+  },
+  flipped: {
+    transform: [{ rotate: "180deg" }]
   }
 });
