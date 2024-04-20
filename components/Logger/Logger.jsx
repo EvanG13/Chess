@@ -2,9 +2,7 @@ import { View, StyleSheet } from "react-native";
 import Move from "./Move";
 import { useState } from "react";
 
-const Logger = ({ log, setBoard, setIsWhiteTurn }) => {
-  const [moveIndex, setMoveIndex] = useState(0);
-
+const Logger = ({ log, setBoard, setIsWhiteTurn, moveIndex, setMoveIndex }) => {
   const setBoardAndIndex = (newBoard, someIndex) => {
     // Deep clone the board array
     const clonedBoard = newBoard.map((row) => [...row]);

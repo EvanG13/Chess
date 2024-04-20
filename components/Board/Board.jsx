@@ -23,6 +23,7 @@ export const Board = () => {
   const [showWinner, setShowWinner] = useState(false);
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
   const [log, setLog] = useState([]);
+  const [moveIndex, setMoveIndex] = useState(-1);
   const [kingSquare, setKingSquare] = useState({
     whiteKing: [7, 4],
     blackKing: [0, 4]
@@ -80,7 +81,9 @@ export const Board = () => {
                             hasWon,
                             setShowWinner,
                             setLog,
-                            log
+                            log,
+                            setMoveIndex,
+                            moveIndex
                           );
                         }}
                         isSelected={
@@ -111,6 +114,8 @@ export const Board = () => {
           setIsWhiteTurn={setIsWhiteTurn}
           setBoard={setBoard}
           setSelectedSquare={setSelectedSquare}
+          moveIndex={moveIndex}
+          setMoveIndex={setMoveIndex}
         />
         <Modal
           visible={showWinner}

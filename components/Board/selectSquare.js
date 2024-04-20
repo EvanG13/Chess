@@ -20,8 +20,14 @@ const selectSquare = (
   hasWon,
   setShowWinner,
   setLog,
-  log
+  log,
+  setMoveIndex,
+  moveIndex
 ) => {
+  if (moveIndex !== log.length - 1) {
+    alert("Please move to the last move to make a move.");
+    return; //user is in detached head state where they cant make moves
+  }
   let row = number;
   let col = getNumberFromLetter(letter);
 
@@ -137,6 +143,7 @@ const selectSquare = (
     const move = { notation, board: newBoardCopy, isWhiteTurn: newTurn };
     let newLog = [...log, move];
     setLog(newLog);
+    setMoveIndex(newLog.length - 1);
     return;
   } else {
     //deselecting current piece
