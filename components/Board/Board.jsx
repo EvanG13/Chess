@@ -12,7 +12,7 @@ import getStartingBoard, { getNumberFromLetter } from "../Board/board.js";
 import { LETTERS } from "../Board/board.js";
 import selectSquare from "./selectSquare.js";
 import { Modal } from "react-native";
-
+import Logger from "../Logger/Logger.jsx";
 import handleNewGame from "./handleNewGame";
 import handleRematch from "./handleRematch";
 export const Board = () => {
@@ -21,111 +21,129 @@ export const Board = () => {
   const [validMoves, setValidMoves] = useState([]);
   const [hasWon, setHasWon] = useState(false);
   const [showWinner, setShowWinner] = useState(false);
-  const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
-  const numberCol = ["8", "7", "6", "5", "4", "3", "2", "1"];
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
+  const [log, setLog] = useState([]);
+  const [moveIndex, setMoveIndex] = useState(-1);
   const [kingSquare, setKingSquare] = useState({
     whiteKing: [7, 4],
     blackKing: [0, 4]
   });
 
+  const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
+  const numberCol = ["8", "7", "6", "5", "4", "3", "2", "1"];
+
   //TODO: fetch the board from the backend with sockets
 
   return (
-    <View style={styles.boardContainer}>
-      <Text
-        style={{ color: "white", fontSize: 25, marginBottom: 10 }}
-      >{`${isWhiteTurn ? "white" : "black"} player to move.`}</Text>
-      <View style={styles.boardWithNumbers}>
-        <View style={styles.board}>
-          {board.map((row, index) => {
-            return (
-              <View key={`row-${index}`} style={{ flexDirection: "row" }}>
-                <View style={{ marginRight: 10 }} key={`number-${index}`}>
-                  <Text style={{ color: "white", fontSize: "13" }}>
-                    {numberCol[index]}
-                  </Text>
+    <View style={styles.boardAndLogger}>
+      <View style={styles.boardContainer}>
+        <Text
+          style={{ color: "white", fontSize: 25, marginBottom: 10 }}
+        >{`${isWhiteTurn ? "white" : "black"} player to move.`}</Text>
+        <View style={styles.boardWithNumbers}>
+          <View style={styles.board}>
+            {board.map((row, index) => {
+              return (
+                <View key={`row-${index}`} style={{ flexDirection: "row" }}>
+                  <View style={{ marginRight: 10 }} key={`number-${index}`}>
+                    <Text style={{ color: "white", fontSize: "13" }}>
+                      {numberCol[index]}
+                    </Text>
+                  </View>
+                  {row.map((square, squareIndex) => {
+                    return (
+                      <BoardSquare
+                        isHighlighted={validMoves.some(
+                          (move) =>
+                            move[0] === square.number &&
+                            move[1] === getNumberFromLetter(square.letter)
+                        )}
+                        key={`square-${square.letter}-${square.number}`}
+                        src={square.src}
+                        letter={square.letter}
+                        number={square.number}
+                        piece={square.piece}
+                        selectSquare={() => {
+                          selectSquare(
+                            square.number,
+                            square.letter,
+                            board,
+                            setBoard,
+                            selectedSquare,
+                            setSelectedSquare,
+                            isWhiteTurn,
+                            setIsWhiteTurn,
+                            validMoves,
+                            setValidMoves,
+                            kingSquare,
+                            setKingSquare,
+                            setHasWon,
+                            hasWon,
+                            setShowWinner,
+                            setLog,
+                            log,
+                            setMoveIndex,
+                            moveIndex
+                          );
+                        }}
+                        isSelected={
+                          selectedSquare[0] === square.number &&
+                          selectedSquare[1] ===
+                            getNumberFromLetter(square.letter)
+                        }
+                      />
+                    );
+                  })}
                 </View>
-                {row.map((square, squareIndex) => {
-                  return (
-                    <BoardSquare
-                      isHighlighted={validMoves.some(
-                        (move) =>
-                          move[0] === square.number &&
-                          move[1] === getNumberFromLetter(square.letter)
-                      )}
-                      key={`square-${square.letter}-${square.number}`}
-                      src={square.src}
-                      letter={square.letter}
-                      number={square.number}
-                      piece={square.piece}
-                      selectSquare={() => {
-                        selectSquare(
-                          square.number,
-                          square.letter,
-                          board,
-                          setBoard,
-                          selectedSquare,
-                          setSelectedSquare,
-                          isWhiteTurn,
-                          setIsWhiteTurn,
-                          validMoves,
-                          setValidMoves,
-                          kingSquare,
-                          setKingSquare,
-                          setHasWon,
-                          hasWon,
-                          setShowWinner
-                        );
-                      }}
-                      isSelected={
-                        selectedSquare[0] === square.number &&
-                        selectedSquare[1] === getNumberFromLetter(square.letter)
-                      }
-                    />
-                  );
-                })}
+              );
+            })}
+          </View>
+        </View>
+
+        <View style={styles.letters}>
+          {letterRow.map((letter, i) => {
+            return (
+              <View key={`letter-${i}`} style={{ width: 45, marginLeft: 4 }}>
+                <Text style={{ color: "white" }}>{letter}</Text>
               </View>
             );
           })}
         </View>
+        <Logger
+          log={log}
+          setIsWhiteTurn={setIsWhiteTurn}
+          setBoard={setBoard}
+          setSelectedSquare={setSelectedSquare}
+          moveIndex={moveIndex}
+          setMoveIndex={setMoveIndex}
+        />
+        <Modal
+          visible={showWinner}
+          animationType="fade"
+          onRequestClose={() => setShowWinner(false)}
+          transparent
+        >
+          <SafeAreaView style={[styles.fill, styles.grey]}>
+            <TouchableOpacity
+              style={styles.darkGreen}
+              onPress={() => {
+                setShowWinner(false);
+              }}
+            >
+              <Text style={[styles.darkGreen, styles.rightAlign]}>X</Text>
+            </TouchableOpacity>
+            <Text style={styles.winnerText}>
+              {isWhiteTurn ? "Black" : "White"} player has won!
+            </Text>
+            <TouchableOpacity style={styles.darkGreen} onPress={handleRematch}>
+              <Text style={styles.buttonText}>Rematch</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.darkGreen} onPress={handleNewGame}>
+              <Text style={styles.buttonText}>New Game</Text>
+            </TouchableOpacity>
+          </SafeAreaView>
+        </Modal>
       </View>
-
-      <View style={styles.letters}>
-        {letterRow.map((letter, i) => {
-          return (
-            <View key={`letter-${i}`} style={{ width: 45, marginLeft: 4 }}>
-              <Text style={{ color: "white" }}>{letter}</Text>
-            </View>
-          );
-        })}
-      </View>
-      <Modal
-        visible={showWinner}
-        animationType="fade"
-        onRequestClose={() => setShowWinner(false)}
-        transparent
-      >
-        <SafeAreaView style={[styles.fill, styles.grey]}>
-          <TouchableOpacity
-            style={styles.darkGreen}
-            onPress={() => {
-              setShowWinner(false);
-            }}
-          >
-            <Text style={[styles.darkGreen, styles.rightAlign]}>X</Text>
-          </TouchableOpacity>
-          <Text style={styles.winnerText}>
-            {isWhiteTurn ? "Black" : "White"} player has won!
-          </Text>
-          <TouchableOpacity style={styles.darkGreen} onPress={handleRematch}>
-            <Text style={styles.buttonText}>Rematch</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.darkGreen} onPress={handleNewGame}>
-            <Text style={styles.buttonText}>New Game</Text>
-          </TouchableOpacity>
-        </SafeAreaView>
-      </Modal>
     </View>
   );
 };
@@ -155,6 +173,12 @@ const styles = StyleSheet.create({
     textAlign: "right"
   },
   boardContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "black"
+  },
+  boardAndLogger: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
