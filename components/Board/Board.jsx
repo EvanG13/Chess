@@ -63,7 +63,7 @@ export const Board = () => {
               <View key={`row-${index}`} style={{ flexDirection: "row" }}>
                 {!blackSideBoard && (
                   <View style={{ marginRight: 10 }} key={`number-${index}`}>
-                    <Text style={{ color: "white", fontSize: "13" }}>
+                    <Text style={{ color: "white", fontSize: 13 }}>
                       {numberCol[index]}
                     </Text>
                   </View>
@@ -115,10 +115,7 @@ export const Board = () => {
                 {blackSideBoard && (
                   <View style={{ marginRight: 10 }} key={`number-${index}`}>
                     <Text
-                      style={[
-                        { color: "white", fontSize: "13" },
-                        styles.flipped
-                      ]}
+                      style={[{ color: "white", fontSize: 13 }, styles.flipped]}
                     >
                       {numberCol[index]}
                     </Text>
