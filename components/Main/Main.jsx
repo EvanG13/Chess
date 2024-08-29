@@ -3,20 +3,21 @@ import {
   StyleSheet,
   Text,
   Button,
-  SafeAreaView,
   TouchableOpacity,
   Image
 } from "react-native";
 import MainHeader from "./MainHeader";
 import greenPieces from "../../assets/appImages/greenPieces.jpg";
 import tutorialImage from "../../assets/appImages/chessTutorial.jpeg";
-
+import pageHero from "../../assets/appImages/pageHero.png";
+import PlayGameOptions from "./PlayGameOptions";
 const Main = ({ navigation }) => {
   return (
     <View style={styles.main}>
       <MainHeader navigation={navigation} />
       <View style={styles.mainBody}>
-        <Text style={styles.siteHeader}>KysCleveEvan Chess</Text>
+        <Text style={styles.siteHeader}>StockTrout</Text>
+        <Image source={pageHero} style={styles.pageHero}/>
         <View
           style={{
             flexDirection: "row",
@@ -42,6 +43,7 @@ const Main = ({ navigation }) => {
             <Text style={{ color: "white", fontSize: 20 }}>Chess Tutorial</Text>
             <Image source={tutorialImage} />
           </TouchableOpacity>
+          <PlayGameOptions/>
         </View>
       </View>
     </View>
@@ -76,7 +78,12 @@ const styles = StyleSheet.create({
   tutorial: {
     width: "50%",
     height: "80%",
-    marginBottom: "5%"
+    marginBottom: "5%",
+  },
+  pageHero: {
+    marginBottom: "5%",
+    width: "15%",
+    height: "15%"
   }
 });
 

@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 
-const StatsCard = ({navigate, title, iconPath }) => {
+const StatsCard = ({ title, iconPath, handlePress }) => {
     
   return (
     <TouchableOpacity 
     style={styles.card}
-    onPress={() => navigate('stats', { timeControl: title })}
+    onPress={handlePress}
     >
       <Text style={styles.title}>{title}</Text>
       <Image source={iconPath} style={styles.icon} />
@@ -15,7 +15,7 @@ const StatsCard = ({navigate, title, iconPath }) => {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     card: {
         width: 150,
         height: 150,

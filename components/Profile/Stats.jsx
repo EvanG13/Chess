@@ -32,6 +32,10 @@ const Stats = ({navigation}) => {
             setUserData({...response.data});
         } catch (error) { console.log(error); }
     };
+    if(!sessionStorage.getItem("sessionToken")){
+        navigation.navigate("login");
+        return;
+    }
         getUserData();
     }, [navigation]);
     
@@ -59,7 +63,7 @@ const Stats = ({navigation}) => {
                         <StatsCard key={index}
                          title={control.title}
                          iconPath={control.iconPath}
-                         navigate={navigation.navigate}
+                         handlePress={() => navigation.navigate('stats', { timeControl: control.title })}
                         />
                     );
                 })}
