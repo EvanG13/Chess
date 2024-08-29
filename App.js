@@ -9,7 +9,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Register from "./components/Register/Register.jsx";
 import Login from "./components/Login/Login.jsx";
 import Tutorial from "./components/Tutorial/Tutorial.jsx";
-import User from "./components/User/User.jsx";
+import Stats from "./components/Profile/Stats.jsx";
+import GameStat from "./components/Profile/GameStat.jsx";
 const Stack = createStackNavigator();
 
 
@@ -23,7 +24,8 @@ export default function App() {
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="register" component={Register} />
         <Stack.Screen name="tutorial" component={Tutorial} />
-        <Stack.Screen name="profile" component={User} />
+        <Stack.Screen name="profile" component={Stats} />
+        <Stack.Screen name="stats" component={GameStat} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
