@@ -10,8 +10,10 @@ import Register from "./components/Register/Register.jsx";
 import Login from "./components/Login/Login.jsx";
 import Tutorial from "./components/Tutorial/Tutorial.jsx";
 const Stack = createStackNavigator();
+import { BACKEND_BASE_URL } from "@env";
 
 export default function App() {
+  console.log("backend url: " + BACKEND_BASE_URL);
   return (
     <NavigationContainer>
       <Stack.Navigator style={styles.container}>

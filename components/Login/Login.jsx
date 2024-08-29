@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import axios from "axios";
+import { BACKEND_BASE_URL } from "@env";
 
 const Login = () => {
+  console.log(BACKEND_BASE_URL);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -11,7 +14,14 @@ const Login = () => {
       alert("Please fill out all fields");
       return;
     }
-    //TODO: fetch request to backend
+   
+    try{
+      const response = await axios.post(`${BACKEND_BASE_URL}/login`, {email, password});
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+
   };
 
   return (
