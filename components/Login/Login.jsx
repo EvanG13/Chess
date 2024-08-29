@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import { BACKEND_BASE_URL } from "@env";
 
-const Login = () => {
+const Login = ({navigation}) => {
   console.log(BACKEND_BASE_URL);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,9 +17,16 @@ const Login = () => {
    
     try{
       const response = await axios.post(`${BACKEND_BASE_URL}/login`, {email, password});
-      console.log(response);
+      
+      if(response.status == 200){
+        const token = response.data.sessionToken;
+        sessionStorage.setItem("sessionToken", token);
+        sessionStorage.setItem("username", email); //TODO change to use the username on response.data.username
+        navigation.navigate("Chess");
+      }
     } catch (error) {
       console.log(error);
+      alert("Invalid email or password");
     }
 
   };

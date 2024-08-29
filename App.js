@@ -9,11 +9,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Register from "./components/Register/Register.jsx";
 import Login from "./components/Login/Login.jsx";
 import Tutorial from "./components/Tutorial/Tutorial.jsx";
+import User from "./components/User/User.jsx";
 const Stack = createStackNavigator();
-import { BACKEND_BASE_URL } from "@env";
+
 
 export default function App() {
-  console.log("backend url: " + BACKEND_BASE_URL);
+  
   return (
     <NavigationContainer>
       <Stack.Navigator style={styles.container}>
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="register" component={Register} />
         <Stack.Screen name="tutorial" component={Tutorial} />
+        <Stack.Screen name="profile" component={User} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
