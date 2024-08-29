@@ -8,10 +8,12 @@ const Login = ({navigation}) => {
   console.log(BACKEND_BASE_URL);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = async () => {
     if (email === "" || password === "") {
-      alert("Please fill out all fields");
+      setError("Please fill out all fields");
+      setTimeout(() => setError(""), 2000); 
       return;
     }
    
@@ -26,7 +28,8 @@ const Login = ({navigation}) => {
       }
     } catch (error) {
       console.log(error);
-      alert("Invalid email or password");
+      setError("Invalid email or password");
+      setTimeout(() => setError(""), 2000); 
     }
 
   };
@@ -67,9 +70,11 @@ const Login = ({navigation}) => {
               secureTextEntry
             />
             <Button title="Login" onPress={handleLogin} />
+            {error.length > 0 ? <Text style={styles.errorCard}>{error}</Text> : null}
           </View>
         </LinearGradient>
       </View>
+      
     </View>
   );
 };
@@ -107,6 +112,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
     borderRadius: 5
+  },
+  errorCard: {
+    color: 'white',
+    fontSize: 20,
+    borderRadius: 10,
   }
 });
 
