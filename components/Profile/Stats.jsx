@@ -4,6 +4,7 @@ import {BACKEND_BASE_URL} from "@env";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import MainHeader from "../Main/MainHeader";
 import StatsCard from "./StatsCard";
+import Chat from "../Chat/Chat";
 
 const Stats = ({navigation}) => {
     const [sessionToken, setSessionToken] = useState(null);
@@ -21,12 +22,14 @@ const Stats = ({navigation}) => {
         const getUserData = async () => {
             const token = sessionStorage.getItem("sessionToken");
             const username = sessionStorage.getItem("username");
+            const userId = sessionStorage.getItem("userId");
             setSessionToken(token);
             setUsername(username);
             try{
-            const response = await axios.get(`${BACKEND_BASE_URL}/user`, {
+            const response = await axios.post(`${BACKEND_BASE_URL}/stats`, {
                 headers: {
-                    Authorization: token
+                    Authorization: token,
+                    userId: userId
                 }
             });
             setUserData({...response.data});
@@ -68,6 +71,7 @@ const Stats = ({navigation}) => {
                     );
                 })}
             </View>
+            <Chat/>
         </View>
     );
 }

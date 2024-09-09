@@ -25,9 +25,10 @@
     "react-dom": "18.2.0",
     "react-native": "0.73.6",
     "react-native-dotenv": "^3.4.11",
+    "react-native-gesture-handler": "~2.14.0",
     "react-native-switch": "^1.5.1",
     "react-native-web": "~0.19.6",
-    "react-native-gesture-handler": "~2.14.0"
+    "websocket": "^1.0.35"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -20,7 +20,7 @@ const PlayGameOptions = () =>{
         console.log("implement websocket request here");
     }
     return(
-        <div>
+        <View>
             <Text>Play Game Options</Text>
             <View style={styles.statCards}>
                 {timeControls.map((control, index) => {
@@ -34,7 +34,7 @@ const PlayGameOptions = () =>{
                     );
                 })}
             </View>
-        </div>
+        </View>
     );
 }
 

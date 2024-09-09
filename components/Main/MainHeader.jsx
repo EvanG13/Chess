@@ -18,9 +18,16 @@ const MainHeader = ({ navigation }) => {
 
   const handleLogout = async () => {
     const token = sessionStorage.getItem("sessionToken");
+    const userId = sessionStorage.getItem("userId");
     sessionStorage.removeItem("sessionToken");
+    sessionStorage.clear();
     try{
-    await axios.post(`${BACKEND_BASE_URL}/logout`, { sessionToken: token });
+    await axios.post(`${BACKEND_BASE_URL}/logout`, { 
+      headers: {
+        Authorization: token,
+        userId: userId
+       }
+    });
     } catch (error) {
       console.log(error);
     }

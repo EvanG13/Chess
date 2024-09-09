@@ -5,7 +5,6 @@ import axios from "axios";
 import { BACKEND_BASE_URL } from "@env";
 
 const Login = ({navigation}) => {
-  console.log(BACKEND_BASE_URL);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -21,9 +20,10 @@ const Login = ({navigation}) => {
       const response = await axios.post(`${BACKEND_BASE_URL}/login`, {email, password});
       
       if(response.status == 200){
-        const token = response.data.sessionToken;
-        sessionStorage.setItem("sessionToken", token);
-        sessionStorage.setItem("username", email); //TODO change to use the username on response.data.username
+        const userResponse = await JSON.parse(response.data.user);
+        sessionStorage.setItem("sessionToken", response.data.token);
+        sessionStorage.setItem("username", userResponse.username);
+        sessionStorage.setItem("userId", userResponse.id);
         navigation.navigate("Chess");
       }
     } catch (error) {

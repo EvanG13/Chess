@@ -43,7 +43,7 @@ const Main = ({ navigation }) => {
             <Text style={{ color: "white", fontSize: 20 }}>Chess Tutorial</Text>
             <Image source={tutorialImage} />
           </TouchableOpacity>
-          <PlayGameOptions/>
+          {/* <PlayGameOptions/> */}
         </View>
       </View>
     </View>
