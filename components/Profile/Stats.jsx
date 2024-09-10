@@ -47,7 +47,7 @@ const Stats = ({ navigation }) => {
         );
 
         const userData = response.data;
-        console.log(userData)
+        console.log(userData);
         setUserData(userData);
       } catch (error) {
         console.log(error);
