@@ -21,12 +21,11 @@ const Stats = ({navigation}) => {
 
         const getUserData = async () => {
             const token = sessionStorage.getItem("sessionToken");
-            const username = sessionStorage.getItem("username");
             const userId = sessionStorage.getItem("userId");
             setSessionToken(token);
             setUsername(username);
             try{
-            const response = await axios.post(`${BACKEND_BASE_URL}/stats`, {
+            const response = await axios.post(`${BACKEND_BASE_URL}/stats`, {}, {
                 headers: {
                     Authorization: token,
                     userId: userId

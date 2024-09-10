@@ -19,21 +19,24 @@ const MainHeader = ({ navigation }) => {
   const handleLogout = async () => {
     const token = sessionStorage.getItem("sessionToken");
     const userId = sessionStorage.getItem("userId");
-    sessionStorage.removeItem("sessionToken");
     sessionStorage.clear();
-    try{
-    await axios.post(`${BACKEND_BASE_URL}/logout`, { 
-      headers: {
-        Authorization: token,
-        userId: userId
-       }
-    });
+
+    try {
+        await axios.post(`${BACKEND_BASE_URL}/logout`, {}, { 
+            headers: {
+                Authorization: token, 
+                userId: userId
+            }
+        });
     } catch (error) {
-      console.log(error);
+        console.error('Error during logout:', error);
     }
-    setSessionToken(null); 
+
+    // Clear session state and navigate to login screen
+    setSessionToken(null);
     navigation.navigate("login");
-  };
+};
+
 
   return (
     <View style={styles.mainHeader}>
