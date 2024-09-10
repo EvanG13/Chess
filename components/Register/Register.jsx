@@ -12,7 +12,12 @@ const Register = () => {
   const [error, setError] = useState("");
 
   const handleRegister = async () => {
-    if (email === "" || password === "" || confirmPassword === "" || username === "") {
+    if (
+      email === "" ||
+      password === "" ||
+      confirmPassword === "" ||
+      username === ""
+    ) {
       setError("Please fill out all fields");
       setTimeout(() => setError(""), 2000);
       return;
