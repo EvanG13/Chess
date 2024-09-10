@@ -13,9 +13,7 @@ import Stats from "./components/Profile/Stats.jsx";
 import GameStat from "./components/Profile/GameStat.jsx";
 const Stack = createStackNavigator();
 
-
 export default function App() {
-  
   return (
     <NavigationContainer>
       <Stack.Navigator style={styles.container}>

@@ -17,7 +17,7 @@ const Main = ({ navigation }) => {
       <MainHeader navigation={navigation} />
       <View style={styles.mainBody}>
         <Text style={styles.siteHeader}>StockTrout</Text>
-        <Image source={pageHero} style={styles.pageHero}/>
+        <Image source={pageHero} style={styles.pageHero} />
         <View
           style={{
             flexDirection: "row",
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   tutorial: {
     width: "50%",
     height: "80%",
-    marginBottom: "5%",
+    marginBottom: "5%"
   },
   pageHero: {
     marginBottom: "5%",
