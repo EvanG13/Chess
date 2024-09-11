@@ -6,7 +6,7 @@ const createSocket = function (username) {
   if (!socket) {
     socket = new WebSocket(`${url}?username=${username}`);
 
-    socket.onopen = function (event) {
+    socket.onopen = function () {
       console.log("WebSocket is open now.");
     };
 

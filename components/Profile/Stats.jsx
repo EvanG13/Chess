@@ -32,8 +32,6 @@ const Stats = ({ navigation }) => {
       const userId = sessionStorage.getItem("userId");
       setSessionToken(token);
       setUsername(username);
-
-      console.log(token + " " + token);
       try {
         const response = await axios.post(
           `${BACKEND_BASE_URL}/stats`,
@@ -67,9 +65,9 @@ const Stats = ({ navigation }) => {
       <Text>{username}</Text>
       {userData ? (
         <>
-          <Text>Games won: {userData.gamesWon}</Text>
-          <Text>Games lost: {userData.gamesLost}</Text>
-          <Text>Games drawn: {userData.gamesDrawn}</Text>`
+          <Text>Games won: {userData.won}</Text>
+          <Text>Games lost: {userData.lost}</Text>
+          <Text>Games drawn: {userData.draws}</Text>
         </>
       ) : (
         <Text>Loading...</Text>
