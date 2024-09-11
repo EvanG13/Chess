@@ -4,8 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import { BACKEND_BASE_URL } from "@env";
 
-const Login = ({navigation}) => {
-  console.log(BACKEND_BASE_URL);
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,25 +12,29 @@ const Login = ({navigation}) => {
   const handleLogin = async () => {
     if (email === "" || password === "") {
       setError("Please fill out all fields");
-      setTimeout(() => setError(""), 2000); 
+      setTimeout(() => setError(""), 2000);
       return;
     }
-   
-    try{
-      const response = await axios.post(`${BACKEND_BASE_URL}/login`, {email, password});
-      
-      if(response.status == 200){
-        const token = response.data.sessionToken;
-        sessionStorage.setItem("sessionToken", token);
-        sessionStorage.setItem("username", email); //TODO change to use the username on response.data.username
+
+    try {
+      const response = await axios.post(`${BACKEND_BASE_URL}/login`, {
+        email,
+        password
+      });
+
+      if (response.status == 200) {
+        const userResponse = await JSON.parse(response.data.user);
+        console.log(userResponse);
+        sessionStorage.setItem("sessionToken", response.data.token);
+        sessionStorage.setItem("username", userResponse.username);
+        sessionStorage.setItem("userId", userResponse.id);
         navigation.navigate("Chess");
       }
     } catch (error) {
       console.log(error);
       setError("Invalid email or password");
-      setTimeout(() => setError(""), 2000); 
+      setTimeout(() => setError(""), 2000);
     }
-
   };
 
   return (
@@ -70,11 +73,12 @@ const Login = ({navigation}) => {
               secureTextEntry
             />
             <Button title="Login" onPress={handleLogin} />
-            {error.length > 0 ? <Text style={styles.errorCard}>{error}</Text> : null}
+            {error.length > 0 ? (
+              <Text style={styles.errorCard}>{error}</Text>
+            ) : null}
           </View>
         </LinearGradient>
       </View>
-      
     </View>
   );
 };
@@ -114,9 +118,9 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   errorCard: {
-    color: 'white',
+    color: "white",
     fontSize: 20,
-    borderRadius: 10,
+    borderRadius: 10
   }
 });
 

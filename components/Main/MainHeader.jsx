@@ -7,7 +7,7 @@ import { BACKEND_BASE_URL } from "@env";
 const MainHeader = ({ navigation }) => {
   const [sessionToken, setSessionToken] = useState(null);
   const [username, setUsername] = useState(null);
-  const isFocused = useIsFocused(); 
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     const token = sessionStorage.getItem("sessionToken");
@@ -18,13 +18,26 @@ const MainHeader = ({ navigation }) => {
 
   const handleLogout = async () => {
     const token = sessionStorage.getItem("sessionToken");
-    sessionStorage.removeItem("sessionToken");
-    try{
-    await axios.post(`${BACKEND_BASE_URL}/logout`, { sessionToken: token });
+    const userId = sessionStorage.getItem("userId");
+    sessionStorage.clear();
+
+    try {
+      await axios.post(
+        `${BACKEND_BASE_URL}/logout`,
+        {},
+        {
+          headers: {
+            Authorization: token,
+            userId: userId
+          }
+        }
+      );
     } catch (error) {
-      console.log(error);
+      console.error("Error during logout:", error);
     }
-    setSessionToken(null); 
+
+    // Clear session state and navigate to login screen
+    setSessionToken(null);
     navigation.navigate("login");
   };
 
@@ -50,10 +63,7 @@ const MainHeader = ({ navigation }) => {
             >
               <Text style={{ color: "white" }}>{username}</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.navItem}
-              onPress={handleLogout}
-            >
+            <TouchableOpacity style={styles.navItem} onPress={handleLogout}>
               <Text style={{ color: "white" }}>Logout</Text>
             </TouchableOpacity>
           </>
@@ -88,22 +98,22 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     height: "10%",
     width: "100%",
-    alignItems: "center",
+    alignItems: "center"
   },
   paddingLeft: {
-    flex: 1,
+    flex: 1
   },
   navBar: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     flex: 1, // Take up remaining space
     marginLeft: 10,
-    marginRight: 10,
+    marginRight: 10
   },
   navItem: {
     backgroundColor: "black",
-    color: "white",
-  },
+    color: "white"
+  }
 });
 
 export default MainHeader;

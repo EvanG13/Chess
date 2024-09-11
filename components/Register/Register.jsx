@@ -6,32 +6,42 @@ import axios from "axios";
 
 const Register = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleRegister = async () => {
-    if (email === "" || password === "" || confirmPassword === "") {
+    if (
+      email === "" ||
+      password === "" ||
+      confirmPassword === "" ||
+      username === ""
+    ) {
       setError("Please fill out all fields");
-      setTimeout(() => setError(""), 2000); 
+      setTimeout(() => setError(""), 2000);
       return;
     }
     if (password !== confirmPassword) {
       setError("Passwords do not match");
-      setTimeout(() => setError(""), 2000); 
+      setTimeout(() => setError(""), 2000);
       return;
     }
     try {
-      const response =  await axios.post(`${BACKEND_BASE_URL}/register`, {email, password});
-      if(response.status == 200){
+      const response = await axios.post(`${BACKEND_BASE_URL}/register`, {
+        email,
+        username,
+        password
+      });
+      console.log(response);
+      if (response.status == 200) {
         navigation.navigate("login");
       }
-    } catch(error){
+    } catch (error) {
       console.log(error);
       setError("Invalid email or password");
-      setTimeout(() => setError(""), 2000); 
+      setTimeout(() => setError(""), 2000);
     }
-
   };
 
   return (
@@ -61,7 +71,12 @@ const Register = () => {
               value={email}
               onChangeText={setEmail}
             />
-
+            <TextInput
+              style={styles.input}
+              placeholder="Username"
+              value={username}
+              onChangeText={setUsername}
+            />
             <TextInput
               style={styles.input}
               placeholder="Password"
@@ -77,7 +92,9 @@ const Register = () => {
               secureTextEntry
             />
             <Button title="Register" onPress={handleRegister} />
-            {error.length > 0 ? <Text style={styles.errorCard}>{error}</Text> : null}
+            {error.length > 0 ? (
+              <Text style={styles.errorCard}>{error}</Text>
+            ) : null}
           </View>
         </LinearGradient>
       </View>
@@ -120,10 +137,10 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   errorCard: {
-    color: 'white',
+    color: "white",
     fontSize: 20,
     marginTop: 10,
-    borderRadius: 10,
+    borderRadius: 10
   }
 });
 
