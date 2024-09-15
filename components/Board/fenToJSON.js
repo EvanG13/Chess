@@ -9,27 +9,28 @@ import King from "../../pieces/King";
 import Pawn from "../../pieces/Pawn";
 
 
-const LETTERS = {
-  1: "a",
-  2: "b",
-  3: "c",
-  4: "d",
-  5: "e",
-  6: "f",
-  7: "g",
-  8: "h"
+const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h"];
+const BOARD_SIZE = 8;
+
+
+const buildPiece = (char, letter, number) => {
+  const PIECES = { r: Rook, n: Knight, b: Bishop, q: Queen, k: King, p: Pawn };
+  let pieceClass = PIECES[char.toLowerCase()];
+
+  if (!pieceClass) return null;
+
+  let color = (char === char.toUpperCase() ? "white" : "black");
+  return !pieceClass ? null : new pieceClass(color, letter, number);
 };
 
-const buildPieceFromAlgNot = (char, letter, number) => {
-  switch (char.toLowerCase()) {
-  case "r": return new Rook(char === "r" ? "black" : "white", letter, number);
-  case "n": return new Knight(char === "n" ? "black" : "white", letter, number);
-  case "b": return new Bishop(char === "b" ? "black" : "white", letter, number);
-  case "q": return new Queen(char === "q" ? "black" : "white", letter, number);
-  case "k": return new King(char === "k" ? "black" : "white", letter, number);
-  case "p": return new Pawn(char === "p" ? "black" : "white", letter, number);
-
-  default: return null;
+const updateRookOrKingMovedStatus = (piece, letter, fenCastling) => {
+  if (piece.name === "rook") {
+    let castling = (piece.color === "black" ? ["k", "q"] : ["K", "Q"]);
+    piece.hasMoved = !((fenCastling.includes(castling[0]) && letter === "h") || (fenCastling.includes(castling[1]) && letter === "a"));
+  }
+  else if (piece.name === "king") {
+    let castling = (piece.color === "black" ? ["k", "q"] : ["K", "Q"]);
+    piece.hasMoved = fenCastling === "-" || !(fenCastling.includes(castling[0]) || fenCastling.includes(castling[1]));
   }
 };
 
@@ -41,72 +42,49 @@ const fenToJSON = (fen) => {
 
   let fenCastling = fenSplit[2];
 
-  let loadedBoard = [...Array(8)].map(_=>Array(8).fill(null));
-  const BOARD_LENGTH = 8;
+  let loadedBoard = [...Array(BOARD_SIZE)].map(_=>Array(BOARD_SIZE).fill(null));
 
-  const PIECES = "RNBQKPrnbqkp";
+  let isWhiteSquare = true;
+  for (let row = 0; row < BOARD_SIZE; row++) {
+    let fenRow = fenBoard[row];
 
-  let isWhite = true;
-  for (let row = 0; row < BOARD_LENGTH; row++) {
-    let acc = 1;
+    let col = 0;
 
     for (let j = 0; j < fenBoard[row].length; j++) {
-      let char = fenBoard[row][j];
+      let fenChar = fenRow[j];
 
-      if (isNaN(char + "") && PIECES.includes(char)) {
-        let piece = buildPieceFromAlgNot(char, LETTERS[String(acc)], row);
+      if (isNaN(fenChar)) {
+        let colLetter = LETTERS[col];
 
-        if (piece.name && piece.name === "rook") {
-          if (piece.color === "black") {
-            if (fenCastling.includes("k") && piece.letter === "h")
-              piece.hasMoved = false;
-            else if (fenCastling.includes("q") && piece.letter === "a")
-              piece.hasMoved = false;
-            else
-              piece.hasMoved = true;
-          } else {
-            if (fenCastling.includes("K") && piece.letter === "h")
-              piece.hasMoved = false;
-            else if (fenCastling.includes("Q") && piece.letter === "a")
-              piece.hasMoved = false;
-            else
-              piece.hasMoved = true;
-          }
-        } else if (piece.name && piece.name === "king") {
-          if (fenCastling === "-")
-            piece.hasMoved = true;
-          else if (piece.color === "black")
-            piece.hasMoved = !(fenCastling.includes("k") || fenCastling.includes("q"));
-          else
-            piece.hasMoved = !(fenCastling.includes("K") || fenCastling.includes("Q"));
-        }
+        let piece = buildPiece(fenChar, colLetter, row);
+        updateRookOrKingMovedStatus(piece, colLetter, fenCastling);
 
-        loadedBoard[row][acc - 1] = {
-          src: isWhite ? whiteSquareSource : blackSquareSource,
-          letter: LETTERS[String(acc)],
+        loadedBoard[row][col] = {
+          src: isWhiteSquare ? whiteSquareSource : blackSquareSource,
+          letter: colLetter,
           number: row,
           piece: piece
         };
 
-        isWhite = !isWhite;
-        acc++;
+        isWhiteSquare = !isWhiteSquare;
+        col++;
       }
       else {
-        for (let i = 0; i < Number(char); i++) {
-          loadedBoard[row][acc - 1] = {
-            src: isWhite ? whiteSquareSource : blackSquareSource,
-            letter: LETTERS[String(acc)],
+        for (let i = 0; i < Number(fenChar); i++) {
+          loadedBoard[row][col] = {
+            src: isWhiteSquare ? whiteSquareSource : blackSquareSource,
+            letter: LETTERS[col],
             number: row,
             piece: null
           };
 
-          isWhite = !isWhite;
-          acc++;
+          isWhiteSquare = !isWhiteSquare;
+          col++;
         }
       }
     }
 
-    isWhite = !isWhite;
+    isWhiteSquare = !isWhiteSquare;
   }
 
   console.log(loadedBoard);
