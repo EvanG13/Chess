@@ -1,4 +1,3 @@
-import { isnan } from "react-native-gesture-handler/lib/typescript/web_hammer/utils";
 import whiteSquareSource from "../../assets/board/whitesquare.jpg";
 import Rook from "../../pieces/Rook";
 import blackSquareSource from "../../assets/board/blacksquare.jpg";
