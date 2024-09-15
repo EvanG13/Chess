@@ -8,7 +8,7 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  //console.log(BACKEND_BASE_URL);
   const handleLogin = async () => {
     if (email === "" || password === "") {
       setError("Please fill out all fields");
@@ -24,7 +24,6 @@ const Login = ({ navigation }) => {
 
       if (response.status == 200) {
         const userResponse = await JSON.parse(response.data.user);
-        console.log(userResponse);
         sessionStorage.setItem("sessionToken", response.data.token);
         sessionStorage.setItem("username", userResponse.username);
         sessionStorage.setItem("userId", userResponse.id);

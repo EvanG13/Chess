@@ -6,7 +6,7 @@ import {
   TextInput,
   StyleSheet
 } from "react-native";
-import createSocket, { closeSocket, sendMessage } from "../websocket";
+import createSocket from "../websocket";
 
 const Chat = () => {
   const [messageLog, setMessageLog] = useState([]);

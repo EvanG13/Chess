@@ -11,6 +11,7 @@ import greenPieces from "../../assets/appImages/greenPieces.jpg";
 import tutorialImage from "../../assets/appImages/chessTutorial.jpeg";
 import pageHero from "../../assets/appImages/pageHero.png";
 import PlayGameOptions from "./PlayGameOptions";
+
 const Main = ({ navigation }) => {
   return (
     <View style={styles.main}>
@@ -25,9 +26,10 @@ const Main = ({ navigation }) => {
             width: "100%"
           }}
         >
-          <View style={{ height: "80%", width: "40%", borderRadius: 10 }}>
+          <View style={{ height: "40%", width: "20%", borderRadius: 10 }}>
             <Image source={greenPieces} style={styles.greenPieces} />
             <Button
+              style={styles.localGameButton}
               title="Start Local Game"
               onPress={() => {
                 navigation.navigate("localGame");
@@ -41,9 +43,11 @@ const Main = ({ navigation }) => {
             }}
           >
             <Text style={{ color: "white", fontSize: 20 }}>Chess Tutorial</Text>
-            <Image source={tutorialImage} />
+            <Image source={tutorialImage} style={styles.tutorialImage} />
           </TouchableOpacity>
-          {/* <PlayGameOptions/> */}
+          {sessionStorage.getItem("userId") && (
+            <PlayGameOptions style={styles.onlineGamesContainer} />
+          )}
         </View>
       </View>
     </View>
@@ -72,18 +76,29 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   greenPieces: {
-    width: "100%",
-    height: "100%"
+    width: "30%",
+    height: "30%"
   },
   tutorial: {
-    width: "50%",
-    height: "80%",
-    marginBottom: "5%"
+    width: 120,
+    height: 120
+  },
+  tutorialImage: {
+    width: "80%",
+    height: "80%"
   },
   pageHero: {
     marginBottom: "5%",
     width: "15%",
     height: "15%"
+  },
+  localGameButton: {
+    height: 30,
+    width: 30
+  },
+  onlineGamesContainer: {
+    height: "60%",
+    width: "60%"
   }
 });
 

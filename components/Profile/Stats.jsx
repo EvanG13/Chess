@@ -87,7 +87,6 @@ const Stats = ({ navigation }) => {
           );
         })}
       </View>
-      <Chat />
     </View>
   );
 };
