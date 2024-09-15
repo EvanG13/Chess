@@ -87,8 +87,74 @@ const fenToJSON = (fen) => {
     isWhiteSquare = !isWhiteSquare;
   }
 
-  console.log(loadedBoard);
-  console.table(loadedBoard);
+  //// DEBUG
+  // console.table(loadedBoard);
+  // PrintBoardTilePosition(loadedBoard);
+  // PrintBoardTileColors(loadedBoard);
+  // PrintBoardPieces(loadedBoard);
+  // PrintBoardMovedStatus(loadedBoard);
+  return loadedBoard;
 };
+
+const PrintBoardTilePosition = (board) => {
+  console.table(
+    board.map(row =>
+      row.map(square =>
+        square.letter + " " + square.number)
+    )
+  );
+};
+
+const PrintBoardTileColors = board => {
+  console.table(
+    board.map(row =>
+      row.map(square =>
+        square.src === whiteSquareSource ? "W" : "B")
+    )
+  );
+};
+
+const PrintBoardPieces = board => {
+  console.table(
+    board.map(row =>
+      row.map(square => {
+        if (square.piece === null)
+          return ".";
+
+        let piece = square.piece;
+
+        switch (piece.name) {
+        case "rook": return piece.color === "white" ? "R" : "r";
+        case "king": return piece.color === "white" ? "K" : "k";
+        case "queen": return piece.color === "white" ? "Q" : "q";
+        case "pawn": return piece.color === "white" ? "P" : "p";
+        case "bishop": return piece.color === "white" ? "B" : "b";
+        case "knight": return piece.color === "white" ? "N" : "n";
+        default: return "invalid";
+        }
+      })
+    )
+  );
+};
+
+const PrintBoardMovedStatus = board => {
+  console.table(
+    board.map(row =>
+      row.map(square => {
+        if (square.piece === null)
+          return ".";
+
+        let piece = square.piece;
+
+        switch (piece.name) {
+        case "rook": return piece.hasMoved ? "T" : "F";
+        case "king": return piece.hasMoved ? "T" : "F";
+        default: return "o";
+        }
+      })
+    )
+  );
+};
+
 
 export default fenToJSON;
