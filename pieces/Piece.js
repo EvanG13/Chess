@@ -25,6 +25,14 @@ class Piece {
   isValidMove(row, col, validMoves) {
     return validMoves.some((move) => move[0] === row && move[1] === col);
   }
+
+  isWhite(){
+    return this.color === "white";
+  }
+
+  isBlack(){
+    return this.color === "black";
+  }
 }
 
 export default Piece;
