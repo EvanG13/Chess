@@ -8,90 +8,94 @@ import King from "../../pieces/King";
 import Pawn from "../../pieces/Pawn";
 
 
-const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h"];
-const BOARD_SIZE = 8;
-
-
-const buildPiece = (char, letter, number) => {
-  const PIECES = { r: Rook, n: Knight, b: Bishop, q: Queen, k: King, p: Pawn };
-  let pieceClass = PIECES[char.toLowerCase()];
-
-  if (!pieceClass) return null;
-
-  let color = (char === char.toUpperCase() ? "white" : "black");
-  return !pieceClass ? null : new pieceClass(color, letter, number);
+const FEN_Util = {
+  getBoard:           FEN => FEN.split(" ")[0],
+  getActiveColorChar: FEN => FEN.split(" ")[1],
+  getCastlingFlags:   FEN => FEN.split(" ")[2],
+  getEnPassantFlag:   FEN => FEN.split(" ")[3],
+  getHalfmoveClock:   FEN => FEN.split(" ")[4],
+  getFullturns:       FEN => FEN.split(" ")[5],
+  getBoardRows:   FEN => FEN_Util.getBoard(FEN).split("/"),
+  getActiveColor: FEN => FEN_Util.getActiveColorChar(FEN) === "w" ? "white" : "black",
+  getCharPieceClass: fenChar => {
+    const CLASSES = { r: Rook, n: Knight, b: Bishop, q: Queen, k: King, p: Pawn };
+    return CLASSES[fenChar.toLowerCase()] || null;
+  },
+  getCharColor: fenChar => fenChar === fenChar.toLowerCase() ? "black" : "white"
 };
 
-const updateRookOrKingMovedStatus = (piece, letter, fenCastling) => {
-  if (piece.name === "rook") {
-    let castling = (piece.color === "black" ? ["k", "q"] : ["K", "Q"]);
-    piece.hasMoved = !((fenCastling.includes(castling[0]) && letter === "h") || (fenCastling.includes(castling[1]) && letter === "a"));
-  }
-  else if (piece.name === "king") {
-    let castling = (piece.color === "black" ? ["k", "q"] : ["K", "Q"]);
-    piece.hasMoved = fenCastling === "-" || !(fenCastling.includes(castling[0]) || fenCastling.includes(castling[1]));
+const buildSquare = (backgroundAsset, file, reverseRank, piece) => {
+  return { src: backgroundAsset, letter: file, number: reverseRank, piece };
+};
+
+const buildPiece = (fenChar, file, reverseRank) => {
+  let pieceClass = FEN_Util.getCharPieceClass(fenChar);
+  return pieceClass ? new pieceClass(FEN_Util.getCharColor(fenChar), file, reverseRank) : null;
+};
+
+const updateRookOrKingMovedStatus = (piece, fenCastling) => {
+  let rank = piece.letter;
+  let castling = (piece.isWhite() ? "KQ" : "kq");
+
+  switch (piece.name) {
+  case "rook":
+    piece.hasMoved =
+      !(rank === "h" && fenCastling.includes(castling[0])) &&
+      !(rank === "a" && fenCastling.includes(castling[1]));
+    break;
+  case "king":
+    piece.hasMoved =
+      (fenCastling === "-") ||
+      !(fenCastling.includes(castling[0]) || fenCastling.includes(castling[1]));
+    break;
   }
 };
 
-const fenToJSON = (fen) => {
-  let fenSplit = fen.split(" ");
+const fenToJSON = (FEN) => {
+  let fenRows = FEN_Util.getBoardRows(FEN);
+  let fenCastling = FEN_Util.getCastlingFlags(FEN);
 
-  let fenBoard = fenSplit[0];
-  fenBoard = fenBoard.split("/");
+  const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h"];
+  const BOARD_SIZE = 8;
 
-  let fenCastling = fenSplit[2];
+  let loadedBoard = [];
 
-  let loadedBoard = [...Array(BOARD_SIZE)].map(_=>Array(BOARD_SIZE).fill(null));
+  // the other board generator has [8th rank] as [row 0], so 'r'
+  for (let r = 0; r < BOARD_SIZE; r++) {
+    let boardRow = [];
 
-  let isWhiteSquare = true;
-  for (let row = 0; row < BOARD_SIZE; row++) {
-    let fenRow = fenBoard[row];
-
-    let col = 0;
-
-    for (let j = 0; j < fenBoard[row].length; j++) {
-      let fenChar = fenRow[j];
-
+    let file = 0;
+    for (const fenChar of fenRows[r]) {
       if (isNaN(fenChar)) {
-        let colLetter = LETTERS[col];
+        let background = (r + file) % 2 === 0 ? whiteSquareSource : blackSquareSource;
+        let fileLetter = LETTERS[file];
 
-        let piece = buildPiece(fenChar, colLetter, row);
-        updateRookOrKingMovedStatus(piece, colLetter, fenCastling);
+        let piece = buildPiece(fenChar, fileLetter, r);
+        if (piece.name === "rook" || piece.name === "king")
+          updateRookOrKingMovedStatus(piece, fenCastling);
 
-        loadedBoard[row][col] = {
-          src: isWhiteSquare ? whiteSquareSource : blackSquareSource,
-          letter: colLetter,
-          number: row,
-          piece: piece
-        };
-
-        isWhiteSquare = !isWhiteSquare;
-        col++;
+        boardRow.push(buildSquare(background, fileLetter, r, piece));
+        file++;
       }
       else {
-        for (let i = 0; i < Number(fenChar); i++) {
-          loadedBoard[row][col] = {
-            src: isWhiteSquare ? whiteSquareSource : blackSquareSource,
-            letter: LETTERS[col],
-            number: row,
-            piece: null
-          };
+        for (let fc = 0; fc < Number(fenChar); fc++) {
+          let background = (r + file) % 2 === 0 ? whiteSquareSource : blackSquareSource;
 
-          isWhiteSquare = !isWhiteSquare;
-          col++;
+          boardRow.push(buildSquare(background, LETTERS[file], r, null));
+          file++;
         }
       }
     }
 
-    isWhiteSquare = !isWhiteSquare;
+    loadedBoard.push(boardRow);
   }
 
   //// DEBUG
   // console.table(loadedBoard);
-  // PrintBoardTilePosition(loadedBoard);
-  // PrintBoardTileColors(loadedBoard);
-  // PrintBoardPieces(loadedBoard);
-  // PrintBoardMovedStatus(loadedBoard);
+  PrintBoardTilePosition(loadedBoard);
+  PrintBoardTileColors(loadedBoard);
+  PrintBoardPieces(loadedBoard);
+  PrintBoardMovedStatus(loadedBoard);
   return loadedBoard;
 };
 
@@ -117,18 +121,17 @@ const PrintBoardPieces = board => {
   console.table(
     board.map(row =>
       row.map(square => {
-        if (square.piece === null)
-          return ".";
+        if (!square.piece) return ".";
 
         let piece = square.piece;
 
         switch (piece.name) {
-        case "rook": return piece.color === "white" ? "R" : "r";
-        case "king": return piece.color === "white" ? "K" : "k";
-        case "queen": return piece.color === "white" ? "Q" : "q";
-        case "pawn": return piece.color === "white" ? "P" : "p";
-        case "bishop": return piece.color === "white" ? "B" : "b";
-        case "knight": return piece.color === "white" ? "N" : "n";
+        case "rook":    return piece.isWhite() ? "R" : "r";
+        case "king":    return piece.isWhite() ? "K" : "k";
+        case "queen":   return piece.isWhite() ? "Q" : "q";
+        case "pawn":    return piece.isWhite() ? "P" : "p";
+        case "bishop":  return piece.isWhite() ? "B" : "b";
+        case "knight":  return piece.isWhite() ? "N" : "n";
         default: return "invalid";
         }
       })
@@ -140,8 +143,7 @@ const PrintBoardMovedStatus = board => {
   console.table(
     board.map(row =>
       row.map(square => {
-        if (square.piece === null)
-          return ".";
+        if (!square.piece) return ".";
 
         let piece = square.piece;
 
