@@ -3,10 +3,8 @@ import React, { useEffect } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import StatsCard from "../Profile/StatsCard";
 import { styles } from "../Profile/StatsCard";
-import createSocket from "../websocket";
 
-const PlayGameOptions = () => {
-  let socket;
+const PlayGameOptions = ({ navigation }) => {
   const requestTimeControls = {
     "Bullet 1": "BULLET_1",
     "Blitz 3": "BLITZ_3",
@@ -42,39 +40,9 @@ const PlayGameOptions = () => {
     }
   ];
 
-  useEffect(() => {
-    return () => {
-      if (socket) {
-        socket.close();
-        socket = null;
-      }
-    };
-  }, []);
-
-  const handlePress = async (requestTitle) => {
-    if (!socket ) {
-      try {
-        socket = await createSocket(
-          sessionStorage.getItem("username") || "defaultUsername"
-        );
-
-        socket.onmessage = function (event) {
-          console.log(event.data);
-          //if its created
-          //navigate to game screen
-        };
-
-        console.log(requestTitle, sessionStorage.getItem("userId"));
-      } catch (error) {
-        console.error("Error during joinGame:", error);
-        return;
-      }
-    }
-    socket.sendMessage({
-      action: "joinGame",
-      timeControl: requestTitle,
-      userId: sessionStorage.getItem("userId")
-    });
+  const handlePress = (requestTitle) => {
+    console.log(requestTitle);
+    navigation.navigate("localGame", { timeControl: requestTitle });
   };
 
   return (
