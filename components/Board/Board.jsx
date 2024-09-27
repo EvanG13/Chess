@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import { BoardSquare } from "../BoardSquare/BoardSquare";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import getStartingBoard, { getNumberFromLetter } from "../Board/board.js";
 import { LETTERS } from "../Board/board.js";
 import selectSquare from "./selectSquare.js";
@@ -16,8 +16,11 @@ import Logger from "../Logger/Logger.jsx";
 import handleNewGame from "./handleNewGame";
 import handleRematch from "./handleRematch";
 import { Switch } from "react-native-switch";
+import {BACKEND_BASE_URL} from "@env";
+import axios from "axios";
+import  createSocket from "../websocket.js";
 
-export const Board = () => {
+export const Board = ({route, navigation}) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
   const [board, setBoard] = useState(getStartingBoard()); // 8x8 array
   const [validMoves, setValidMoves] = useState([]);
@@ -26,16 +29,90 @@ export const Board = () => {
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
   const [log, setLog] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
+  const [isStarted, setIsStarted] = useState(false);
+  const [whiteTimer, setWhiteTimer] = useState();
+  const [blackTimer, setBlackTimer] = useState();
   const [kingSquare, setKingSquare] = useState({
     whiteKing: [7, 4],
     blackKing: [0, 4]
   });
+  const { timeControl } = route.params;
   const [blackSideBoard, setBlackSideBoard] = useState(true);
 
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const numberCol = ["8. ", "7. ", "6. ", "5. ", "4. ", "3. ", "2. ", "1. "];
+  let socket;
 
-  //TODO: fetch the board from the backend with sockets
+  //open the socket
+  useEffect( () =>{
+
+    const setupSocket = async () => {
+      if (!socket) {
+          try {
+            socket = await createSocket(
+              sessionStorage.getItem("userId")
+            );
+    
+            socket.onmessage = function (event) {
+              console.log(event.data);
+              //TODO handle messages from the server
+            };
+    
+          } catch (error) {
+            console.error("Error during joinGame:", error);
+            return;
+          }
+        }
+  }
+  const setupGame = async () =>{
+    if(sessionStorage.getItem("userId") == undefined){
+      navigation.navigate("login");
+      return;
+    }
+    await setupSocket();
+    //check if user is already in game (like on a refresh)
+    try{
+      const gameStateResponse = await axios.get(`${BACKEND_BASE_URL}/gameState`,
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("sessionToken"),
+            userid: sessionStorage.getItem("userId")
+          }
+      });
+      
+        console.log("user is in a game.");
+        //user is in a game so set the game state
+        const gameState = gameStateResponse.data;
+        console.log(gameState);
+      
+  } catch (error) {
+      if(error.response.status !== 404){
+        console.error("Error during getGameState:", error);
+        //TODO: handle this error -- the user can't get the game state regardless of if they are in a game or not
+        return;
+      }
+      //user is not in a game so try to find a game
+      console.log("user is not in a game.", error.response.status);
+      socket.sendMessage({
+            action: "joinGame",
+            timeControl,
+            userId: sessionStorage.getItem("userId")
+          });
+    }
+}
+  setupGame();
+}, []); 
+
+  //close the socket when component dismounts
+  useEffect(() => {
+    return () => {
+      if (socket) {
+        socket.close();
+        socket = null;
+      }
+    };
+  }, []);
+
 
   return (
     <View style={styles.boardAndLogger}>
