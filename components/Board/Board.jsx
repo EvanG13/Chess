@@ -1,8 +1,6 @@
 import {
   View,
-  StyleSheet,
   Text,
-  Button,
   SafeAreaView,
   TouchableOpacity,
   Image
@@ -21,6 +19,8 @@ import {BACKEND_BASE_URL} from "@env";
 import axios from "axios";
 import  createSocket from "../websocket.js";
 import loaderGif from "../../assets/appImages/loader.gif";
+import socketHandler from "./socketHandler.js";
+import  styles  from "./BoardStyles.js";
 
 export const Board = ({route, navigation}) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
@@ -55,10 +55,7 @@ export const Board = ({route, navigation}) => {
               sessionStorage.getItem("userId")
             );
     
-            socket.onmessage = function (event) {
-              console.log(event.data);
-              //TODO handle messages from the server
-            };
+            socket.onmessage = (event) => {socketHandler(event, {setIsStarted, setHasWon, setShowWinner}); }
     
           } catch (error) {
             console.error("Error during joinGame:", error);
@@ -258,65 +255,3 @@ export const Board = ({route, navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  board: {
-    flexDirection: "column"
-  },
-  fill: {
-    flex: 1
-  },
-  winnerText: {
-    textAlign: "center",
-    color: "black",
-    backgroundColor: "white"
-  },
-  darkGreen: {
-    backgroundColor: "#006400",
-    color: "white"
-  },
-  buttonText: {
-    color: "white",
-    textAlign: "center"
-  },
-  rightAlign: {
-    padding: "2%",
-    textAlign: "right"
-  },
-  boardContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "black"
-  },
-  boardAndLogger: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "black"
-  },
-  letters: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    width: "90%",
-    marginLeft: 40,
-    color: "white"
-  },
-  boardWithNumbers: {
-    flexDirection: "row",
-    color: "white"
-  },
-  flipped: {
-    transform: [{ rotate: "180deg" }]
-  },
-  loaderContainer:{
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)', // Semi-transparent background
-    zIndex: 1, 
-  }
-});
