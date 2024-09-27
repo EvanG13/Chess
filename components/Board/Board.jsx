@@ -4,7 +4,8 @@ import {
   Text,
   Button,
   SafeAreaView,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from "react-native";
 import { BoardSquare } from "../BoardSquare/BoardSquare";
 import React, { useState, useEffect } from "react";
@@ -19,6 +20,7 @@ import { Switch } from "react-native-switch";
 import {BACKEND_BASE_URL} from "@env";
 import axios from "axios";
 import  createSocket from "../websocket.js";
+import loaderGif from "../../assets/appImages/loader.gif";
 
 export const Board = ({route, navigation}) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
@@ -131,9 +133,14 @@ export const Board = ({route, navigation}) => {
         circleInActiveColor={"#000000"}
       />
       <View style={styles.boardContainer}>
-        <Text
+      { isStarted ? <Text
           style={{ color: "white", fontSize: 25, marginBottom: 10 }}
         >{`${isWhiteTurn ? "white" : "black"} player to move.`}</Text>
+      : <View style={styles.loaderContainer}>
+          <Image source={loaderGif} style={{width: 120, height: 120}}/> 
+          <Text style={{color: "white", margin: 10, fontSize: 30}}>Searching For Game...</Text>
+        </View>
+      }
         <View style={[styles.board, blackSideBoard && styles.flipped]}>
           {board.map((row, index) => {
             return (
@@ -300,5 +307,16 @@ const styles = StyleSheet.create({
   },
   flipped: {
     transform: [{ rotate: "180deg" }]
+  },
+  loaderContainer:{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)', // Semi-transparent background
+    zIndex: 1, 
   }
 });
