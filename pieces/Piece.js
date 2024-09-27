@@ -26,11 +26,11 @@ class Piece {
     return validMoves.some((move) => move[0] === row && move[1] === col);
   }
 
-  isWhite(){
+  isWhite() {
     return this.color === "white";
   }
 
-  isBlack(){
+  isBlack() {
     return this.color === "black";
   }
 }
