@@ -11,7 +11,7 @@
   },
   "plugins": ["react"],
   "rules": {
-    "indent": ["error", 2],
+    "indent": ["warn", 2], //prettier does not agree with this rule
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],

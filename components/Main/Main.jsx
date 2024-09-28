@@ -46,7 +46,10 @@ const Main = ({ navigation }) => {
             <Image source={tutorialImage} style={styles.tutorialImage} />
           </TouchableOpacity>
           {sessionStorage.getItem("userId") && (
-            <PlayGameOptions style={styles.onlineGamesContainer} />
+            <PlayGameOptions
+              style={styles.onlineGamesContainer}
+              navigation={navigation}
+            />
           )}
         </View>
       </View>

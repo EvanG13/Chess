@@ -23,7 +23,7 @@ const Login = ({ navigation }) => {
       });
 
       if (response.status == 200) {
-        const userResponse = await JSON.parse(response.data.user);
+        const userResponse = response.data.user;
         sessionStorage.setItem("sessionToken", response.data.token);
         sessionStorage.setItem("username", userResponse.username);
         sessionStorage.setItem("userId", userResponse.id);

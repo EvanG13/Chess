@@ -1,13 +1,13 @@
 import { BACKEND_WEB_SOCKET_URL as url } from "@env";
 
-const createSocket = async function (username) {
+const createSocket = async function (userId) {
   return new Promise(function (resolve, reject) {
-    let socket = new WebSocket(`${url}?username=${username}`);
+    let socket = new WebSocket(`${url}?userid=${userId}`);
     socket.onmessage = function (event) {
       console.log("Message received: " + event.data);
     };
 
-    socket.onclose = function (event) {
+    socket.onclose = function () {
       console.log("WebSocket is closed now.");
       socket = null; // Reset socket to null so it can be re-initialized
     };
