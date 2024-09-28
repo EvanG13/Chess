@@ -15,14 +15,14 @@ import Logger from "../Logger/Logger.jsx";
 import handleNewGame from "./handleNewGame";
 import handleRematch from "./handleRematch";
 import { Switch } from "react-native-switch";
-import {BACKEND_BASE_URL} from "@env";
+import { BACKEND_BASE_URL } from "@env";
 import axios from "axios";
-import  createSocket from "../websocket.js";
+import createSocket from "../websocket.js";
 import loaderGif from "../../assets/appImages/loader.gif";
 import socketHandler from "./socketHandler.js";
-import  styles  from "./BoardStyles.js";
+import styles from "./BoardStyles.js";
 
-export const Board = ({route, navigation}) => {
+export const Board = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
   const [board, setBoard] = useState(getStartingBoard()); // 8x8 array
   const [validMoves, setValidMoves] = useState([]);
@@ -46,61 +46,60 @@ export const Board = ({route, navigation}) => {
   let socket;
 
   //open the socket
-  useEffect( () =>{
-
+  useEffect(() => {
     const setupSocket = async () => {
       if (!socket) {
-          try {
-            socket = await createSocket(
-              sessionStorage.getItem("userId")
-            );
-    
-            socket.onmessage = (event) => {socketHandler(event, {setIsStarted, setHasWon, setShowWinner}); }
-    
-          } catch (error) {
-            console.error("Error during joinGame:", error);
-            return;
-          }
+        try {
+          socket = await createSocket(sessionStorage.getItem("userId"));
+
+          socket.onmessage = (event) => {
+            socketHandler(event, { setIsStarted, setHasWon, setShowWinner });
+          };
+        } catch (error) {
+          console.error("Error during joinGame:", error);
+          return;
         }
-  }
-  const setupGame = async () =>{
-    if(sessionStorage.getItem("userId") == undefined){
-      navigation.navigate("login");
-      return;
-    }
-    await setupSocket();
-    //check if user is already in game (like on a refresh)
-    try{
-      const gameStateResponse = await axios.get(`${BACKEND_BASE_URL}/gameState`,
-        {
-          headers: {
-            Authorization: sessionStorage.getItem("sessionToken"),
-            userid: sessionStorage.getItem("userId")
+      }
+    };
+    const setupGame = async () => {
+      if (sessionStorage.getItem("userId") == undefined) {
+        navigation.navigate("login");
+        return;
+      }
+      await setupSocket();
+      //check if user is already in game (like on a refresh)
+      try {
+        const gameStateResponse = await axios.get(
+          `${BACKEND_BASE_URL}/gameState`,
+          {
+            headers: {
+              Authorization: sessionStorage.getItem("sessionToken"),
+              userid: sessionStorage.getItem("userId")
+            }
           }
-      });
-      
+        );
+
         console.log("user is in a game.");
         //user is in a game so set the game state
         const gameState = gameStateResponse.data;
         console.log(gameState);
-      
-  } catch (error) {
-      if(error.response.status !== 404){
-        console.error("Error during getGameState:", error);
-        //TODO: handle this error -- the user can't get the game state regardless of if they are in a game or not
-        return;
+      } catch (error) {
+        if (error.response.status !== 404) {
+          console.error("Error during getGameState:", error);
+          //TODO: handle this error -- the user can't get the game state regardless of if they are in a game or not
+          return;
+        }
+        //user is not in a game so try to find a game
+        console.log("user is not in a game.", error.response.status);
+        socket.sendMessage({
+          action: "joinGame",
+          timeControl,
+          userId: sessionStorage.getItem("userId")
+        });
       }
-      //user is not in a game so try to find a game
-      console.log("user is not in a game.", error.response.status);
-      socket.sendMessage({
-            action: "joinGame",
-            timeControl,
-            userId: sessionStorage.getItem("userId")
-          });
-    }
-}
-  setupGame();
-}, []); 
+    };
+    setupGame();
+  }, []);
 
   //close the socket when component dismounts
   useEffect(() => {
@@ -111,7 +110,6 @@ export const Board = ({route, navigation}) => {
       }
     };
   }, []);
-
 
   return (
     <View style={styles.boardAndLogger}>
@@ -130,14 +128,18 @@ export const Board = ({route, navigation}) => {
         circleInActiveColor={"#000000"}
       />
       <View style={styles.boardContainer}>
-      { isStarted ? <Text
-          style={{ color: "white", fontSize: 25, marginBottom: 10 }}
-        >{`${isWhiteTurn ? "white" : "black"} player to move.`}</Text>
-      : <View style={styles.loaderContainer}>
-          <Image source={loaderGif} style={{width: 120, height: 120}}/> 
-          <Text style={{color: "white", margin: 10, fontSize: 30}}>Searching For Game...</Text>
-        </View>
-      }
+        {isStarted ? (
+          <Text
+            style={{ color: "white", fontSize: 25, marginBottom: 10 }}
+          >{`${isWhiteTurn ? "white" : "black"} player to move.`}</Text>
+        ) : (
+          <View style={styles.loaderContainer}>
+            <Image source={loaderGif} style={{ width: 120, height: 120 }} />
+            <Text style={{ color: "white", margin: 10, fontSize: 30 }}>
+              Searching For Game...
+            </Text>
+          </View>
+        )}
         <View style={[styles.board, blackSideBoard && styles.flipped]}>
           {board.map((row, index) => {
             return (
@@ -254,4 +256,3 @@ export const Board = ({route, navigation}) => {
     </View>
   );
 };
-
