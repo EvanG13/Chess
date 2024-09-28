@@ -7,7 +7,7 @@ const createSocket = async function (userId) {
       console.log("Message received: " + event.data);
     };
 
-    socket.onclose = function (event) {
+    socket.onclose = function () {
       console.log("WebSocket is closed now.");
       socket = null; // Reset socket to null so it can be re-initialized
     };
