@@ -86,10 +86,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   textParagraph: {
+    marginTop: "12%",
     width: "30%",
     height: "100%",
-    justifyContent: "center",
-    // alignItems: "center"
+   // justifyContent: "center",
+    //alignItems: "center"
   },
   mainBody: {
     height: "80%",
