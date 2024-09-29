@@ -2,17 +2,14 @@ import {
   View,
   StyleSheet,
   Text,
-  Button,
   TouchableOpacity,
   Image,
-  Dimensions,
-  Pressable
+  Dimensions //TODO: use the window listener to update the width and height of the page if user changes the window size
 } from "react-native";
 import MainHeader from "./MainHeader";
-import greenPieces from "../../assets/appImages/greenPieces.jpg";
-import tutorialImage from "../../assets/appImages/chessTutorial.jpeg";
 import chessBoardImg from "../../assets/appImages/chessboard.png";
 import PlayGameOptions from "./PlayGameOptions";
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,7 +23,9 @@ const Main = ({ navigation }) => {
           <Text style={styles.paragraphHeader}>Stock Trout</Text>
           <Text style={styles.text}>
             Play chess online. <br></br>
-            Learn chess through our Tutorial. <br></br>
+            Learn chess through our <Text style={{color: "blue"}} onPress={() => navigation.navigate('tutorial')}>
+          Tutorial
+        </Text>. <br></br>
             Play chess locally. <br></br>
             Practice infinte puzzles. <br></br>
             TikTok, Instagram Reels, Youtube shorts. <br></br>
