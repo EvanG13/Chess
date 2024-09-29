@@ -14,11 +14,14 @@ const handleSocket = (event, setters) => {
     case Actions.MOVE_MADE:
       console.log(data);
       break;
+    case Actions.GAME_CREATED:
+      console.log(data);
+      break;
     case Actions.CHAT_MESSAGE:
       console.log(data);
       break;
     default:
-      console.log(data);
+      console.log(event);
   }
 };
 
