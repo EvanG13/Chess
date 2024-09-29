@@ -5,7 +5,8 @@ import {
   Button,
   TouchableOpacity,
   Image,
-  Dimensions
+  Dimensions,
+  Pressable
 } from "react-native";
 import MainHeader from "./MainHeader";
 import greenPieces from "../../assets/appImages/greenPieces.jpg";
@@ -21,19 +22,22 @@ const Main = ({ navigation }) => {
       <MainHeader navigation={navigation} />
       <View style={styles.mainBody}>
         <Image source={chessBoardImg} style={styles.pageHero} />
-        <TouchableOpacity
-            style={styles.tutorial}
-            onPress={() => {
-              navigation.navigate("tutorial");
-            }}
-          >
-            <Text style={{ color: "white", fontSize: 20 }}>Chess Tutorial</Text>
-            <Image source={tutorialImage} style={styles.tutorialImage} />
-          </TouchableOpacity>
-          <View style={styles.buttonContainer}>
+        <View style={styles.textParagraph}>
+          <Text style={styles.paragraphHeader}>Stock Trout</Text>
+          <Text style={styles.text}>
+            Play chess online. <br></br>
+            Learn chess through our Tutorial. <br></br>
+            Play chess locally. <br></br>
+            Practice infinte puzzles. <br></br>
+            TikTok, Instagram Reels, Youtube shorts. <br></br>
+            Temple Run and epic fails.<br></br>
+            Have fun
+          </Text>
+        </View>
+        <View style={styles.buttonContainer}>
          
              {sessionStorage.getItem("userId") &&
-            <Text style={styles.cardHeader}>Play Online</Text>
+            <Text style={styles.paragraphHeader}>Play Online</Text>
              }
              {sessionStorage.getItem("userId") && (
             <PlayGameOptions
@@ -41,13 +45,15 @@ const Main = ({ navigation }) => {
             />
             
           )}
-             <Button
+             <TouchableOpacity
               style={styles.localGameButton}
-              title="Local Game"
+            
               onPress={() => {
                 navigation.navigate("localGame");
               }}
-            />
+            >
+              <Text style={{color: "white", fontSize: "20"}}>Local Game</Text>
+            </TouchableOpacity>
           </View>
       </View>
     </View>
@@ -67,6 +73,25 @@ const styles = StyleSheet.create({
     color: "white",
     marginBottom: "5%"
   },
+  text: {
+    color: "white",
+    fontSize: 20,
+    fontFamily: "Arial",
+
+  },
+  paragraphHeader: {
+    color: "white",
+    fontSize: 30,
+    marginBottom: "5%",
+    fontFamily: "Roboto",
+    fontWeight: "bold"
+  },
+  textParagraph: {
+    width: "30%",
+    height: "100%",
+    justifyContent: "center",
+    // alignItems: "center"
+  },
   mainBody: {
     height: "80%",
     width: "100%",
@@ -80,8 +105,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: .2 * width,
     height: height * .7,
+    marginTop: "5%",
     marginBottom: "5%",
-    backgroundColor: "green",
+    backgroundColor: "black",
     padding: 10,
     borderRadius: 10,
   },
@@ -99,9 +125,15 @@ const styles = StyleSheet.create({
     height: width * 0.28
   },
   localGameButton: {
+    height: 50,
+    width: 200,
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    padding: 10,
+    fontSize: 20,
     marginTop: "5%",
-    height: 30,
-    width: 30
   },
   onlineGamesContainer: {
     height: "60%",
