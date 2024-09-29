@@ -4,39 +4,24 @@ import {
   Text,
   Button,
   TouchableOpacity,
-  Image
+  Image,
+  Dimensions
 } from "react-native";
 import MainHeader from "./MainHeader";
 import greenPieces from "../../assets/appImages/greenPieces.jpg";
 import tutorialImage from "../../assets/appImages/chessTutorial.jpeg";
-import pageHero from "../../assets/appImages/pageHero.png";
+import chessBoardImg from "../../assets/appImages/chessboard.png";
 import PlayGameOptions from "./PlayGameOptions";
+
+const { width, height } = Dimensions.get('window');
 
 const Main = ({ navigation }) => {
   return (
     <View style={styles.main}>
       <MainHeader navigation={navigation} />
       <View style={styles.mainBody}>
-        <Text style={styles.siteHeader}>StockTrout</Text>
-        <Image source={pageHero} style={styles.pageHero} />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-around",
-            width: "100%"
-          }}
-        >
-          <View style={{ height: "40%", width: "20%", borderRadius: 10 }}>
-            <Image source={greenPieces} style={styles.greenPieces} />
-            <Button
-              style={styles.localGameButton}
-              title="Start Local Game"
-              onPress={() => {
-                navigation.navigate("localGame");
-              }}
-            />
-          </View>
-          <TouchableOpacity
+        <Image source={chessBoardImg} style={styles.pageHero} />
+        <TouchableOpacity
             style={styles.tutorial}
             onPress={() => {
               navigation.navigate("tutorial");
@@ -45,13 +30,25 @@ const Main = ({ navigation }) => {
             <Text style={{ color: "white", fontSize: 20 }}>Chess Tutorial</Text>
             <Image source={tutorialImage} style={styles.tutorialImage} />
           </TouchableOpacity>
-          {sessionStorage.getItem("userId") && (
+          <View style={styles.buttonContainer}>
+         
+             {sessionStorage.getItem("userId") &&
+            <Text style={styles.cardHeader}>Play Online</Text>
+             }
+             {sessionStorage.getItem("userId") && (
             <PlayGameOptions
-              style={styles.onlineGamesContainer}
               navigation={navigation}
             />
+            
           )}
-        </View>
+             <Button
+              style={styles.localGameButton}
+              title="Local Game"
+              onPress={() => {
+                navigation.navigate("localGame");
+              }}
+            />
+          </View>
       </View>
     </View>
   );
@@ -75,34 +72,48 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "black",
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-around"
+           
   },
-  greenPieces: {
-    width: "30%",
-    height: "30%"
+  buttonContainer: {
+    width: .2 * width,
+    height: height * .7,
+    marginBottom: "5%",
+    backgroundColor: "green",
+    padding: 10,
+    borderRadius: 10,
   },
   tutorial: {
-    width: 120,
-    height: 120
+    width: width * 0.28,
+    height: width * 0.28,
   },
   tutorialImage: {
     width: "80%",
     height: "80%"
   },
   pageHero: {
-    marginBottom: "5%",
-    width: "15%",
-    height: "15%"
+    marginBottom: "2%",
+    width: width * 0.28,
+    height: width * 0.28
   },
   localGameButton: {
+    marginTop: "5%",
     height: 30,
     width: 30
   },
   onlineGamesContainer: {
     height: "60%",
     width: "60%"
+  },
+  cardHeader: {
+    color: "white",
+    fontSize: 20,
+    textAlign: "center",
+    marginBottom: "5%"
   }
+  
 });
 
 export default Main;
