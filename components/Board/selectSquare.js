@@ -2,6 +2,7 @@ import { getNumberFromLetter } from "../Board/board.js";
 import { LETTERS } from "../Board/board.js";
 import King from "../../pieces/King.js";
 import convertToChessNotation from "../Logger/toChessNotation.js";
+import Actions from "../../types/Actions.js";
 
 const selectSquare = (
   number,
@@ -22,7 +23,8 @@ const selectSquare = (
   setLog,
   log,
   setMoveIndex,
-  moveIndex
+  moveIndex,
+  socket
 ) => {
   if (moveIndex !== log.length - 1) {
     alert("Please move to the last move to make a move.");
@@ -114,6 +116,16 @@ const selectSquare = (
     newBoard[row][col].piece.letter = LETTERS[col + 1];
     newBoard[row][col].piece.number = row;
     newBoard[selectedSquare[0]][selectedSquare[1]].piece = null;
+    //emit move to backend
+    const fromTo = `${LETTERS[selectedSquare[1]+1]}${8 - selectedSquare[0]}${LETTERS[col+1]}${8 - row}`;
+    console.log(fromTo);
+    console.log(JSON.stringify(socket));
+    socket.sendMessage({
+      action: Actions.MOVE_MADE,
+      move: fromTo,
+      gameId: sessionStorage.getItem("gameId"),
+      playerId: sessionStorage.getItem("userId")
+    });
     setBoard(newBoard);
     setSelectedSquare([]);
     setValidMoves([]);

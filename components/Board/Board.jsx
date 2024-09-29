@@ -31,19 +31,20 @@ export const Board = ({ route, navigation }) => {
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
   const [log, setLog] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
-  const [isStarted, setIsStarted] = useState(false);
+  const [isStarted, setIsStarted] = useState(true);
   const [whiteTimer, setWhiteTimer] = useState();
   const [blackTimer, setBlackTimer] = useState();
   const [kingSquare, setKingSquare] = useState({
     whiteKing: [7, 4],
     blackKing: [0, 4]
   });
-  const { timeControl } = route.params;
+  let [socket, setSocket] = useState(null);
   const [blackSideBoard, setBlackSideBoard] = useState(true);
 
+
+  const { timeControl } = route.params;
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const numberCol = ["8. ", "7. ", "6. ", "5. ", "4. ", "3. ", "2. ", "1. "];
-  let socket;
 
   //open the socket
   useEffect(() => {
@@ -51,10 +52,12 @@ export const Board = ({ route, navigation }) => {
       if (!socket) {
         try {
           socket = await createSocket(sessionStorage.getItem("userId"));
-
-          socket.onmessage = (event) => {
-            socketHandler(event, { setIsStarted, setHasWon, setShowWinner });
+          const setters = { setIsStarted, setHasWon, setShowWinner }
+          socket.onmessage = function(event){
+            console.log("inside onmessage");
+            socketHandler(event, setters);
           };
+          setSocket(socket);
         } catch (error) {
           console.error("Error during joinGame:", error);
           return;
@@ -184,7 +187,8 @@ export const Board = ({ route, navigation }) => {
                           setLog,
                           log,
                           setMoveIndex,
-                          moveIndex
+                          moveIndex,
+                          socket
                         );
                       }}
                       isSelected={
