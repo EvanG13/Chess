@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { View, StyleSheet, Text } from "react-native";
 import StatsCard from "../Profile/StatsCard";
-import { styles } from "../Profile/StatsCard";
+// import { styles } from "../Profile/StatsCard";
 
 const PlayGameOptions = ({ navigation }) => {
   const requestTimeControls = {
@@ -47,8 +47,7 @@ const PlayGameOptions = ({ navigation }) => {
 
   return (
     <View>
-      <Text>Play Game Options</Text>
-      <View style={styles.statCards}>
+      <View style={styles.cardContainer}>
         {timeControls.map((control, index) => {
           return (
             <StatsCard
@@ -64,5 +63,16 @@ const PlayGameOptions = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+
+  cardContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap"
+  }
+});
 
 export default PlayGameOptions;
