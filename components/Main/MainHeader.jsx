@@ -58,7 +58,7 @@ const MainHeader = ({ navigation }) => {
         <TouchableOpacity
           style={styles.navItem}
           onPress={() => {
-            navigation.navigate("Tutorial");
+            navigation.navigate("tutorial");
           }}
         >
           <Text style={{ color: "white" }}>Learn</Text>
@@ -66,7 +66,7 @@ const MainHeader = ({ navigation }) => {
         <TouchableOpacity
           style={styles.navItem}
           onPress={() => {
-            navigation.navigate("Tutorial");
+            navigation.navigate("tutorial");
           }}
         >
           <Text style={{ color: "white" }}>Puzzles</Text>
