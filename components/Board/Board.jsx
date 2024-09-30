@@ -38,7 +38,7 @@ export const Board = ({ route, navigation }) => {
     whiteKing: [7, 4],
     blackKing: [0, 4]
   });
-  const { timeControl } = route.params;
+  const { timeControl, isLocalGame } = route.params;
   const [blackSideBoard, setBlackSideBoard] = useState(true);
 
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];

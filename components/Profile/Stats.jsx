@@ -33,20 +33,15 @@ const Stats = ({ navigation }) => {
       setSessionToken(token);
       setUsername(username);
       try {
-        const response = await axios.post(
-          `${BACKEND_BASE_URL}/stats`,
-          {}, // Pass an empty object if there's no data to send in the body
-          {
-            headers: {
-              Authorization: token,
-              userId: userId
-            }
+        const response = await axios.get(`${BACKEND_BASE_URL}/stats`, {
+          headers: {
+            Authorization: token,
+            userId: userId
           }
-        );
+        });
 
         const userData = response.data;
-        console.log(userData);
-        setUserData(userData);
+        setTotals(userData);
       } catch (error) {
         console.log(error);
       }
@@ -58,6 +53,17 @@ const Stats = ({ navigation }) => {
     getUserData();
   }, [navigation]);
 
+  const setTotals = (data) => {
+    if (data) {
+      data.totalWins = data.blitz.wins + data.bullet.wins + data.rapid.wins;
+      data.totalLosses =
+        data.blitz.losses + data.bullet.losses + data.rapid.losses;
+      data.totalDraws = data.blitz.draws + data.bullet.draws + data.rapid.draws;
+      setUserData(data);
+    } else {
+      console.log("No data found");
+    }
+  };
   return (
     <View>
       <MainHeader navigation={navigation} />
@@ -65,9 +71,9 @@ const Stats = ({ navigation }) => {
       <Text>{username}</Text>
       {userData ? (
         <>
-          <Text>Games won: {userData.won}</Text>
-          <Text>Games lost: {userData.lost}</Text>
-          <Text>Games drawn: {userData.draws}</Text>
+          <Text>Total Games won: {userData.totalWins}</Text>
+          <Text>Total Games lost: {userData.totalLosses}</Text>
+          <Text>Total Games drawn: {userData.totalDraws}</Text>
         </>
       ) : (
         <Text>Loading...</Text>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import logo from "../../assets/appImages/logo.png";
 import { useIsFocused } from "@react-navigation/native";
 import axios from "axios";
 import { BACKEND_BASE_URL } from "@env";
@@ -45,6 +46,7 @@ const MainHeader = ({ navigation }) => {
     <View style={styles.mainHeader}>
       <View style={styles.paddingLeft}></View>
       <View style={styles.navBar}>
+        <Image source={logo} style={styles.logo} />
         <TouchableOpacity
           style={styles.navItem}
           onPress={() => {
@@ -52,6 +54,22 @@ const MainHeader = ({ navigation }) => {
           }}
         >
           <Text style={{ color: "white" }}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => {
+            navigation.navigate("Tutorial");
+          }}
+        >
+          <Text style={{ color: "white" }}>Learn</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => {
+            navigation.navigate("Tutorial");
+          }}
+        >
+          <Text style={{ color: "white" }}>Puzzles</Text>
         </TouchableOpacity>
         {sessionToken ? (
           <>
@@ -95,24 +113,26 @@ const MainHeader = ({ navigation }) => {
 const styles = StyleSheet.create({
   mainHeader: {
     flexDirection: "row",
-    backgroundColor: "black",
+    backgroundColor: "green",
     height: "10%",
     width: "100%",
     alignItems: "center"
   },
-  paddingLeft: {
-    flex: 1
-  },
   navBar: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    flex: 1, // Take up remaining space
+    alignItems: "center",
+    width: "50%",
     marginLeft: 10,
     marginRight: 10
   },
   navItem: {
-    backgroundColor: "black",
+    backgroundColor: "green",
     color: "white"
+  },
+  logo: {
+    height: 60,
+    width: 60
   }
 });
 
