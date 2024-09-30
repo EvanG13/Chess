@@ -2,7 +2,7 @@ import { getNumberFromLetter } from "../Board/board.js";
 import { LETTERS } from "../Board/board.js";
 import King from "../../pieces/King.js";
 import convertToChessNotation from "../Logger/toChessNotation.js";
-import Actions from "../../types/Actions.js";
+import  {EmitActions} from "../../types/Actions.js";
 
 const selectSquare = (
   number,
@@ -121,16 +121,16 @@ const selectSquare = (
     console.log(fromTo);
     console.log(JSON.stringify(socket));
     socket.sendMessage({
-      action: Actions.MOVE_MADE,
+      action: EmitActions.MOVE_MADE,
       move: fromTo,
       gameId: sessionStorage.getItem("gameId"),
       playerId: sessionStorage.getItem("userId")
     });
-    setBoard(newBoard);
+    // setBoard(newBoard);
     setSelectedSquare([]);
     setValidMoves([]);
-    let newTurn = !isWhiteTurn;
-    setIsWhiteTurn(newTurn);
+    // let newTurn = !isWhiteTurn;
+    // setIsWhiteTurn(newTurn);
     // check if the new player is in checkmate
     let newPlayerColor = isWhiteTurn ? "black" : "white";
     let [kingRow, kingCol] = kingSquare[`${newPlayerColor}King`];
