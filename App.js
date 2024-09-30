@@ -18,7 +18,11 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator style={styles.container}>
         <Stack.Screen name="Chess" component={Main} />
-        <Stack.Screen name="localGame" component={Board} />
+        <Stack.Screen
+          name="localGame"
+          component={Board}
+          initialParams={{ isLocalGame: true }}
+        />
         <Stack.Screen name="onlineGame" component={Board} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="register" component={Register} />

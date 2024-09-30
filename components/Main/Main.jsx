@@ -10,8 +10,7 @@ import MainHeader from "./MainHeader";
 import chessBoardImg from "../../assets/appImages/chessboard.png";
 import PlayGameOptions from "./PlayGameOptions";
 
-
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 const Main = ({ navigation }) => {
   return (
@@ -23,9 +22,14 @@ const Main = ({ navigation }) => {
           <Text style={styles.paragraphHeader}>Stock Trout</Text>
           <Text style={styles.text}>
             Play chess online. <br></br>
-            Learn chess through our <Text style={{color: "blue"}} onPress={() => navigation.navigate('tutorial')}>
-          Tutorial
-        </Text>. <br></br>
+            Learn chess through our{" "}
+            <Text
+              style={{ color: "blue" }}
+              onPress={() => navigation.navigate("tutorial")}
+            >
+              Tutorial
+            </Text>
+            . <br></br>
             Play chess locally. <br></br>
             Practice infinte puzzles. <br></br>
             TikTok, Instagram Reels, Youtube shorts. <br></br>
@@ -34,26 +38,21 @@ const Main = ({ navigation }) => {
           </Text>
         </View>
         <View style={styles.buttonContainer}>
-         
-             {sessionStorage.getItem("userId") &&
+          {sessionStorage.getItem("userId") && (
             <Text style={styles.paragraphHeader}>Play Online</Text>
-             }
-             {sessionStorage.getItem("userId") && (
-            <PlayGameOptions
-              navigation={navigation}
-            />
-            
           )}
-             <TouchableOpacity
-              style={styles.localGameButton}
-            
-              onPress={() => {
-                navigation.navigate("localGame");
-              }}
-            >
-              <Text style={{color: "white", fontSize: "20"}}>Local Game</Text>
-            </TouchableOpacity>
-          </View>
+          {sessionStorage.getItem("userId") && (
+            <PlayGameOptions navigation={navigation} />
+          )}
+          <TouchableOpacity
+            style={styles.localGameButton}
+            onPress={() => {
+              navigation.navigate("localGame");
+            }}
+          >
+            <Text style={{ color: "white", fontSize: "20" }}>Local Game</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -75,8 +74,7 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 20,
-    fontFamily: "Arial",
-
+    fontFamily: "Arial"
   },
   paragraphHeader: {
     color: "white",
@@ -88,8 +86,8 @@ const styles = StyleSheet.create({
   textParagraph: {
     marginTop: "12%",
     width: "30%",
-    height: "100%",
-   // justifyContent: "center",
+    height: "100%"
+    // justifyContent: "center",
     //alignItems: "center"
   },
   mainBody: {
@@ -100,20 +98,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-around"
-           
   },
   buttonContainer: {
-    width: .2 * width,
-    height: height * .7,
+    width: 0.2 * width,
+    height: height * 0.7,
     marginTop: "5%",
     marginBottom: "5%",
     backgroundColor: "black",
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 10
   },
   tutorial: {
     width: width * 0.28,
-    height: width * 0.28,
+    height: width * 0.28
   },
   tutorialImage: {
     width: "80%",
@@ -133,7 +130,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     fontSize: 20,
-    marginTop: "5%",
+    marginTop: "5%"
   },
   onlineGamesContainer: {
     height: "60%",
@@ -145,7 +142,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: "5%"
   }
-  
 });
 
 export default Main;

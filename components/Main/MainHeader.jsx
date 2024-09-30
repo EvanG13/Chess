@@ -56,21 +56,21 @@ const MainHeader = ({ navigation }) => {
           <Text style={{ color: "white" }}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity
-              style={styles.navItem}
-              onPress={() => {
-                navigation.navigate("Tutorial");
-              }}
-            >
-              <Text style={{ color: "white" }}>Learn</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.navItem}
-              onPress={() => {
-                navigation.navigate("Tutorial");
-              }}
-            >
-              <Text style={{ color: "white" }}>Puzzles</Text>
-            </TouchableOpacity>
+          style={styles.navItem}
+          onPress={() => {
+            navigation.navigate("Tutorial");
+          }}
+        >
+          <Text style={{ color: "white" }}>Learn</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => {
+            navigation.navigate("Tutorial");
+          }}
+        >
+          <Text style={{ color: "white" }}>Puzzles</Text>
+        </TouchableOpacity>
         {sessionToken ? (
           <>
             <TouchableOpacity

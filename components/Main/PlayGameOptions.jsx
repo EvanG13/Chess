@@ -65,7 +65,6 @@ const PlayGameOptions = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-
   cardContainer: {
     display: "flex",
     flexDirection: "row",

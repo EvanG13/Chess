@@ -13,24 +13,21 @@ const GameStat = ({ navigation }) => {
     const getData = async () => {
       let userData = null;
       try {
-        const response = await axios.get(
-          `${BACKEND_BASE_URL}/stats`,
-          {
-            headers: {
-              Authorization: sessionStorage.getItem("sessionToken"),
-              userId: sessionStorage.getItem("userId")
-            }
+        const response = await axios.get(`${BACKEND_BASE_URL}/stats`, {
+          headers: {
+            Authorization: sessionStorage.getItem("sessionToken"),
+            userId: sessionStorage.getItem("userId")
           }
-        );
+        });
 
         userData = response.data;
         userData = userData[timeControl.split(" ")[0].toLowerCase()];
-        
+
         console.log(userData);
       } catch (error) {
         console.log(error);
       }
-      setGameStats({...userData});
+      setGameStats({ ...userData });
     };
     if (!sessionStorage.getItem("sessionToken")) {
       navigation.navigate("login");
@@ -40,16 +37,17 @@ const GameStat = ({ navigation }) => {
   }, []);
   return (
     <View>
-      { gameStats  ?
-      (
-      <View>
-        <Text>{timeControl}</Text>
-        <Text>Wins: {gameStats.wins}</Text>
-        <Text>Losses: {gameStats.losses}</Text>
-        <Text>Draws: {gameStats.draws}</Text>
-        <Text>Rating: {gameStats.rating}</Text>
-      </View>) : <Text>Loading...</Text>
-      }
+      {gameStats ? (
+        <View>
+          <Text>{timeControl}</Text>
+          <Text>Wins: {gameStats.wins}</Text>
+          <Text>Losses: {gameStats.losses}</Text>
+          <Text>Draws: {gameStats.draws}</Text>
+          <Text>Rating: {gameStats.rating}</Text>
+        </View>
+      ) : (
+        <Text>Loading...</Text>
+      )}
     </View>
   );
 };

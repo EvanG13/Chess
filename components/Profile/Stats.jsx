@@ -33,15 +33,12 @@ const Stats = ({ navigation }) => {
       setSessionToken(token);
       setUsername(username);
       try {
-        const response = await axios.get(
-          `${BACKEND_BASE_URL}/stats`,
-          {
-            headers: {
-              Authorization: token,
-              userId: userId
-            }
+        const response = await axios.get(`${BACKEND_BASE_URL}/stats`, {
+          headers: {
+            Authorization: token,
+            userId: userId
           }
-        );
+        });
 
         const userData = response.data;
         setTotals(userData);
@@ -56,16 +53,17 @@ const Stats = ({ navigation }) => {
     getUserData();
   }, [navigation]);
 
-  const setTotals = (data) =>{
-      if(data) {
-        data.totalWins = data.blitz.wins + data.bullet.wins + data.rapid.wins;
-        data.totalLosses = data.blitz.losses + data.bullet.losses + data.rapid.losses;
-        data.totalDraws = data.blitz.draws + data.bullet.draws + data.rapid.draws;
-        setUserData(data);
-      } else{
-        console.log("No data found");
-      }
-  }
+  const setTotals = (data) => {
+    if (data) {
+      data.totalWins = data.blitz.wins + data.bullet.wins + data.rapid.wins;
+      data.totalLosses =
+        data.blitz.losses + data.bullet.losses + data.rapid.losses;
+      data.totalDraws = data.blitz.draws + data.bullet.draws + data.rapid.draws;
+      setUserData(data);
+    } else {
+      console.log("No data found");
+    }
+  };
   return (
     <View>
       <MainHeader navigation={navigation} />
