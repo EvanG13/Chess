@@ -24,6 +24,7 @@ import styles from "./BoardStyles.js";
 
 export const Board = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
+  const [isWhite, setIsWhite] = useState(false);
   const [board, setBoard] = useState(getStartingBoard()); // 8x8 array
   const [validMoves, setValidMoves] = useState([]);
   const [hasWon, setHasWon] = useState(false);
@@ -31,7 +32,7 @@ export const Board = ({ route, navigation }) => {
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
   const [log, setLog] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
-  const [isStarted, setIsStarted] = useState(true);
+  const [isStarted, setIsStarted] = useState(false);
   const [whiteTimer, setWhiteTimer] = useState();
   const [blackTimer, setBlackTimer] = useState();
   const [kingSquare, setKingSquare] = useState({
@@ -42,7 +43,7 @@ export const Board = ({ route, navigation }) => {
   const [blackSideBoard, setBlackSideBoard] = useState(true);
 
 
-  const { timeControl } = route.params;
+  const { timeControl, isLocalGame } = route.params;
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const numberCol = ["8. ", "7. ", "6. ", "5. ", "4. ", "3. ", "2. ", "1. "];
 
@@ -52,7 +53,7 @@ export const Board = ({ route, navigation }) => {
       if (!socket) {
         try {
           socket = await createSocket(sessionStorage.getItem("userId"));
-          const setters = { setIsStarted, setHasWon, setShowWinner }
+          const setters = { setIsStarted, setHasWon, setShowWinner, setBoard, setIsWhiteTurn }
           socket.onmessage = function(event){
             console.log("inside onmessage");
             socketHandler(event, setters);
