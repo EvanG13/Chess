@@ -34,7 +34,7 @@ const Main = ({ navigation }) => {
             Practice infinte puzzles. <br></br>
             TikTok, Instagram Reels, Youtube shorts. <br></br>
             Temple Run and epic fails.<br></br>
-            Have fun
+            Have fun!
           </Text>
         </View>
         <View style={styles.buttonContainer}>
@@ -74,14 +74,15 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 20,
-    fontFamily: "Arial"
+    fontFamily: "Arial",
   },
   paragraphHeader: {
     color: "white",
     fontSize: 30,
     marginBottom: "5%",
     fontFamily: "Roboto",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    textAlign: "center"
   },
   textParagraph: {
     marginTop: "12%",
@@ -106,7 +107,8 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
     backgroundColor: "black",
     padding: 10,
-    borderRadius: 10
+    borderRadius: 10,
+    alignItems: "center",
   },
   tutorial: {
     width: width * 0.28,
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     fontSize: 20,
-    marginTop: "5%"
+    marginTop: "5%",
   },
   onlineGamesContainer: {
     height: "60%",
