@@ -129,7 +129,7 @@ const selectSquare = (
     // setBoard(newBoard);
     setSelectedSquare([]);
     setValidMoves([]);
-    // let newTurn = !isWhiteTurn;
+    let newTurn = !isWhiteTurn;
     // setIsWhiteTurn(newTurn);
     // check if the new player is in checkmate
     let newPlayerColor = isWhiteTurn ? "black" : "white";
