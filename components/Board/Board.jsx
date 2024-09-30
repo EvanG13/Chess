@@ -39,9 +39,10 @@ export const Board = ({ route, navigation }) => {
     blackKing: [0, 4]
   });
   let [socket, setSocket] = useState(null);
-  const { timeControl, isLocalGame } = route.params;
   const [blackSideBoard, setBlackSideBoard] = useState(true);
 
+
+  const { timeControl } = route.params;
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const numberCol = ["8. ", "7. ", "6. ", "5. ", "4. ", "3. ", "2. ", "1. "];
 
