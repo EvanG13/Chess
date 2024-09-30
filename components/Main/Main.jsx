@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 20,
-    fontFamily: "Arial",
+    fontFamily: "Arial"
   },
   paragraphHeader: {
     color: "white",
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     padding: 10,
     borderRadius: 10,
-    alignItems: "center",
+    alignItems: "center"
   },
   tutorial: {
     width: width * 0.28,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     fontSize: 20,
-    marginTop: "5%",
+    marginTop: "5%"
   },
   onlineGamesContainer: {
     height: "60%",
