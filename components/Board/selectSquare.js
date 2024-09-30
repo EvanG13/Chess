@@ -2,7 +2,7 @@ import { getNumberFromLetter } from "../Board/board.js";
 import { LETTERS } from "../Board/board.js";
 import King from "../../pieces/King.js";
 import convertToChessNotation from "../Logger/toChessNotation.js";
-import  {EmitActions} from "../../types/Actions.js";
+import { EmitActions } from "../../types/Actions.js";
 
 const selectSquare = (
   number,
@@ -117,7 +117,7 @@ const selectSquare = (
     newBoard[row][col].piece.number = row;
     newBoard[selectedSquare[0]][selectedSquare[1]].piece = null;
     //emit move to backend
-    const fromTo = `${LETTERS[selectedSquare[1]+1]}${8 - selectedSquare[0]}${LETTERS[col+1]}${8 - row}`;
+    const fromTo = `${LETTERS[selectedSquare[1] + 1]}${8 - selectedSquare[0]}${LETTERS[col + 1]}${8 - row}`;
     console.log(fromTo);
     console.log(JSON.stringify(socket));
     socket.sendMessage({

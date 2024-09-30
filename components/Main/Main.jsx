@@ -9,7 +9,7 @@ import {
 import MainHeader from "./MainHeader";
 import chessBoardImg from "../../assets/appImages/chessboard.png";
 import PlayGameOptions from "./PlayGameOptions";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
 
@@ -18,7 +18,6 @@ const Main = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-
     setIsLoggedIn(sessionStorage.getItem("userId") ? true : false);
   }, [isFocused]); // Update token state AFTER screen is focused to prevent timing issues when reading from sessionStorage
   return (
@@ -49,9 +48,7 @@ const Main = ({ navigation }) => {
           {isLoggedIn && (
             <Text style={styles.paragraphHeader}>Play Online</Text>
           )}
-          {isLoggedIn && (
-            <PlayGameOptions navigation={navigation} />
-          )}
+          {isLoggedIn && <PlayGameOptions navigation={navigation} />}
           <TouchableOpacity
             style={styles.localGameButton}
             onPress={() => {

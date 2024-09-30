@@ -1,7 +1,6 @@
 import Actions from "../../types/Actions";
 import fenToJSON from "./fenToJSON";
 const handleSocket = (event, setters) => {
- 
   const { action, data } = JSON.parse(event.data);
   console.log(action, data);
   switch (action) {
@@ -16,7 +15,7 @@ const handleSocket = (event, setters) => {
       break;
     case Actions.MOVE_MADE:
       console.log(data);
-      if (!data.isSuccess){
+      if (!data.isSuccess) {
         console.log("Invalid move");
         return;
       }

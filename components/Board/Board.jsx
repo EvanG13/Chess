@@ -36,15 +36,17 @@ export const Board = ({ route, navigation }) => {
   const [isStarted, setIsStarted] = useState(false);
   const [whiteTimer, setWhiteTimer] = useState();
   const [blackTimer, setBlackTimer] = useState();
-  const [player1, setPlayer1] = useState({name: sessionStorage.getItem("username"), rating: 1000});
-  const [player2, setPlayer2] = useState({name: "opponent", rating: 1000});
+  const [player1, setPlayer1] = useState({
+    name: sessionStorage.getItem("username"),
+    rating: 1000
+  });
+  const [player2, setPlayer2] = useState({ name: "opponent", rating: 1000 });
   const [kingSquare, setKingSquare] = useState({
     whiteKing: [7, 4],
     blackKing: [0, 4]
   });
   let [socket, setSocket] = useState(null);
   const [blackSideBoard, setBlackSideBoard] = useState(true);
-
 
   const { timeControl, isLocalGame } = route.params;
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
@@ -56,8 +58,14 @@ export const Board = ({ route, navigation }) => {
       if (!socket) {
         try {
           socket = await createSocket(sessionStorage.getItem("userId"));
-          const setters = { setIsStarted, setHasWon, setShowWinner, setBoard, setIsWhiteTurn }
-          socket.onmessage = function(event){
+          const setters = {
+            setIsStarted,
+            setHasWon,
+            setShowWinner,
+            setBoard,
+            setIsWhiteTurn
+          };
+          socket.onmessage = function (event) {
             console.log("inside onmessage");
             socketHandler(event, setters);
           };
@@ -134,7 +142,7 @@ export const Board = ({ route, navigation }) => {
         circleActiveColor={"white"}
         circleInActiveColor={"#000000"}
       />
-      {isStarted && <PlayerCard player={player2}/>}
+      {isStarted && <PlayerCard player={player2} />}
       <View style={styles.boardContainer}>
         {isStarted ? (
           <Text
@@ -227,7 +235,7 @@ export const Board = ({ route, navigation }) => {
             );
           })}
         </View>
-        {isStarted && <PlayerCard player={player1}/>}
+        {isStarted && <PlayerCard player={player1} />}
         <Logger
           log={log}
           setIsWhiteTurn={setIsWhiteTurn}
