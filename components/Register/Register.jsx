@@ -39,7 +39,7 @@ const Register = () => {
       }
     } catch (error) {
       console.log(error);
-      setError("Invalid email or password");
+      setError(error.response.data);
       setTimeout(() => setError(""), 2000);
     }
   };
