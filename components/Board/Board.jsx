@@ -21,6 +21,7 @@ import createSocket from "../websocket.js";
 import loaderGif from "../../assets/appImages/loader.gif";
 import socketHandler from "./socketHandler.js";
 import styles from "./BoardStyles.js";
+import PlayerCard from "./PlayerCard.jsx";
 
 export const Board = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
@@ -35,6 +36,8 @@ export const Board = ({ route, navigation }) => {
   const [isStarted, setIsStarted] = useState(false);
   const [whiteTimer, setWhiteTimer] = useState();
   const [blackTimer, setBlackTimer] = useState();
+  const [player1, setPlayer1] = useState({name: sessionStorage.getItem("username"), rating: 1000});
+  const [player2, setPlayer2] = useState({name: "opponent", rating: 1000});
   const [kingSquare, setKingSquare] = useState({
     whiteKing: [7, 4],
     blackKing: [0, 4]
@@ -131,6 +134,7 @@ export const Board = ({ route, navigation }) => {
         circleActiveColor={"white"}
         circleInActiveColor={"#000000"}
       />
+      {isStarted && <PlayerCard player={player2}/>}
       <View style={styles.boardContainer}>
         {isStarted ? (
           <Text
@@ -223,6 +227,7 @@ export const Board = ({ route, navigation }) => {
             );
           })}
         </View>
+        {isStarted && <PlayerCard player={player1}/>}
         <Logger
           log={log}
           setIsWhiteTurn={setIsWhiteTurn}
