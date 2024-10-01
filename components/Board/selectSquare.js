@@ -24,7 +24,8 @@ const selectSquare = (
   log,
   setMoveIndex,
   moveIndex,
-  socket
+  socket,
+  isWhite
 ) => {
   if (moveIndex !== log.length - 1) {
     alert("Please move to the last move to make a move.");
@@ -37,8 +38,8 @@ const selectSquare = (
   if (selectedSquare.length === 0) {
     if (board[row][col].piece) {
       if (
-        (board[row][col].piece.color === "white" && isWhiteTurn) ||
-        (board[row][col].piece.color === "black" && !isWhiteTurn)
+        (board[row][col].piece.color === "white" && isWhiteTurn && isWhite) ||
+        (board[row][col].piece.color === "black" && !isWhiteTurn && !isWhite)
       ) {
         setSelectedSquare([row, col]);
         setValidMoves([

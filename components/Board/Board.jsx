@@ -63,7 +63,9 @@ export const Board = ({ route, navigation }) => {
             setHasWon,
             setShowWinner,
             setBoard,
-            setBlackSideBoard
+            setBlackSideBoard,
+            setIsWhiteTurn,
+            setIsWhite
           };
           socket.onmessage = function (event) {
             console.log("inside onmessage");
@@ -202,6 +204,7 @@ export const Board = ({ route, navigation }) => {
                           setMoveIndex,
                           moveIndex,
                           socket,
+                          isWhite
                         );
                       }}
                       isSelected={

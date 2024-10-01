@@ -7,7 +7,15 @@ const handleSocket = (event, setters) => {
   case Actions.GAME_START:
     console.log(data);
     setters.setIsStarted(true);
-    //setters.setIsWhite()
+    const players = data.game.players;
+    if(players[0].username === sessionStorage.getItem("username")){
+      setters.setBlackSideBoard(!players[0].isWhite);
+      setters.setIsWhite(players[0].isWhite);
+    }
+    else{
+      setters.setBlackSideBoard(!players[1].isWhite);
+      setters.setIsWhite(players[1].isWhite);
+    }
     sessionStorage.setItem("gameId", data.gameId);
     break;
   case Actions.GAME_OVER:
