@@ -105,10 +105,9 @@ export const Board = ({ route, navigation }) => {
         setBoard(boardJson);
         setIsStarted(true);
         let players = gameState.players;
-        if(players[0].username == sessionStorage.getItem("username")){
+        if (players[0].username == sessionStorage.getItem("username")) {
           setIsWhite(players[0].isWhite);
-        }
-        else{
+        } else {
           setIsWhite(players[1].isWhite);
         }
         setIsWhiteTurn(gameState.isWhitesTurn);
@@ -243,20 +242,27 @@ export const Board = ({ route, navigation }) => {
         </View>
 
         <View style={styles.letters}>
-          {blackSideBoard ? letterRow.toReversed().map((letter, i) => {
-            return (
-              <View key={`letter-${i}`} style={{ width: 45, marginLeft: 4 }}>
-                <Text style={{ color: "white" }}>{letter}</Text>
-              </View>
-            );
-          }) :
-          letterRow.map((letter, i) => {
-            return (
-              <View key={`letter-${i}`} style={{ width: 45, marginLeft: 4 }}>
-                <Text style={{ color: "white" }}>{letter}</Text>
-              </View>
-            );
-          })}
+          {blackSideBoard
+            ? letterRow.toReversed().map((letter, i) => {
+                return (
+                  <View
+                    key={`letter-${i}`}
+                    style={{ width: 45, marginLeft: 4 }}
+                  >
+                    <Text style={{ color: "white" }}>{letter}</Text>
+                  </View>
+                );
+              })
+            : letterRow.map((letter, i) => {
+                return (
+                  <View
+                    key={`letter-${i}`}
+                    style={{ width: 45, marginLeft: 4 }}
+                  >
+                    <Text style={{ color: "white" }}>{letter}</Text>
+                  </View>
+                );
+              })}
         </View>
         {isStarted && <PlayerCard player={player1} />}
         <Logger
