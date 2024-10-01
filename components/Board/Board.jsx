@@ -22,6 +22,7 @@ import loaderGif from "../../assets/appImages/loader.gif";
 import socketHandler from "./socketHandler.js";
 import styles from "./BoardStyles.js";
 import PlayerCard from "./PlayerCard.jsx";
+import fenToJSON from "./fenToJSON.js";
 
 export const Board = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
@@ -100,6 +101,18 @@ export const Board = ({ route, navigation }) => {
         //user is in a game so set the game state
         const gameState = gameStateResponse.data;
         console.log(gameState);
+        const boardJson = fenToJSON(gameState.gameStateAsFen);
+        setBoard(boardJson);
+        setIsStarted(true);
+        let players = gameState.players;
+        if(players[0].username == sessionStorage.getItem("username")){
+          setIsWhite(players[0].isWhite);
+        }
+        else{
+          setIsWhite(players[1].isWhite);
+        }
+        setIsWhiteTurn(gameState.isWhitesTurn);
+        setBlackSideBoard(!isWhite);
       } catch (error) {
         if (error.response.status !== 404) {
           console.error("Error during getGameState:", error);
