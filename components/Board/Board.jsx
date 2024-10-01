@@ -46,7 +46,7 @@ export const Board = ({ route, navigation }) => {
     blackKing: [0, 4]
   });
   let [socket, setSocket] = useState(null);
-  const [blackSideBoard, setBlackSideBoard] = useState(true);
+  const [blackSideBoard, setBlackSideBoard] = useState(false);
 
   const { timeControl, isLocalGame } = route.params;
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
@@ -63,7 +63,7 @@ export const Board = ({ route, navigation }) => {
             setHasWon,
             setShowWinner,
             setBoard,
-            setIsWhiteTurn
+            setBlackSideBoard
           };
           socket.onmessage = function (event) {
             console.log("inside onmessage");
@@ -201,7 +201,7 @@ export const Board = ({ route, navigation }) => {
                           log,
                           setMoveIndex,
                           moveIndex,
-                          socket
+                          socket,
                         );
                       }}
                       isSelected={
@@ -227,7 +227,14 @@ export const Board = ({ route, navigation }) => {
         </View>
 
         <View style={styles.letters}>
-          {letterRow.map((letter, i) => {
+          {blackSideBoard ? letterRow.toReversed().map((letter, i) => {
+            return (
+              <View key={`letter-${i}`} style={{ width: 45, marginLeft: 4 }}>
+                <Text style={{ color: "white" }}>{letter}</Text>
+              </View>
+            );
+          }) :
+          letterRow.map((letter, i) => {
             return (
               <View key={`letter-${i}`} style={{ width: 45, marginLeft: 4 }}>
                 <Text style={{ color: "white" }}>{letter}</Text>

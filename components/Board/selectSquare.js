@@ -116,8 +116,10 @@ const selectSquare = (
     newBoard[row][col].piece.letter = LETTERS[col + 1];
     newBoard[row][col].piece.number = row;
     newBoard[selectedSquare[0]][selectedSquare[1]].piece = null;
-    //emit move to backend
-    const fromTo = `${LETTERS[selectedSquare[1] + 1]}${8 - selectedSquare[0]}${LETTERS[col + 1]}${8 - row}`;
+    //emit move to backend    1 2 3 4 5 6 7 8 
+    const fromLetter =  LETTERS[selectedSquare[1] + 1];
+    const toLetter =  LETTERS[col + 1];
+    const fromTo = `${fromLetter}${8 - selectedSquare[0]}${toLetter}${8 - row}`;
     console.log(fromTo);
     console.log(JSON.stringify(socket));
     socket.sendMessage({
