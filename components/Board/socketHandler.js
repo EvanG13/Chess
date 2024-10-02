@@ -22,7 +22,6 @@ const handleSocket = (event, setters) => {
       console.log(data);
       break;
     case Actions.MOVE_MADE: {
-      console.log(data);
       if (!data.isSuccess) {
         console.log("Invalid move");
         return;
