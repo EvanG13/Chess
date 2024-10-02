@@ -21,9 +21,12 @@ import createSocket from "../websocket.js";
 import loaderGif from "../../assets/appImages/loader.gif";
 import socketHandler from "./socketHandler.js";
 import styles from "./BoardStyles.js";
+import PlayerCard from "./PlayerCard.jsx";
+import fenToJSON from "./fenToJSON.js";
 
 export const Board = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
+  const [isWhite, setIsWhite] = useState(false);
   const [board, setBoard] = useState(getStartingBoard()); // 8x8 array
   const [validMoves, setValidMoves] = useState([]);
   const [hasWon, setHasWon] = useState(false);
@@ -34,16 +37,21 @@ export const Board = ({ route, navigation }) => {
   const [isStarted, setIsStarted] = useState(false);
   const [whiteTimer, setWhiteTimer] = useState();
   const [blackTimer, setBlackTimer] = useState();
+  const [player1, setPlayer1] = useState({
+    name: sessionStorage.getItem("username"),
+    rating: 1000
+  });
+  const [player2, setPlayer2] = useState({ name: "opponent", rating: 1000 });
   const [kingSquare, setKingSquare] = useState({
     whiteKing: [7, 4],
     blackKing: [0, 4]
   });
-  const { timeControl, isLocalGame } = route.params;
-  const [blackSideBoard, setBlackSideBoard] = useState(true);
+  let [socket, setSocket] = useState(null);
+  const [blackSideBoard, setBlackSideBoard] = useState(false);
 
+  const { timeControl, isLocalGame } = route.params;
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const numberCol = ["8. ", "7. ", "6. ", "5. ", "4. ", "3. ", "2. ", "1. "];
-  let socket;
 
   //open the socket
   useEffect(() => {
@@ -51,10 +59,20 @@ export const Board = ({ route, navigation }) => {
       if (!socket) {
         try {
           socket = await createSocket(sessionStorage.getItem("userId"));
-
-          socket.onmessage = (event) => {
-            socketHandler(event, { setIsStarted, setHasWon, setShowWinner });
+          const setters = {
+            setIsStarted,
+            setHasWon,
+            setShowWinner,
+            setBoard,
+            setBlackSideBoard,
+            setIsWhiteTurn,
+            setIsWhite
           };
+          socket.onmessage = function (event) {
+            console.log("inside onmessage");
+            socketHandler(event, setters);
+          };
+          setSocket(socket);
         } catch (error) {
           console.error("Error during joinGame:", error);
           return;
@@ -83,6 +101,17 @@ export const Board = ({ route, navigation }) => {
         //user is in a game so set the game state
         const gameState = gameStateResponse.data;
         console.log(gameState);
+        const boardJson = fenToJSON(gameState.gameStateAsFen);
+        setBoard(boardJson);
+        setIsStarted(true);
+        let players = gameState.players;
+        if (players[0].username == sessionStorage.getItem("username")) {
+          setIsWhite(players[0].isWhite);
+        } else {
+          setIsWhite(players[1].isWhite);
+        }
+        setIsWhiteTurn(gameState.isWhitesTurn);
+        setBlackSideBoard(!isWhite);
       } catch (error) {
         if (error.response.status !== 404) {
           console.error("Error during getGameState:", error);
@@ -127,6 +156,7 @@ export const Board = ({ route, navigation }) => {
         circleActiveColor={"white"}
         circleInActiveColor={"#000000"}
       />
+      {isStarted && <PlayerCard player={player2} />}
       <View style={styles.boardContainer}>
         {isStarted ? (
           <Text
@@ -184,7 +214,9 @@ export const Board = ({ route, navigation }) => {
                           setLog,
                           log,
                           setMoveIndex,
-                          moveIndex
+                          moveIndex,
+                          socket,
+                          isWhite
                         );
                       }}
                       isSelected={
@@ -210,14 +242,29 @@ export const Board = ({ route, navigation }) => {
         </View>
 
         <View style={styles.letters}>
-          {letterRow.map((letter, i) => {
-            return (
-              <View key={`letter-${i}`} style={{ width: 45, marginLeft: 4 }}>
-                <Text style={{ color: "white" }}>{letter}</Text>
-              </View>
-            );
-          })}
+          {blackSideBoard
+            ? letterRow.toReversed().map((letter, i) => {
+                return (
+                  <View
+                    key={`letter-${i}`}
+                    style={{ width: 45, marginLeft: 4 }}
+                  >
+                    <Text style={{ color: "white" }}>{letter}</Text>
+                  </View>
+                );
+              })
+            : letterRow.map((letter, i) => {
+                return (
+                  <View
+                    key={`letter-${i}`}
+                    style={{ width: 45, marginLeft: 4 }}
+                  >
+                    <Text style={{ color: "white" }}>{letter}</Text>
+                  </View>
+                );
+              })}
         </View>
+        {isStarted && <PlayerCard player={player1} />}
         <Logger
           log={log}
           setIsWhiteTurn={setIsWhiteTurn}

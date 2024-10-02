@@ -2,6 +2,7 @@ import { getNumberFromLetter } from "../Board/board.js";
 import { LETTERS } from "../Board/board.js";
 import King from "../../pieces/King.js";
 import convertToChessNotation from "../Logger/toChessNotation.js";
+import { EmitActions } from "../../types/Actions.js";
 
 const selectSquare = (
   number,
@@ -22,7 +23,9 @@ const selectSquare = (
   setLog,
   log,
   setMoveIndex,
-  moveIndex
+  moveIndex,
+  socket,
+  isWhite
 ) => {
   if (moveIndex !== log.length - 1) {
     alert("Please move to the last move to make a move.");
@@ -35,8 +38,8 @@ const selectSquare = (
   if (selectedSquare.length === 0) {
     if (board[row][col].piece) {
       if (
-        (board[row][col].piece.color === "white" && isWhiteTurn) ||
-        (board[row][col].piece.color === "black" && !isWhiteTurn)
+        (board[row][col].piece.color === "white" && isWhiteTurn && isWhite) ||
+        (board[row][col].piece.color === "black" && !isWhiteTurn && !isWhite)
       ) {
         setSelectedSquare([row, col]);
         setValidMoves([
@@ -114,11 +117,23 @@ const selectSquare = (
     newBoard[row][col].piece.letter = LETTERS[col + 1];
     newBoard[row][col].piece.number = row;
     newBoard[selectedSquare[0]][selectedSquare[1]].piece = null;
-    setBoard(newBoard);
+    //emit move to backend    1 2 3 4 5 6 7 8
+    const fromLetter = LETTERS[selectedSquare[1] + 1];
+    const toLetter = LETTERS[col + 1];
+    const fromTo = `${fromLetter}${8 - selectedSquare[0]}${toLetter}${8 - row}`;
+    console.log(fromTo);
+    console.log(JSON.stringify(socket));
+    socket.sendMessage({
+      action: EmitActions.MOVE_MADE,
+      move: fromTo,
+      gameId: sessionStorage.getItem("gameId"),
+      playerId: sessionStorage.getItem("userId")
+    });
+    // setBoard(newBoard);
     setSelectedSquare([]);
     setValidMoves([]);
     let newTurn = !isWhiteTurn;
-    setIsWhiteTurn(newTurn);
+    // setIsWhiteTurn(newTurn);
     // check if the new player is in checkmate
     let newPlayerColor = isWhiteTurn ? "black" : "white";
     let [kingRow, kingCol] = kingSquare[`${newPlayerColor}King`];
