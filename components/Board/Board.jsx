@@ -8,7 +8,6 @@ import {
 import { BoardSquare } from "../BoardSquare/BoardSquare";
 import React, { useState, useEffect } from "react";
 import getStartingBoard, { getNumberFromLetter } from "../Board/board.js";
-import { LETTERS } from "../Board/board.js";
 import selectSquare from "./selectSquare.js";
 import { Modal } from "react-native";
 import Logger from "../Logger/Logger.jsx";
@@ -23,6 +22,10 @@ import socketHandler from "./socketHandler.js";
 import styles from "./BoardStyles.js";
 import PlayerCard from "./PlayerCard.jsx";
 import fenToJSON from "./fenToJSON.js";
+import { TextInput } from "react-native-web";
+import handleSendChat from "./handleSendChat.js";
+import ChatMessage from "./ChatMessage.jsx";
+import ChatContainer from "./ChatContainer.jsx";
 
 export const Board = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
@@ -37,6 +40,9 @@ export const Board = ({ route, navigation }) => {
   const [isStarted, setIsStarted] = useState(false);
   const [whiteTimer, setWhiteTimer] = useState();
   const [blackTimer, setBlackTimer] = useState();
+  //chat stuff
+  
+
   const [player1, setPlayer1] = useState({
     name: sessionStorage.getItem("username"),
     rating: 1000
@@ -66,7 +72,11 @@ export const Board = ({ route, navigation }) => {
             setBoard,
             setBlackSideBoard,
             setIsWhiteTurn,
-            setIsWhite
+            setIsWhite,
+            setChatLog,
+            chatLog,
+            setPlayer1,
+            setPlayer2
           };
           socket.onmessage = function (event) {
             console.log("inside onmessage");
@@ -141,6 +151,7 @@ export const Board = ({ route, navigation }) => {
   }, []);
 
   return (
+    <View style={styles.gameView}>
     <View style={styles.boardAndLogger}>
       <Switch
         value={blackSideBoard}
@@ -300,6 +311,8 @@ export const Board = ({ route, navigation }) => {
           </SafeAreaView>
         </Modal>
       </View>
+    </View>
+        <ChatContainer chatLog={chatLog} setChatLog={setChatLog}/>
     </View>
   );
 };

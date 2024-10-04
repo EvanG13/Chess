@@ -11,11 +11,16 @@ const handleSocket = (event, setters) => {
       if (players[0].username === sessionStorage.getItem("username")) {
         setters.setBlackSideBoard(!players[0].isWhite);
         setters.setIsWhite(players[0].isWhite);
+        setters.setPlayer1({name: players[0].username, rating: players[0].rating});
+        setters.setPlayer2({name: players[1].username, rating: players[1].rating});
       } else {
         setters.setBlackSideBoard(!players[1].isWhite);
         setters.setIsWhite(players[1].isWhite);
+        setters.setPlayer1({name: players[1].username, rating: players[1].rating});
+        setters.setPlayer2({name: players[0].username, rating: players[0].rating});
       }
       sessionStorage.setItem("gameId", data.gameId);
+     
       break;
     }
     case Actions.GAME_OVER:
@@ -37,6 +42,9 @@ const handleSocket = (event, setters) => {
       break;
     case Actions.CHAT_MESSAGE:
       console.log(data);
+      let log = setters.chatLog;
+      log.push({message: data.chatMessage});
+      setters.setChatLog([...log ])
       break;
     default:
       console.log(event);

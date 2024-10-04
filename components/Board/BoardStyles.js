@@ -1,6 +1,11 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
+  gameView: {
+    flexDirection: "row"
+  },
   board: {
     flexDirection: "column"
   },
@@ -31,6 +36,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black"
   },
   boardAndLogger: {
+    height: height,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -60,6 +66,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.4)", // Semi-transparent background
     zIndex: 1
+  },
+
+  //chat
+  chatSendContainer:{
+    height: "4%",
+    width: "100%",
+    flexDirection: "row",
+    
+  },
+
+  chatBox: {
+    backgroundColor: "yellow"
+  },
+
+  sendMessageButton:{
+    backgroundColor:"green",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 5,
+    height: "100%",
+    width: "20%"
   }
 });
 export default styles;
