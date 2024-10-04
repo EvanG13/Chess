@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   gameView: {
@@ -69,19 +69,18 @@ const styles = StyleSheet.create({
   },
 
   //chat
-  chatSendContainer:{
+  chatSendContainer: {
     height: "4%",
     width: "100%",
-    flexDirection: "row",
-    
+    flexDirection: "row"
   },
 
   chatBox: {
     backgroundColor: "yellow"
   },
 
-  sendMessageButton:{
-    backgroundColor:"green",
+  sendMessageButton: {
+    backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
     padding: 5,
