@@ -48,18 +48,18 @@ const updateRookOrKingMovedStatus = (piece, fenCastling) => {
   let castling = piece.isWhite() ? "KQ" : "kq";
 
   switch (piece.name) {
-  case "rook":
-    piece.hasMoved =
+    case "rook":
+      piece.hasMoved =
         !(rank === "h" && fenCastling.includes(castling[0])) &&
         !(rank === "a" && fenCastling.includes(castling[1]));
-    break;
-  case "king":
-    piece.hasMoved =
+      break;
+    case "king":
+      piece.hasMoved =
         fenCastling === "-" ||
         !(
           fenCastling.includes(castling[0]) || fenCastling.includes(castling[1])
         );
-    break;
+      break;
   }
 };
 
