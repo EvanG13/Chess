@@ -48,18 +48,18 @@ const updateRookOrKingMovedStatus = (piece, fenCastling) => {
   let castling = piece.isWhite() ? "KQ" : "kq";
 
   switch (piece.name) {
-  case "rook":
-    piece.hasMoved =
+    case "rook":
+      piece.hasMoved =
         !(rank === "h" && fenCastling.includes(castling[0])) &&
         !(rank === "a" && fenCastling.includes(castling[1]));
-    break;
-  case "king":
-    piece.hasMoved =
+      break;
+    case "king":
+      piece.hasMoved =
         fenCastling === "-" ||
         !(
           fenCastling.includes(castling[0]) || fenCastling.includes(castling[1])
         );
-    break;
+      break;
   }
 };
 
@@ -163,17 +163,17 @@ const fenToJSON = (FEN) => {
 
   //         let piece = square.piece;
 
-//         switch (piece.name) {
-//         case "rook":
-//           return piece.hasMoved ? "T" : "F";
-//         case "king":
-//           return piece.hasMoved ? "T" : "F";
-//         default:
-//           return "o";
-//         }
-//       })
-//     )
-//   );
+  //         switch (piece.name) {
+  //         case "rook":
+  //           return piece.hasMoved ? "T" : "F";
+  //         case "king":
+  //           return piece.hasMoved ? "T" : "F";
+  //         default:
+  //           return "o";
+  //         }
+  //       })
+  //     )
+  //   );
 };
 
 export default fenToJSON;
