@@ -29,21 +29,25 @@ const selectSquare = (
 ) => {
   if (moveIndex !== log.length - 1) {
     alert("Please move to the last move to make a move.");
-    return; //user is in detached head state where they cant make moves
+    return; //user is in detached head state where they cant make moves 😔
   }
   let row = number;
   let col = getNumberFromLetter(letter);
 
   //no piece is selected currently | selecting new piece
   if (selectedSquare.length === 0) {
-    if (board[row][col].piece) {
+    if (board.board[row][col].piece) {
       if (
-        (board[row][col].piece.color === "white" && isWhiteTurn && isWhite) ||
-        (board[row][col].piece.color === "black" && !isWhiteTurn && !isWhite)
+        (board.board[row][col].piece.color === "white" &&
+          isWhiteTurn &&
+          isWhite) ||
+        (board.board[row][col].piece.color === "black" &&
+          !isWhiteTurn &&
+          !isWhite)
       ) {
         setSelectedSquare([row, col]);
         setValidMoves([
-          ...board[row][col].piece.getValidMoves(
+          ...board.board[row][col].piece.getValidMoves(
             board,
             isWhiteTurn ? kingSquare.whiteKing : kingSquare.blackKing
           )
@@ -55,13 +59,13 @@ const selectSquare = (
 
   //updating selected piece to newly selected square's piece
   if (
-    board[row][col].piece !== null &&
-    board[row][col].piece.color ===
-      board[selectedSquare[0]][selectedSquare[1]].piece.color
+    board.board[row][col].piece !== null &&
+    board.board[row][col].piece.color ===
+      board.board[selectedSquare[0]][selectedSquare[1]].piece.color
   ) {
     setSelectedSquare([row, col]);
     setValidMoves([
-      ...board[row][col].piece.getValidMoves(
+      ...board.board[row][col].piece.getValidMoves(
         board,
         isWhiteTurn ? kingSquare.whiteKing : kingSquare.blackKing
       )
@@ -71,20 +75,46 @@ const selectSquare = (
 
   //moving selected piece if a legal square is picked
   if (
-    board[selectedSquare[0]][selectedSquare[1]].piece.isValidMove(
+    board.board[selectedSquare[0]][selectedSquare[1]].piece.isValidMove(
       row,
       col,
       validMoves
     ) === true
   ) {
-    const newBoard = [...board];
+    const newBoard = [...board.board];
 
     newBoard[row][col].piece =
-      board[selectedSquare[0]][selectedSquare[1]].piece;
+      board.board[selectedSquare[0]][selectedSquare[1]].piece;
 
     //updating moved piece's coordinates
     newBoard[row][col].piece.letter = LETTERS[col + 1];
     newBoard[row][col].piece.number = row;
+
+    //setting enPassant if moved piece was a pawn or capturing enPassant'd pawn
+    if (newBoard[row][col].piece.name === "pawn") {
+      let dir = isWhiteTurn ? 1 : -1;
+
+      //did we just enPassant? we will remove that pawn
+      if (
+        board.enPassant.length > 0 &&
+        board.enPassant[0] === row + dir &&
+        board.enPassant[1] === col
+      ) {
+        board.board[board.enPassant[0]][board.enPassant[1]].piece = null;
+        board.enPassant = [];
+      }
+      //did we move to an enPassantable square? set enPassant
+      else {
+        let prevrow = isWhiteTurn ? 6 : 1;
+        let newrow = isWhiteTurn ? 4 : 3;
+
+        if (selectedSquare[0] === prevrow && row == newrow) {
+          board.enPassant = [row, col];
+        }
+      }
+    } else {
+      board.enPassant = [];
+    }
 
     if (newBoard[row][col].piece.name === "king") {
       newBoard[row][col].piece.hasMoved = true;
@@ -121,8 +151,6 @@ const selectSquare = (
     const fromLetter = LETTERS[selectedSquare[1] + 1];
     const toLetter = LETTERS[col + 1];
     const fromTo = `${fromLetter}${8 - selectedSquare[0]}${toLetter}${8 - row}`;
-    console.log(fromTo);
-    console.log(JSON.stringify(socket));
     socket.sendMessage({
       action: EmitActions.MOVE_MADE,
       move: fromTo,
@@ -132,13 +160,15 @@ const selectSquare = (
     // setBoard(newBoard);
     setSelectedSquare([]);
     setValidMoves([]);
+    console.log("after set board " + board.enPassant);
+
     let newTurn = !isWhiteTurn;
     // setIsWhiteTurn(newTurn);
     // check if the new player is in checkmate
     let newPlayerColor = isWhiteTurn ? "black" : "white";
     let [kingRow, kingCol] = kingSquare[`${newPlayerColor}King`];
     let king = new King(newPlayerColor, LETTERS[kingCol + 1], kingRow);
-    if (king.isCheckmate(newBoard)) {
+    if (king.isCheckmate(board)) {
       setHasWon(true);
       setShowWinner(true);
       //is, we can display the winner
@@ -164,6 +194,7 @@ const selectSquare = (
     //deselecting current piece
     setSelectedSquare([]);
     setValidMoves([]);
+
     return;
   }
 };

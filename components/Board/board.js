@@ -173,7 +173,8 @@ const getStartingBoard = () => {
     number: 7,
     piece: new Rook("white", "h", 7)
   };
-  return startingBoard;
+
+  return { board: startingBoard, enPassant: [] };
 };
 
 export default getStartingBoard;

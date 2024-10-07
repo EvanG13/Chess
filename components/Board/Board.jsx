@@ -41,7 +41,7 @@ export const Board = ({ route, navigation }) => {
   const [whiteTimer, setWhiteTimer] = useState();
   const [blackTimer, setBlackTimer] = useState();
   //chat stuff
-
+  const [chatLog, setChatLog] = useState([]);
   const [player1, setPlayer1] = useState({
     name: sessionStorage.getItem("username"),
     rating: 1000
@@ -69,9 +69,12 @@ export const Board = ({ route, navigation }) => {
             setHasWon,
             setShowWinner,
             setBoard,
+            board,
             setBlackSideBoard,
             setIsWhiteTurn,
+            isWhiteTurn,
             setIsWhite,
+            isWhite,
             setChatLog,
             chatLog,
             setPlayer1,
@@ -111,7 +114,7 @@ export const Board = ({ route, navigation }) => {
         const gameState = gameStateResponse.data;
         console.log(gameState);
         const boardJson = fenToJSON(gameState.gameStateAsFen);
-        setBoard(boardJson);
+        setBoard({ ...board, board: boardJson });
         setIsStarted(true);
         let players = gameState.players;
         if (players[0].username == sessionStorage.getItem("username")) {
@@ -181,7 +184,7 @@ export const Board = ({ route, navigation }) => {
             </View>
           )}
           <View style={[styles.board, blackSideBoard && styles.flipped]}>
-            {board.map((row, index) => {
+            {board.board.map((row, index) => {
               return (
                 <View key={`row-${index}`} style={{ flexDirection: "row" }}>
                   {!blackSideBoard && (
@@ -321,7 +324,11 @@ export const Board = ({ route, navigation }) => {
           </Modal>
         </View>
       </View>
-      <ChatContainer chatLog={chatLog} setChatLog={setChatLog} />
+      <ChatContainer
+        socket={socket}
+        chatLog={chatLog}
+        setChatLog={setChatLog}
+      />
     </View>
   );
 };
