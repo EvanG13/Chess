@@ -37,7 +37,16 @@ const localSelectSquare = (
 
   //no piece is selected currently | selecting new piece
   if (selectedSquare.length === 0) {
-    selectNewPiece( board, setSelectedSquare, setValidMoves, row, col, isWhiteTurn, isWhite, kingSquare);
+    selectNewPiece(
+      board,
+      setSelectedSquare,
+      setValidMoves,
+      row,
+      col,
+      isWhiteTurn,
+      isWhite,
+      kingSquare
+    );
     return;
   }
 
@@ -47,7 +56,15 @@ const localSelectSquare = (
     board.board[row][col].piece.color ===
       board.board[selectedSquare[0]][selectedSquare[1]].piece.color
   ) {
-    selectDifferentPiece(setSelectedSquare, setValidMoves, board, isWhiteTurn, kingSquare, row, col);
+    selectDifferentPiece(
+      setSelectedSquare,
+      setValidMoves,
+      board,
+      isWhiteTurn,
+      kingSquare,
+      row,
+      col
+    );
     return;
   }
 
