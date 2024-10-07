@@ -4,64 +4,64 @@ const handleSocket = (event, setters) => {
   const { action, data } = JSON.parse(event.data);
   console.log(action, data);
   switch (action) {
-    case Actions.GAME_START: {
-      console.log(data);
-      setters.setIsStarted(true);
-      const players = data.game.players;
-      if (players[0].username === sessionStorage.getItem("username")) {
-        setters.setBlackSideBoard(!players[0].isWhite);
-        setters.setIsWhite(players[0].isWhite);
-        setters.setPlayer1({
-          name: players[0].username,
-          rating: players[0].rating
-        });
-        setters.setPlayer2({
-          name: players[1].username,
-          rating: players[1].rating
-        });
-      } else {
-        setters.setBlackSideBoard(!players[1].isWhite);
-        setters.setIsWhite(players[1].isWhite);
-        setters.setPlayer1({
-          name: players[1].username,
-          rating: players[1].rating
-        });
-        setters.setPlayer2({
-          name: players[0].username,
-          rating: players[0].rating
-        });
-      }
-      sessionStorage.setItem("gameId", data.gameId);
+  case Actions.GAME_START: {
+    console.log(data);
+    setters.setIsStarted(true);
+    const players = data.game.players;
+    if (players[0].username === sessionStorage.getItem("username")) {
+      setters.setBlackSideBoard(!players[0].isWhite);
+      setters.setIsWhite(players[0].isWhite);
+      setters.setPlayer1({
+        name: players[0].username,
+        rating: players[0].rating
+      });
+      setters.setPlayer2({
+        name: players[1].username,
+        rating: players[1].rating
+      });
+    } else {
+      setters.setBlackSideBoard(!players[1].isWhite);
+      setters.setIsWhite(players[1].isWhite);
+      setters.setPlayer1({
+        name: players[1].username,
+        rating: players[1].rating
+      });
+      setters.setPlayer2({
+        name: players[0].username,
+        rating: players[0].rating
+      });
+    }
+    sessionStorage.setItem("gameId", data.gameId);
 
-      break;
+    break;
+  }
+  case Actions.GAME_OVER:
+    console.log(data);
+    break;
+  case Actions.MOVE_MADE: {
+    if (!data.isSuccess) {
+      console.log("Invalid move");
+      return;
     }
-    case Actions.GAME_OVER:
-      console.log(data);
-      break;
-    case Actions.MOVE_MADE: {
-      if (!data.isSuccess) {
-        console.log("Invalid move");
-        return;
-      }
-      const boardJson = fenToJSON(data.fen);
-      const isWhiteTurn = data.isWhiteTurn;
-      console.log(setters.board);
-      setters.setBoard({ ...setters.board, board: boardJson });
-      setters.setIsWhiteTurn(isWhiteTurn);
-      break;
-    }
-    case Actions.GAME_CREATED:
-      console.log(data);
-      break;
-    case Actions.CHAT_MESSAGE: {
-      console.log(data);
-      let log = setters.chatLog;
-      log.push({ message: data.chatMessage });
-      setters.setChatLog([...log]);
-      break;
-    }
-    default:
-      console.log(event);
+    const boardJson = fenToJSON(data.fen);
+    const isWhiteTurn = data.isWhiteTurn;
+    console.log(setters.board);
+    setters.setBoard({ ...setters.board, board: boardJson });
+    setters.setIsWhiteTurn(isWhiteTurn);
+    break;
+  }
+  case Actions.GAME_CREATED:
+    console.log(data);
+    break;
+  case Actions.CHAT_MESSAGE: {
+    console.log(data);
+    let log = setters.chatLog;
+    log.push({ message: data.chatMessage });
+    setters.setChatLog([...log]);
+    break;
+  }
+  default:
+    console.log(event);
   }
 };
 
