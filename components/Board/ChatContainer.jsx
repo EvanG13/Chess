@@ -5,15 +5,14 @@ import { View, TextInput, TouchableOpacity, Text } from "react-native";
 import styles from "./BoardStyles";
 
 
-const ChatContainer = ({socket}) => {
+const ChatContainer = ({socket, chatLog, setChatLog}) => {
   const [chatText, setChatText] = useState("");
-  const [chatLog, setChatLog] = useState([]);
 
   return (
     <View style={styles.chatContainer}>
       <View style={styles.chatlog}>
-        {chatLog.map((msg) => {
-          return <ChatMessage messageObject={msg} />;
+        {chatLog.map((msg, index) => {
+          return <ChatMessage messageObject={msg} key={index}/>;
         })}
       </View>
       <View style={styles.chatSendContainer}>

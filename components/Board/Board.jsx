@@ -41,7 +41,7 @@ export const Board = ({ route, navigation }) => {
   const [whiteTimer, setWhiteTimer] = useState();
   const [blackTimer, setBlackTimer] = useState();
   //chat stuff
-
+  const [chatLog, setChatLog] = useState([]);
   const [player1, setPlayer1] = useState({
     name: sessionStorage.getItem("username"),
     rating: 1000
@@ -69,6 +69,7 @@ export const Board = ({ route, navigation }) => {
             setHasWon,
             setShowWinner,
             setBoard,
+            board,
             setBlackSideBoard,
             setIsWhiteTurn,
             isWhiteTurn,
@@ -323,7 +324,7 @@ export const Board = ({ route, navigation }) => {
           </Modal>
         </View>
       </View>
-      <ChatContainer socket={socket}/>
+      <ChatContainer socket={socket} chatLog={chatLog} setChatLog={setChatLog}/>
     </View>
   );
 };
