@@ -1,8 +1,11 @@
 import handleSendChat from "./handleSendChat";
 import { useState } from "react";
 import ChatMessage from "./ChatMessage";
+import { View, TextInput, TouchableOpacity, Text } from "react-native";
+import styles from "./BoardStyles";
 
-const ChatContainer = () => {
+
+const ChatContainer = ({socket}) => {
   const [chatText, setChatText] = useState("");
   const [chatLog, setChatLog] = useState([]);
 
@@ -26,7 +29,7 @@ const ChatContainer = () => {
             setChatText("");
           }}
         >
-          Send
+          <Text>Send</Text> 
         </TouchableOpacity>
       </View>
     </View>
