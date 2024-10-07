@@ -38,8 +38,12 @@ const selectSquare = (
   if (selectedSquare.length === 0) {
     if (board.board[row][col].piece) {
       if (
-        (board.board[row][col].piece.color === "white" && isWhiteTurn && isWhite) ||
-        (board.board[row][col].piece.color === "black" && !isWhiteTurn && !isWhite)
+        (board.board[row][col].piece.color === "white" &&
+          isWhiteTurn &&
+          isWhite) ||
+        (board.board[row][col].piece.color === "black" &&
+          !isWhiteTurn &&
+          !isWhite)
       ) {
         setSelectedSquare([row, col]);
         setValidMoves([
@@ -85,28 +89,31 @@ const selectSquare = (
     //updating moved piece's coordinates
     newBoard[row][col].piece.letter = LETTERS[col + 1];
     newBoard[row][col].piece.number = row;
-    
+
     //setting enPassant if moved piece was a pawn or capturing enPassant'd pawn
-    if (newBoard[row][col].piece.name === "pawn"){
-      dir = isWhiteTurn? 1 : -1;
+    if (newBoard[row][col].piece.name === "pawn") {
+      let dir = isWhiteTurn ? 1 : -1;
 
       //did we just enPassant? we will remove that pawn
-      if(board.enPassant.length > 0 && board.enPassant[0]===row+dir && board.enPassant[1]===col){
+      if (
+        board.enPassant.length > 0 &&
+        board.enPassant[0] === row + dir &&
+        board.enPassant[1] === col
+      ) {
         board.board[board.enPassant[0]][board.enPassant[1]].piece = null;
-        board.enPassant = ([]);
+        board.enPassant = [];
       }
       //did we move to an enPassantable square? set enPassant
-      else{
-        prevrow = isWhiteTurn? 6: 1;
-        newrow = isWhiteTurn? 4: 3;
+      else {
+        let prevrow = isWhiteTurn ? 6 : 1;
+        let newrow = isWhiteTurn ? 4 : 3;
 
-        if (selectedSquare[0] === prevrow && row==newrow){
+        if (selectedSquare[0] === prevrow && row == newrow) {
           board.enPassant = [row, col];
         }
       }
-    }
-    else{
-      board.enPassant = ([]);
+    } else {
+      board.enPassant = [];
     }
 
     if (newBoard[row][col].piece.name === "king") {
@@ -144,8 +151,6 @@ const selectSquare = (
     const fromLetter = LETTERS[selectedSquare[1] + 1];
     const toLetter = LETTERS[col + 1];
     const fromTo = `${fromLetter}${8 - selectedSquare[0]}${toLetter}${8 - row}`;
-    console.log(fromTo);
-    console.log(JSON.stringify(socket));
     socket.sendMessage({
       action: EmitActions.MOVE_MADE,
       move: fromTo,
@@ -155,7 +160,7 @@ const selectSquare = (
     // setBoard(newBoard);
     setSelectedSquare([]);
     setValidMoves([]);
-    console.log("after set board " +  board.enPassant);
+    console.log("after set board " + board.enPassant);
 
     let newTurn = !isWhiteTurn;
     // setIsWhiteTurn(newTurn);

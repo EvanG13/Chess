@@ -48,18 +48,18 @@ const updateRookOrKingMovedStatus = (piece, fenCastling) => {
   let castling = piece.isWhite() ? "KQ" : "kq";
 
   switch (piece.name) {
-    case "rook":
-      piece.hasMoved =
+  case "rook":
+    piece.hasMoved =
         !(rank === "h" && fenCastling.includes(castling[0])) &&
         !(rank === "a" && fenCastling.includes(castling[1]));
-      break;
-    case "king":
-      piece.hasMoved =
+    break;
+  case "king":
+    piece.hasMoved =
         fenCastling === "-" ||
         !(
           fenCastling.includes(castling[0]) || fenCastling.includes(castling[1])
         );
-      break;
+    break;
   }
 };
 
@@ -105,10 +105,10 @@ const fenToJSON = (FEN) => {
 
   //// DEBUG
   // console.table(loadedBoard);
-  PrintBoardTilePosition(loadedBoard);
-  PrintBoardTileColors(loadedBoard);
-  PrintBoardPieces(loadedBoard);
-  PrintBoardMovedStatus(loadedBoard);
+  // PrintBoardTilePosition(loadedBoard);
+  // PrintBoardTileColors(loadedBoard);
+  // PrintBoardPieces(loadedBoard);
+  // PrintBoardMovedStatus(loadedBoard);
   return loadedBoard;
 };
 
@@ -135,20 +135,20 @@ const PrintBoardPieces = (board) => {
         let piece = square.piece;
 
         switch (piece.name) {
-          case "rook":
-            return piece.isWhite() ? "R" : "r";
-          case "king":
-            return piece.isWhite() ? "K" : "k";
-          case "queen":
-            return piece.isWhite() ? "Q" : "q";
-          case "pawn":
-            return piece.isWhite() ? "P" : "p";
-          case "bishop":
-            return piece.isWhite() ? "B" : "b";
-          case "knight":
-            return piece.isWhite() ? "N" : "n";
-          default:
-            return "invalid";
+        case "rook":
+          return piece.isWhite() ? "R" : "r";
+        case "king":
+          return piece.isWhite() ? "K" : "k";
+        case "queen":
+          return piece.isWhite() ? "Q" : "q";
+        case "pawn":
+          return piece.isWhite() ? "P" : "p";
+        case "bishop":
+          return piece.isWhite() ? "B" : "b";
+        case "knight":
+          return piece.isWhite() ? "N" : "n";
+        default:
+          return "invalid";
         }
       })
     )
@@ -164,12 +164,12 @@ const PrintBoardMovedStatus = (board) => {
         let piece = square.piece;
 
         switch (piece.name) {
-          case "rook":
-            return piece.hasMoved ? "T" : "F";
-          case "king":
-            return piece.hasMoved ? "T" : "F";
-          default:
-            return "o";
+        case "rook":
+          return piece.hasMoved ? "T" : "F";
+        case "king":
+          return piece.hasMoved ? "T" : "F";
+        default:
+          return "o";
         }
       })
     )

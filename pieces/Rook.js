@@ -13,7 +13,7 @@ class Rook extends Piece {
     const col = this.convertLetterToNumber(this.letter);
     const row = this.number;
     let validMoves = [];
-    
+
     const dirs = [
       [1, 0],
       [-1, 0],

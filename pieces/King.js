@@ -175,8 +175,10 @@ class King extends Piece {
     for (let i = 0; i < pawnSquares.length; i++) {
       if (
         board.board[pawnSquares[i][0]][pawnSquares[i][1]].piece != null &&
-        board.board[pawnSquares[i][0]][pawnSquares[i][1]].piece.name === "pawn" &&
-        board.board[pawnSquares[i][0]][pawnSquares[i][1]].piece.color != this.color
+        board.board[pawnSquares[i][0]][pawnSquares[i][1]].piece.name ===
+          "pawn" &&
+        board.board[pawnSquares[i][0]][pawnSquares[i][1]].piece.color !=
+          this.color
       ) {
         return true;
       }

@@ -114,7 +114,7 @@ export const Board = ({ route, navigation }) => {
         const gameState = gameStateResponse.data;
         console.log(gameState);
         const boardJson = fenToJSON(gameState.gameStateAsFen);
-        setBoard({...board, board: boardJson});
+        setBoard({ ...board, board: boardJson });
         setIsStarted(true);
         let players = gameState.players;
         if (players[0].username == sessionStorage.getItem("username")) {
@@ -324,7 +324,11 @@ export const Board = ({ route, navigation }) => {
           </Modal>
         </View>
       </View>
-      <ChatContainer socket={socket} chatLog={chatLog} setChatLog={setChatLog}/>
+      <ChatContainer
+        socket={socket}
+        chatLog={chatLog}
+        setChatLog={setChatLog}
+      />
     </View>
   );
 };

@@ -174,7 +174,7 @@ const getStartingBoard = () => {
     piece: new Rook("white", "h", 7)
   };
 
-  return {board:startingBoard, enPassant:[]};
+  return { board: startingBoard, enPassant: [] };
 };
 
 export default getStartingBoard;

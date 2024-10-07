@@ -52,7 +52,7 @@ class Knight extends Piece {
     }
     return validMoves;
   }
-  
+
   getAllMoves(board) {
     const col = Number(this.convertLetterToNumber(this.letter));
 
