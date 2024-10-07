@@ -109,8 +109,8 @@ const fenToJSON = (FEN) => {
   //   // PrintBoardTileColors(loadedBoard);
   //   // PrintBoardPieces(loadedBoard);
   //   // PrintBoardMovedStatus(loadedBoard);
-  //   return loadedBoard;
-  // };
+    return loadedBoard;
+  };
 
   // const PrintBoardTilePosition = (board) => {
   //   console.table(
@@ -174,6 +174,6 @@ const fenToJSON = (FEN) => {
   //       })
   //     )
   //   );
-};
+// };
 
 export default fenToJSON;
