@@ -13,7 +13,7 @@ class Rook extends Piece {
     const col = this.convertLetterToNumber(this.letter);
     const row = this.number;
     let validMoves = [];
-
+    
     const dirs = [
       [1, 0],
       [-1, 0],
@@ -32,36 +32,36 @@ class Rook extends Piece {
         newRow >= 0 &&
         newCol <= 7 &&
         newCol >= 0 &&
-        board[newRow][newCol].piece === null
+        board.board[newRow][newCol].piece === null
       ) {
         //moving piece to check for if king is in check
-        board[newRow][newCol].piece = board[row][col].piece;
-        board[row][col].piece = null;
+        board.board[newRow][newCol].piece = board.board[row][col].piece;
+        board.board[row][col].piece = null;
         //isValid move if it does not place our king in check :)
-        if (!board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
+        if (!board.board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
           validMoves.push([newRow, newCol]);
         }
         //moving piece back after checking if king is in check
-        board[row][col].piece = board[newRow][newCol].piece;
-        board[newRow][newCol].piece = null;
+        board.board[row][col].piece = board.board[newRow][newCol].piece;
+        board.board[newRow][newCol].piece = null;
 
         newRow += dirs[i][0];
         newCol += dirs[i][1];
       }
 
       if (newRow <= 7 && newRow >= 0 && newCol <= 7 && newCol >= 0) {
-        if (board[newRow][newCol].piece.color !== this.color) {
+        if (board.board[newRow][newCol].piece.color !== this.color) {
           //moving piece to check if king is in check
-          let tempPiece = board[newRow][newCol].piece;
-          board[newRow][newCol].piece = board[row][col].piece;
-          board[row][col].piece = null;
+          let tempPiece = board.board[newRow][newCol].piece;
+          board.board[newRow][newCol].piece = board.board[row][col].piece;
+          board.board[row][col].piece = null;
           //isValid move if it does not place our king in check :)
-          if (!board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
+          if (!board.board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
             validMoves.push([newRow, newCol]);
           }
           //moving piece back after checking if king is in check
-          board[row][col].piece = board[newRow][newCol].piece;
-          board[newRow][newCol].piece = tempPiece;
+          board.board[row][col].piece = board.board[newRow][newCol].piece;
+          board.board[newRow][newCol].piece = tempPiece;
         }
       }
     }
@@ -95,7 +95,7 @@ class Rook extends Piece {
         newRow >= 0 &&
         newCol <= 7 &&
         newCol >= 0 &&
-        board[newRow][newCol].piece === null
+        board.board[newRow][newCol].piece === null
       ) {
         validMoves.push([newRow, newCol]);
 
@@ -104,7 +104,7 @@ class Rook extends Piece {
       }
 
       if (newRow <= 7 && newRow >= 0 && newCol <= 7 && newCol >= 0) {
-        if (board[newRow][newCol].piece.color !== this.color) {
+        if (board.board[newRow][newCol].piece.color !== this.color) {
           validMoves.push([newRow, newCol]);
         }
       }

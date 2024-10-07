@@ -29,8 +29,12 @@ import ChatContainer from "./ChatContainer.jsx";
 
 export const Board = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
+<<<<<<< HEAD
   const [isWhite, setIsWhite] = useState(false);
   const [board, setBoard] = useState(getStartingBoard()); // 8x8 array
+=======
+  const [board, setBoard] = useState(getStartingBoard()); // 8x8 array and enPassant square
+>>>>>>> f47e01f (implemented en passant on frontend by refactoring board.js to be an object that holds an enPassant square and refactors all other instances of board.js use to reflect this)
   const [validMoves, setValidMoves] = useState([]);
   const [hasWon, setHasWon] = useState(false);
   const [showWinner, setShowWinner] = useState(false);
@@ -58,6 +62,7 @@ export const Board = ({ route, navigation }) => {
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const numberCol = ["8. ", "7. ", "6. ", "5. ", "4. ", "3. ", "2. ", "1. "];
 
+<<<<<<< HEAD
   //open the socket
   useEffect(() => {
     const setupSocket = async () => {
@@ -275,6 +280,85 @@ export const Board = ({ route, navigation }) => {
                     >
                       <Text style={{ color: "white" }}>{letter}</Text>
                     </View>
+=======
+
+  //TODO: fetch the board from the backend with sockets
+  
+
+  return (
+    <View style={styles.boardAndLogger}>
+      <Switch
+        value={blackSideBoard}
+        onValueChange={() => setBlackSideBoard(!blackSideBoard)}
+        disabled={false}
+        activeText={"White"}
+        inActiveText={"Black"}
+        circleSize={30}
+        barHeight={30}
+        circleBorderWidth={3}
+        backgroundActive={"#696969"}
+        backgroundInactive={"#696969"}
+        circleActiveColor={"white"}
+        circleInActiveColor={"#000000"}
+      />
+      <View style={styles.boardContainer}>
+        <Text
+          style={{ color: "white", fontSize: 25, marginBottom: 10 }}
+        >{`${isWhiteTurn ? "white" : "black"} player to move.`}</Text>
+        <View style={[styles.board, blackSideBoard && styles.flipped]}>
+          {board.board.map((row, index) => {
+            return (
+              <View key={`row-${index}`} style={{ flexDirection: "row" }}>
+                {!blackSideBoard && (
+                  <View style={{ marginRight: 10 }} key={`number-${index}`}>
+                    <Text style={{ color: "white", fontSize: 13 }}>
+                      {numberCol[index]}
+                    </Text>
+                  </View>
+                )}
+                {row.map((square, squareIndex) => {
+                  return (
+                    <BoardSquare
+                      isHighlighted={validMoves.some(
+                        (move) =>
+                          move[0] === square.number &&
+                          move[1] === getNumberFromLetter(square.letter)
+                      )}
+                      key={`square-${square.letter}-${square.number}`}
+                      src={square.src}
+                      letter={square.letter}
+                      number={square.number}
+                      piece={square.piece}
+                      selectSquare={() => {
+                        selectSquare(
+                          square.number,
+                          square.letter,
+                          board,
+                          setBoard,
+                          selectedSquare,
+                          setSelectedSquare,
+                          isWhiteTurn,
+                          setIsWhiteTurn,
+                          validMoves,
+                          setValidMoves,
+                          kingSquare,
+                          setKingSquare,
+                          setHasWon,
+                          hasWon,
+                          setShowWinner,
+                          setLog,
+                          log,
+                          setMoveIndex,
+                          moveIndex, 
+                        );
+                      }}
+                      isSelected={
+                        selectedSquare[0] === square.number &&
+                        selectedSquare[1] === getNumberFromLetter(square.letter)
+                      }
+                      flipped={blackSideBoard}
+                    />
+>>>>>>> f47e01f (implemented en passant on frontend by refactoring board.js to be an object that holds an enPassant square and refactors all other instances of board.js use to reflect this)
                   );
                 })}
           </View>

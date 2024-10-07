@@ -34,25 +34,25 @@ class Knight extends Piece {
       }
 
       if (
-        board[newRow][newCol].piece === null ||
-        board[newRow][newCol].piece.color != this.color
+        board.board[newRow][newCol].piece === null ||
+        board.board[newRow][newCol].piece.color != this.color
       ) {
         //moving piece to check for if king is in check
-        let tempPiece = board[newRow][newCol].piece;
-        board[newRow][newCol].piece = board[row][col].piece;
-        board[row][col].piece = null;
+        let tempPiece = board.board[newRow][newCol].piece;
+        board.board[newRow][newCol].piece = board.board[row][col].piece;
+        board.board[row][col].piece = null;
         //isValid move if it does not place our king in check :)
-        if (!board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
+        if (!board.board[kingSquare[0]][kingSquare[1]].piece.isCheck(board)) {
           validMoves.push([newRow, newCol]);
         }
         //moving piece back after checking if king is in check
-        board[row][col].piece = board[newRow][newCol].piece;
-        board[newRow][newCol].piece = tempPiece;
+        board.board[row][col].piece = board.board[newRow][newCol].piece;
+        board.board[newRow][newCol].piece = tempPiece;
       }
     }
     return validMoves;
   }
-
+  
   getAllMoves(board) {
     const col = Number(this.convertLetterToNumber(this.letter));
 
@@ -77,8 +77,8 @@ class Knight extends Piece {
       }
 
       if (
-        board[newRow][newCol]?.piece == null ||
-        board[newRow][newCol]?.piece.color != this.color
+        board.board[newRow][newCol]?.piece == null ||
+        board.board[newRow][newCol]?.piece.color != this.color
       ) {
         validMoves.push([newRow, newCol]);
       }
