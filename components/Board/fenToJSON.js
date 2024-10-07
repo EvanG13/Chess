@@ -103,77 +103,77 @@ const fenToJSON = (FEN) => {
     loadedBoard.push(boardRow);
   }
 
-  //// DEBUG
-  // console.table(loadedBoard);
-  // PrintBoardTilePosition(loadedBoard);
-  // PrintBoardTileColors(loadedBoard);
-  // PrintBoardPieces(loadedBoard);
-  // PrintBoardMovedStatus(loadedBoard);
-  return loadedBoard;
-};
+  //   //// DEBUG
+  //   // console.table(loadedBoard);
+  //   // PrintBoardTilePosition(loadedBoard);
+  //   // PrintBoardTileColors(loadedBoard);
+  //   // PrintBoardPieces(loadedBoard);
+  //   // PrintBoardMovedStatus(loadedBoard);
+  //   return loadedBoard;
+  // };
 
-const PrintBoardTilePosition = (board) => {
-  console.table(
-    board.map((row) => row.map((square) => square.letter + " " + square.number))
-  );
-};
+  // const PrintBoardTilePosition = (board) => {
+  //   console.table(
+  //     board.map((row) => row.map((square) => square.letter + " " + square.number))
+  //   );
+  // };
 
-const PrintBoardTileColors = (board) => {
-  console.table(
-    board.map((row) =>
-      row.map((square) => (square.src === whiteSquareSource ? "W" : "B"))
-    )
-  );
-};
+  // const PrintBoardTileColors = (board) => {
+  //   console.table(
+  //     board.map((row) =>
+  //       row.map((square) => (square.src === whiteSquareSource ? "W" : "B"))
+  //     )
+  //   );
+  // };
 
-const PrintBoardPieces = (board) => {
-  console.table(
-    board.map((row) =>
-      row.map((square) => {
-        if (!square.piece) return ".";
+  // const PrintBoardPieces = (board) => {
+  //   console.table(
+  //     board.map((row) =>
+  //       row.map((square) => {
+  //         if (!square.piece) return ".";
 
-        let piece = square.piece;
+  //         let piece = square.piece;
 
-        switch (piece.name) {
-        case "rook":
-          return piece.isWhite() ? "R" : "r";
-        case "king":
-          return piece.isWhite() ? "K" : "k";
-        case "queen":
-          return piece.isWhite() ? "Q" : "q";
-        case "pawn":
-          return piece.isWhite() ? "P" : "p";
-        case "bishop":
-          return piece.isWhite() ? "B" : "b";
-        case "knight":
-          return piece.isWhite() ? "N" : "n";
-        default:
-          return "invalid";
-        }
-      })
-    )
-  );
-};
+  //         switch (piece.name) {
+  //         case "rook":
+  //           return piece.isWhite() ? "R" : "r";
+  //         case "king":
+  //           return piece.isWhite() ? "K" : "k";
+  //         case "queen":
+  //           return piece.isWhite() ? "Q" : "q";
+  //         case "pawn":
+  //           return piece.isWhite() ? "P" : "p";
+  //         case "bishop":
+  //           return piece.isWhite() ? "B" : "b";
+  //         case "knight":
+  //           return piece.isWhite() ? "N" : "n";
+  //         default:
+  //           return "invalid";
+  //         }
+  //       })
+  //     )
+  //   );
+  // };
 
-const PrintBoardMovedStatus = (board) => {
-  console.table(
-    board.map((row) =>
-      row.map((square) => {
-        if (!square.piece) return ".";
+  // const PrintBoardMovedStatus = (board) => {
+  //   console.table(
+  //     board.map((row) =>
+  //       row.map((square) => {
+  //         if (!square.piece) return ".";
 
-        let piece = square.piece;
+  //         let piece = square.piece;
 
-        switch (piece.name) {
-        case "rook":
-          return piece.hasMoved ? "T" : "F";
-        case "king":
-          return piece.hasMoved ? "T" : "F";
-        default:
-          return "o";
-        }
-      })
-    )
-  );
+//         switch (piece.name) {
+//         case "rook":
+//           return piece.hasMoved ? "T" : "F";
+//         case "king":
+//           return piece.hasMoved ? "T" : "F";
+//         default:
+//           return "o";
+//         }
+//       })
+//     )
+//   );
 };
 
 export default fenToJSON;
