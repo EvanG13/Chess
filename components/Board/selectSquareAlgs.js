@@ -164,7 +164,8 @@ export const handleCheckmate = (
   kingSquare,
   board,
   setHasWon,
-  setShowWinner
+  setShowWinner,
+  LETTERS
 ) => {
   let newPlayerColor = isWhiteTurn ? "black" : "white";
   let [kingRow, kingCol] = kingSquare[`${newPlayerColor}King`];

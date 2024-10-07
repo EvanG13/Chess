@@ -3,7 +3,11 @@ import { LETTERS } from "../Board/board.js";
 import King from "../../pieces/King.js";
 import convertToChessNotation from "../Logger/toChessNotation.js";
 import { EmitActions } from "../../types/Actions.js";
-import { isValidMove, selectDifferentPiece } from "./selectSquareAlgs.js";
+import {
+  isValidMove,
+  selectDifferentPiece,
+  selectNewPiece
+} from "./selectSquareAlgs.js";
 
 const localSelectSquare = (
   number,

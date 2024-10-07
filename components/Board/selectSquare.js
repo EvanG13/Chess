@@ -7,6 +7,7 @@ import {
   isValidMove,
   movePiece,
   selectDifferentPiece,
+  selectNewPiece,
   updateEnPassant,
   updateKingState
 } from "./selectSquareAlgs.js";
@@ -104,9 +105,15 @@ const selectSquare = (
       kingSquare,
       board,
       setHasWon,
-      setShowWinner
+      setShowWinner,
+      LETTERS
     ); //TODO: try passing in newBoard instead of board here.
-    //TODO: emit a game over event if it was checkmate. This should be verified in backend.
+
+    if (isCheckmate) {
+      console.log("checkmate detected!");
+      //TODO: emit a game over event if it was checkmate. This should be verified in backend.
+    }
+
     //update the move log
     const notation = convertToChessNotation(
       newBoard[row][col].piece.name,
