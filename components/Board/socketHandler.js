@@ -2,7 +2,6 @@ import Actions from "../../types/Actions";
 import fenToJSON from "./fenToJSON";
 const handleSocket = (event, setters) => {
   const { action, data } = JSON.parse(event.data);
-  console.log(action, data);
   switch (action) {
     case Actions.GAME_START: {
       console.log(data);

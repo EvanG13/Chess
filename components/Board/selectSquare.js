@@ -27,7 +27,6 @@ const selectSquare = (
   socket,
   isWhite
 ) => {
-
   //get the row and column of the square that was clicked
   let row = number;
   let col = getNumberFromLetter(letter);
