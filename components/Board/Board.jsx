@@ -115,15 +115,19 @@ export const Board = ({ route, navigation }) => {
         console.log(gameState);
         const boardJson = fenToJSON(gameState.gameStateAsFen);
         setBoard({ ...board, board: boardJson });
+        
         setIsStarted(true);
         let players = gameState.players;
-        if (players[0].username == sessionStorage.getItem("username")) {
+        if (players[0].username === sessionStorage.getItem("username")) {
           setIsWhite(players[0].isWhite);
+          setBlackSideBoard(!players[0].isWhite);
+          setPlayer2({ name: players[1].username, rating: players[1].rating})
         } else {
           setIsWhite(players[1].isWhite);
+          setBlackSideBoard(!players[1].isWhite);
+          setPlayer2({ name: players[0].username, rating: players[0].rating})
         }
         setIsWhiteTurn(gameState.isWhitesTurn);
-        setBlackSideBoard(!isWhite);
       } catch (error) {
         if (error.response.status !== 404) {
           console.error("Error during getGameState:", error);
@@ -212,22 +216,15 @@ export const Board = ({ route, navigation }) => {
                             square.number,
                             square.letter,
                             board,
-                            setBoard,
                             selectedSquare,
                             setSelectedSquare,
                             isWhiteTurn,
-                            setIsWhiteTurn,
                             validMoves,
                             setValidMoves,
                             kingSquare,
                             setKingSquare,
                             setHasWon,
-                            hasWon,
                             setShowWinner,
-                            setLog,
-                            log,
-                            setMoveIndex,
-                            moveIndex,
                             socket,
                             isWhite
                           );
