@@ -1,6 +1,5 @@
 import { getNumberFromLetter } from "../Board/board.js";
 import { LETTERS } from "../Board/board.js";
-import convertToChessNotation from "../Logger/toChessNotation.js";
 import {
   emitMove,
   handleCheckmate,
@@ -25,17 +24,9 @@ const selectSquare = (
   setKingSquare,
   setHasWon,
   setShowWinner,
-  setLog,
-  log,
-  setMoveIndex,
-  moveIndex,
   socket,
   isWhite
 ) => {
-  if (moveIndex !== log.length - 1) {
-    alert("Please move to the last move to make a move.");
-    return; //user is in detached head state where they cant make moves 😔
-  }
 
   //get the row and column of the square that was clicked
   let row = number;
@@ -80,7 +71,7 @@ const selectSquare = (
 
     //set enPassant state
     updateEnPassant(newBoard, row, col, isWhiteTurn, board, selectedSquare);
-    //set king state or handle castling
+    //set king state / handle castling
     updateKingState(
       newBoard,
       row,
@@ -113,25 +104,9 @@ const selectSquare = (
       console.log("checkmate detected!");
       //TODO: emit a game over event if it was checkmate. This should be verified in backend.
     }
-
     //update the move log
-    const notation = convertToChessNotation(
-      newBoard[row][col].piece.name,
-      selectedSquare[0],
-      selectedSquare[1],
-      row,
-      col
-    );
-    const newBoardCopy = newBoard.map((row) => [
-      ...row.map((square) => ({ ...square }))
-    ]);
-    const move = { notation, board: newBoardCopy, isWhiteTurn: !isWhiteTurn };
-    let newLog = [...log, move];
-    setLog(newLog);
-    setMoveIndex(newLog.length - 1);
-    return;
   }
-  //deselecting current piece since user clicked away or finished moving their piece
+  //deselect current piece since user clicked away or finished moving their piece
   setSelectedSquare([]);
   setValidMoves([]);
 };
