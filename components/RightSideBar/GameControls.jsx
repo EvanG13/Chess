@@ -7,7 +7,7 @@ const GameControls = ({ socket }) => {
     //TODO open modal to confirm that user wants to forfeit
     socket.sendMessage({
       action: EmitActions.FORFEIT,
-      gameId: sessionStorage.getItem("gameId"),
+      gameId: sessionStorage.getItem("gameId")
     });
   };
 
@@ -15,7 +15,7 @@ const GameControls = ({ socket }) => {
     //TODO open modal to confirm that user wants to offer a draw. The modal should be the one resonsible for the socket
     socket.sendMessage({
       action: EmitActions.OFFER_DRAW,
-      gameId: sessionStorage.getItem("gameId"),
+      gameId: sessionStorage.getItem("gameId")
     });
   };
 
@@ -25,25 +25,25 @@ const GameControls = ({ socket }) => {
         <Text style={styles.buttonText}>Forfeit</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.controlButton} onPress={handleOfferDraw}>
-        <Text  style={styles.buttonText}>OfferDraw</Text>
+        <Text style={styles.buttonText}>OfferDraw</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    gameControls: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-around",
-        backgroundColor: "black",
-        height: "5%",
-        width: "100"
-    },
+  gameControls: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    backgroundColor: "black",
+    height: "5%",
+    width: "100"
+  },
   controlButton: {
     width: "30%",
     backgroundColor: "green",
-    color: "white",
+    color: "white"
   },
   buttonText: {
     color: "white",

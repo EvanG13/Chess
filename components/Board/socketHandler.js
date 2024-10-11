@@ -2,7 +2,7 @@ import Actions from "../../types/Actions";
 import fenToJSON from "./fenToJSON";
 const handleSocket = (event, setters) => {
   const { action, data } = JSON.parse(event.data);
-  console.log(action, data)
+  console.log(action, data);
   switch (action) {
     case Actions.GAME_START: {
       console.log(data);
@@ -48,10 +48,13 @@ const handleSocket = (event, setters) => {
       console.log(setters.board);
       setters.setBoard({ ...setters.board, board: boardJson });
       setters.setIsWhiteTurn(isWhiteTurn);
-      const newMove = {fen: data.fen, san: data.moveList[data.moveList.length-1].moveAsSan};
+      const newMove = {
+        fen: data.fen,
+        san: data.moveList[data.moveList.length - 1].moveAsSan
+      };
       setters.moveList.push(newMove);
       setters.setMoveList([...setters.moveList]);
-      setters.setMoveIndex(setters.moveList.length-1);
+      setters.setMoveIndex(setters.moveList.length - 1);
       break;
     }
     case Actions.GAME_CREATED:

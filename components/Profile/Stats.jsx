@@ -28,22 +28,23 @@ const Stats = ({ navigation }) => {
   useEffect(() => {
     const token = sessionStorage.getItem("sessionToken");
     const userId = sessionStorage.getItem("userId");
-    const getUserGames = async () =>{
+    const getUserGames = async () => {
       try {
-        const response = await axios.get(`${BACKEND_BASE_URL}/archivedGames/${userId}`, {
-          headers: {
-            Authorization: token,
-            userId: userId
+        const response = await axios.get(
+          `${BACKEND_BASE_URL}/archivedGames/${userId}`,
+          {
+            headers: {
+              Authorization: token,
+              userId: userId
+            }
           }
-         });
-         console.log(response.data);
-        }
-          catch(err) {
-            console.log(err);
-          }
+        );
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-        }
-    
     const getUserData = async () => {
       setSessionToken(token);
       setUsername(username);

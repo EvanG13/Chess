@@ -173,9 +173,9 @@ export const Board = ({ route, navigation }) => {
           circleActiveColor={"white"}
           circleInActiveColor={"#000000"}
         />
-       
+
         <View style={styles.boardContainer}>
-        {isStarted && <PlayerCard player={player2} />}
+          {isStarted && <PlayerCard player={player2} />}
           {isStarted ? (
             <Text
               style={{ color: "white", fontSize: 25, marginBottom: 10 }}
@@ -300,13 +300,17 @@ export const Board = ({ route, navigation }) => {
               </Text>
               <TouchableOpacity
                 style={styles.darkGreen}
-                onPress={() => {console.log("TODO implement rematch button")}}
+                onPress={() => {
+                  console.log("TODO implement rematch button");
+                }}
               >
                 <Text style={styles.buttonText}>Rematch</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.darkGreen}
-                onPress={() => {console.log("TODO implement new game button")}}
+                onPress={() => {
+                  console.log("TODO implement new game button");
+                }}
               >
                 <Text style={styles.buttonText}>New Game</Text>
               </TouchableOpacity>

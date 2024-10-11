@@ -1,7 +1,13 @@
 import handleSendChat from "./handleSendChat";
 import { useState } from "react";
 import ChatMessage from "./ChatMessage";
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from "react-native";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  StyleSheet
+} from "react-native";
 
 const ChatContainer = ({ socket, chatLog, setChatLog }) => {
   const [chatText, setChatText] = useState("");
@@ -50,7 +56,7 @@ const styles = StyleSheet.create({
     width: "80%"
   },
 
-  chatLog:{
+  chatLog: {
     height: "60%",
     width: "100%",
     backgroundColor: "white",

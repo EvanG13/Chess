@@ -6,27 +6,25 @@ const MoveLog = ({ moveList, board, setBoard, setMoveIndex, moveIndex }) => {
   return (
     <View style={styles.moveLog}>
       <Text style={styles.moveLogTitle}>Game History</Text>
-      {
-      moveList && (
-      <View style={styles.log}> { 
-        moveList.map((move, index) => {
-        return (
-          <MoveLogItem
-            board={board}
-            setBoard={setBoard}
-            setMoveIndex={setMoveIndex}
-            san={move.san}
-            fen={move.fen}
-            isActive={index === moveIndex}
-            index={index}
-            key={`move-${index}`}
-          />
-        );
-        }
-    )}
-    </View>
-    )
-      }
+      {moveList && (
+        <View style={styles.log}>
+          {" "}
+          {moveList.map((move, index) => {
+            return (
+              <MoveLogItem
+                board={board}
+                setBoard={setBoard}
+                setMoveIndex={setMoveIndex}
+                san={move.san}
+                fen={move.fen}
+                isActive={index === moveIndex}
+                index={index}
+                key={`move-${index}`}
+              />
+            );
+          })}
+        </View>
+      )}
     </View>
   );
 };
