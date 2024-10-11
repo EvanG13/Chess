@@ -4,11 +4,13 @@ import { BACKEND_BASE_URL } from "@env";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import MainHeader from "../Main/MainHeader";
 import StatsCard from "./StatsCard";
+import ArchivedGamesContainer from "./ArchivedGamesContainer";
 
 const Stats = ({ navigation }) => {
   const [sessionToken, setSessionToken] = useState(null);
   const [username, setUsername] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [userGames, setUserGames] = useState([]);
   const timeControls = [
     {
       title: "Bullet 1",
@@ -25,6 +27,8 @@ const Stats = ({ navigation }) => {
       iconPath: require("../../assets/appImages/classical.jpg")
     }
   ];
+
+
   useEffect(() => {
     const token = sessionStorage.getItem("sessionToken");
     const userId = sessionStorage.getItem("userId");
@@ -40,6 +44,7 @@ const Stats = ({ navigation }) => {
           }
         );
         console.log(response.data);
+        setUserGames(response.data.games);
       } catch (err) {
         console.log(err);
       }
@@ -110,6 +115,7 @@ const Stats = ({ navigation }) => {
           );
         })}
       </View>
+      <ArchivedGamesContainer archivedGames={userGames}/>
     </View>
   );
 };
