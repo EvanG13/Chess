@@ -11,7 +11,9 @@ export const EmitActions = Object.freeze({
   GAME_OVER: "GAME_OVER",
   MOVE_MADE: "makeMove",
   CHAT_MESSAGE: "message",
-  GAME_CREATED: "GAME_CREATED"
+  GAME_CREATED: "GAME_CREATED",
+  FORFEIT: "resign",
+  OFFER_DRAW: "offerDraw"
 });
 
 export default Actions;
