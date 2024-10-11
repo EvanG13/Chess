@@ -11,8 +11,6 @@ import getStartingBoard, { getNumberFromLetter } from "../Board/board.js";
 import selectSquare from "./selectSquare.js";
 import { Modal } from "react-native";
 import Logger from "../Logger/Logger.jsx";
-import handleNewGame from "./handleNewGame";
-import handleRematch from "./handleRematch";
 import { Switch } from "react-native-switch";
 import { BACKEND_BASE_URL } from "@env";
 import axios from "axios";
@@ -23,9 +21,10 @@ import styles from "./BoardStyles.js";
 import PlayerCard from "./PlayerCard.jsx";
 import fenToJSON from "./fenToJSON.js";
 import { TextInput } from "react-native-web";
-import handleSendChat from "./handleSendChat.js";
-import ChatMessage from "./ChatMessage.jsx";
-import ChatContainer from "./ChatContainer.jsx";
+import handleSendChat from "../RightSideBar/handleSendChat.js";
+import ChatMessage from "../RightSideBar/ChatMessage.jsx";
+import ChatContainer from "../RightSideBar/ChatContainer.jsx";
+import RightSideBar from "../RightSideBar/RightSideBar.jsx";
 
 export const Board = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
@@ -35,12 +34,11 @@ export const Board = ({ route, navigation }) => {
   const [hasWon, setHasWon] = useState(false);
   const [showWinner, setShowWinner] = useState(false);
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
-  const [log, setLog] = useState([]);
+  const [moveList, setMoveList] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
   const [isStarted, setIsStarted] = useState(false);
   const [whiteTimer, setWhiteTimer] = useState();
   const [blackTimer, setBlackTimer] = useState();
-  //chat stuff
   const [chatLog, setChatLog] = useState([]);
   const [player1, setPlayer1] = useState({
     name: sessionStorage.getItem("username"),
@@ -78,10 +76,12 @@ export const Board = ({ route, navigation }) => {
             setChatLog,
             chatLog,
             setPlayer1,
-            setPlayer2
+            setPlayer2,
+            moveList,
+            setMoveList,
+            setMoveIndex
           };
           socket.onmessage = function (event) {
-            console.log("inside onmessage");
             socketHandler(event, setters);
           };
           setSocket(socket);
@@ -173,8 +173,9 @@ export const Board = ({ route, navigation }) => {
           circleActiveColor={"white"}
           circleInActiveColor={"#000000"}
         />
-        {isStarted && <PlayerCard player={player2} />}
+       
         <View style={styles.boardContainer}>
+        {isStarted && <PlayerCard player={player2} />}
           {isStarted ? (
             <Text
               style={{ color: "white", fontSize: 25, marginBottom: 10 }}
@@ -279,14 +280,6 @@ export const Board = ({ route, navigation }) => {
                 })}
           </View>
           {isStarted && <PlayerCard player={player1} />}
-          <Logger
-            log={log}
-            setIsWhiteTurn={setIsWhiteTurn}
-            setBoard={setBoard}
-            setSelectedSquare={setSelectedSquare}
-            moveIndex={moveIndex}
-            setMoveIndex={setMoveIndex}
-          />
           <Modal
             visible={showWinner}
             animationType="fade"
@@ -307,13 +300,13 @@ export const Board = ({ route, navigation }) => {
               </Text>
               <TouchableOpacity
                 style={styles.darkGreen}
-                onPress={handleRematch}
+                onPress={() => {console.log("TODO implement rematch button")}}
               >
                 <Text style={styles.buttonText}>Rematch</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.darkGreen}
-                onPress={handleNewGame}
+                onPress={() => {console.log("TODO implement new game button")}}
               >
                 <Text style={styles.buttonText}>New Game</Text>
               </TouchableOpacity>
@@ -321,8 +314,13 @@ export const Board = ({ route, navigation }) => {
           </Modal>
         </View>
       </View>
-      <ChatContainer
+      <RightSideBar
         socket={socket}
+        board={board}
+        setBoard={setBoard}
+        moveIndex={moveIndex}
+        setMoveIndex={setMoveIndex}
+        moveList={moveList}
         chatLog={chatLog}
         setChatLog={setChatLog}
       />
