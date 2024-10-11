@@ -4,7 +4,6 @@ import { BACKEND_BASE_URL } from "@env";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import MainHeader from "../Main/MainHeader";
 import StatsCard from "./StatsCard";
-import Chat from "../Chat/Chat";
 
 const Stats = ({ navigation }) => {
   const [sessionToken, setSessionToken] = useState(null);
@@ -27,9 +26,26 @@ const Stats = ({ navigation }) => {
     }
   ];
   useEffect(() => {
+    const token = sessionStorage.getItem("sessionToken");
+    const userId = sessionStorage.getItem("userId");
+    const getUserGames = async () => {
+      try {
+        const response = await axios.get(
+          `${BACKEND_BASE_URL}/archivedGames/${userId}`,
+          {
+            headers: {
+              Authorization: token,
+              userId: userId
+            }
+          }
+        );
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     const getUserData = async () => {
-      const token = sessionStorage.getItem("sessionToken");
-      const userId = sessionStorage.getItem("userId");
       setSessionToken(token);
       setUsername(username);
       try {
@@ -51,6 +67,7 @@ const Stats = ({ navigation }) => {
       return;
     }
     getUserData();
+    getUserGames();
   }, [navigation]);
 
   const setTotals = (data) => {
