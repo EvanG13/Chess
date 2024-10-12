@@ -1,25 +1,28 @@
-import {View, Text, TouchableOpacity} from "react-native";
+import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
 import {useState, useEffect} from "react";
 import ArchivedGameCard from "./ArchivedGameCard";
+import SortCriteria from "../../types/SortCriteria";
 
-const ArchivedGamesContainer = ({archivedGames}) =>{
+const ArchivedGamesContainer = ({games, playerUsername}) =>{
     const [sortCriteria, setSortCriteria] = useState(SortCriteria.DESCENDING);
-    const [archivedGames, setArchivedGames] = useState(archivedGames);
+    const [archivedGames, setArchivedGames] = useState([]);
     useEffect(() => {
-        if(sortCriteria == SortCriteria.DESCENDING)
-            archivedGames.sort((game, game2) => {game.date - game2.date});
+        let sortedGames = [...games];
+        if(sortCriteria === SortCriteria.DESCENDING)
+            sortedGames.sort((game, game2) => new Date(game.created) - new Date(game2.created));
         else
-        archivedGames.sort((game, game2) => {game2.date - game.date});
-        setArchivedGames([...archivedGames]);
-    }, [sortCriteria])
+            sortedGames.sort((game, game2) => new Date(game2.created) - new Date(game.created));
+        setArchivedGames(sortedGames);
+    }, [sortCriteria, games]);
+
 
     return (
-        <View>
+        <View style= {styles.archivedContainer}>
             <GamesHeader sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} />
             <View>
                 {
-                    archivedGames.map((game) => {
-                        <ArchivedGameCard game={game}/>
+                    archivedGames.map((game, index) => {
+                       return <ArchivedGameCard game={game} key={`archivedGame-${index}` } playerUsername={playerUsername}/>
                     })
                 }
             </View>
@@ -30,7 +33,7 @@ const ArchivedGamesContainer = ({archivedGames}) =>{
 const GamesHeader = ({sortCriteria, setSortCriteria}) =>{
     
     const handlePress = () =>{
-        if(sortCriteria == SortCriteria.ASCENDING){
+        if(sortCriteria === SortCriteria.ASCENDING){
             setSortCriteria(SortCriteria.DESCENDING);
         }
         else{
@@ -39,16 +42,39 @@ const GamesHeader = ({sortCriteria, setSortCriteria}) =>{
     }
 
     return (
-        <View >
+        <View style={styles.gameHeader}>
             <Text>Players</Text>
             <Text>Result</Text>
             <Text>Moves</Text>
-            <Text >Date</Text>
-            <TouchableOpacity onPress={handlePress}>
-                <Text>{sortCriteria === SortCriteria.ASCENDING ? "oldest" : "newest"}</Text>
-            </TouchableOpacity>
+            <View style={styles.dateAndSort}>
+                <Text >Date</Text>
+                <TouchableOpacity onPress={handlePress}>
+                    
+                    <Text>{sortCriteria === SortCriteria.ASCENDING ? "⬇️" : "⬆️"}</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    archivedContainer: {
+        width: "70%",
+        marginLeft: "15%",
+        marginRight: "15%"
+    },
+    gameHeader: {
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-evenly"
+    },
+    dateAndSort: {
+        width: "8%",
+        flexDirection: "row",
+        alignItems: 'center',
+        justifyContent: "space-between"
+    }
+
+})
 
 export default ArchivedGamesContainer;

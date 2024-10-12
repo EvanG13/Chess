@@ -44,8 +44,11 @@ const Stats = ({ navigation }) => {
           }
         );
         console.log(response.data);
-        setUserGames(response.data.games);
-      } catch (err) {
+        //DEBUG:
+        // setUserGames(response.data.games);
+        setUserGames([{players: [{username: "cleve", color: "white", rating: 1230, isWinner: true }, {username: "evan", color: "black", rating: 969, isWinner:false }], created: "1/11/2022", reason: "forfeit", numMoves: 10},
+          {players: [{username: "caimin", color: "white", rating: 1230, isWinner: false }, {username: "cleve", color: "black", rating: 1190, isWinner: false }], created: "1/10/2021", reason: "insufficient material", numMoves: 41}])
+      } catch (err) { 
         console.log(err);
       }
     };
@@ -115,7 +118,7 @@ const Stats = ({ navigation }) => {
           );
         })}
       </View>
-      <ArchivedGamesContainer archivedGames={userGames}/>
+      <ArchivedGamesContainer games={userGames} playerUsername={sessionStorage.getItem("username")}/>
     </View>
   );
 };
