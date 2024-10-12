@@ -28,7 +28,6 @@ const Stats = ({ navigation }) => {
     }
   ];
 
-
   useEffect(() => {
     const token = sessionStorage.getItem("sessionToken");
     const userId = sessionStorage.getItem("userId");
@@ -45,10 +44,32 @@ const Stats = ({ navigation }) => {
         );
         console.log(response.data);
         //DEBUG:
-        // setUserGames(response.data.games);
-        setUserGames([{players: [{username: "cleve", color: "white", rating: 1230, isWinner: true }, {username: "evan", color: "black", rating: 969, isWinner:false }], created: "1/11/2022", reason: "forfeit", numMoves: 10},
-          {players: [{username: "caimin", color: "white", rating: 1230, isWinner: false }, {username: "cleve", color: "black", rating: 1190, isWinner: false }], created: "1/10/2021", reason: "insufficient material", numMoves: 41}])
-      } catch (err) { 
+        // setUserGames(response.data.archivedGames);
+        setUserGames([
+          {
+            resultReason: "CHECKMATE",
+            numMoves: 15,
+            timeControl: "BLITZ_5",
+            created: "Oct 12, 2023, 12:13:45 AM",
+            players: [
+              { isWinner: true, playerId: "id1", username: "user1", isWhite: false, rating: 1200 },
+              { isWinner: false, playerId: "id2", username: "user2", isWhite: true, rating: 1120 }
+            ],
+            id: "670a21a9e135ae2f48a25c00"
+          },
+          {
+            resultReason: "ABORTED",
+            numMoves: 26,
+            timeControl: "BULLET_1",
+            created: "Oct 12, 2024, 12:13:45 AM",
+            players: [
+              { isWinner: false, playerId: "id1", username: "user1", isWhite: true, rating: 1604 },
+              { isWinner: true, playerId: "id2", username: "user2", isWhite: false, rating: 120 }
+            ],
+            id: "670a21a9e135ae2f48a25c06"
+          }
+        ]);
+      } catch (err) {
         console.log(err);
       }
     };
@@ -118,7 +139,10 @@ const Stats = ({ navigation }) => {
           );
         })}
       </View>
-      <ArchivedGamesContainer games={userGames} playerUsername={sessionStorage.getItem("username")}/>
+      <ArchivedGamesContainer
+        games={userGames}
+        playerUsername={sessionStorage.getItem("username")}
+      />
     </View>
   );
 };
