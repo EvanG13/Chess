@@ -10,7 +10,6 @@ import React, { useState, useEffect } from "react";
 import getStartingBoard, { getNumberFromLetter } from "../Board/board.js";
 import selectSquare from "./selectSquare.js";
 import { Modal } from "react-native";
-import Logger from "../Logger/Logger.jsx";
 import { Switch } from "react-native-switch";
 import { BACKEND_BASE_URL } from "@env";
 import axios from "axios";
@@ -20,11 +19,8 @@ import socketHandler from "./socketHandler.js";
 import styles from "./BoardStyles.js";
 import PlayerCard from "./PlayerCard.jsx";
 import fenToJSON from "./fenToJSON.js";
-import { TextInput } from "react-native-web";
-import handleSendChat from "../RightSideBar/handleSendChat.js";
-import ChatMessage from "../RightSideBar/ChatMessage.jsx";
-import ChatContainer from "../RightSideBar/ChatContainer.jsx";
 import RightSideBar from "../RightSideBar/RightSideBar.jsx";
+import Timer from "../Timer.jsx";
 
 export const Board = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
@@ -37,8 +33,8 @@ export const Board = ({ route, navigation }) => {
   const [moveList, setMoveList] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
   const [isStarted, setIsStarted] = useState(false);
-  const [whiteTimer, setWhiteTimer] = useState();
-  const [blackTimer, setBlackTimer] = useState();
+  const [whiteTimer, setWhiteTimer] = useState(300);
+  const [blackTimer, setBlackTimer] = useState(300);
   const [chatLog, setChatLog] = useState([]);
   const [player1, setPlayer1] = useState({
     name: sessionStorage.getItem("username"),
@@ -158,6 +154,7 @@ export const Board = ({ route, navigation }) => {
 
   return (
     <View style={styles.gameView}>
+       {isStarted && <Timer isWhite={!isWhite} isWhiteTurn={isWhiteTurn} timeRemaining={isWhite ? blackTimer : whiteTimer}/>}
       <View style={styles.boardAndLogger}>
         <Switch
           value={blackSideBoard}
@@ -318,6 +315,7 @@ export const Board = ({ route, navigation }) => {
           </Modal>
         </View>
       </View>
+      {isStarted && <Timer isWhite={isWhite} isWhiteTurn={isWhiteTurn} timeRemaining={isWhite ? whiteTimer : blackTimer}/>}
       <RightSideBar
         socket={socket}
         board={board}
