@@ -53,8 +53,20 @@ const Stats = ({ navigation }) => {
             timeControl: "BLITZ_5",
             created: "Oct 12, 2023, 12:13:45 AM",
             players: [
-              { isWinner: true, playerId: "id1", username: "user1", isWhite: false, rating: 1200 },
-              { isWinner: false, playerId: "id2", username: "user2", isWhite: true, rating: 1120 }
+              {
+                isWinner: true,
+                playerId: "id1",
+                username: "user1",
+                isWhite: false,
+                rating: 1200
+              },
+              {
+                isWinner: false,
+                playerId: "id2",
+                username: "user2",
+                isWhite: true,
+                rating: 1120
+              }
             ],
             id: "670a21a9e135ae2f48a25c00"
           },
@@ -64,8 +76,20 @@ const Stats = ({ navigation }) => {
             timeControl: "BULLET_1",
             created: "Oct 12, 2024, 12:13:45 AM",
             players: [
-              { isWinner: false, playerId: "id1", username: "user1", isWhite: true, rating: 1604 },
-              { isWinner: true, playerId: "id2", username: "user2", isWhite: false, rating: 120 }
+              {
+                isWinner: false,
+                playerId: "id1",
+                username: "user1",
+                isWhite: true,
+                rating: 1604
+              },
+              {
+                isWinner: true,
+                playerId: "id2",
+                username: "user2",
+                isWhite: false,
+                rating: 120
+              }
             ],
             id: "670a21a9e135ae2f48a25c06"
           }
@@ -114,42 +138,51 @@ const Stats = ({ navigation }) => {
   return (
     <View style={styles.stats}>
       <MainHeader navigation={navigation} />
-      <Text style={styles.usernameHeader}>{sessionStorage.getItem("username")}</Text>
+      <Text style={styles.usernameHeader}>
+        {sessionStorage.getItem("username")}
+      </Text>
       <Text>{username}</Text>
       {userData ? (
-         <LinearGradient
-         start={{x: 0, y: 0}} end={{x: 1, y: 0}}
-         colors={['#000000', '#008000']}  // Black to Green
-         style={styles.gradient}
-       >
-        <View style={styles.rawStats}>
-          <Text style={styles.statText}>Total Games won: {userData.totalWins}</Text>
-          <Text style={styles.statText}>Total Games lost: {userData.totalLosses}</Text>
-          <Text style={styles.statText}>Total Games drawn: {userData.totalDraws}</Text>
-        </View>
+        <LinearGradient
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          colors={["#000000", "#008000"]} // Black to Green
+          style={styles.gradient}
+        >
+          <View style={styles.rawStats}>
+            <Text style={styles.statText}>
+              Total Games won: {userData.totalWins}
+            </Text>
+            <Text style={styles.statText}>
+              Total Games lost: {userData.totalLosses}
+            </Text>
+            <Text style={styles.statText}>
+              Total Games drawn: {userData.totalDraws}
+            </Text>
+          </View>
         </LinearGradient>
       ) : (
         <Text>Loading...</Text>
       )}
       <View style={styles.main}>
-      <View style={styles.statCards}>
-        {timeControls.map((control, index) => {
-          return (
-            <StatsCard
-              key={index}
-              title={control.title}
-              iconPath={control.iconPath}
-              handlePress={() =>
-                navigation.navigate("stats", { timeControl: control.title })
-              }
-            />
-          );
-        })}
-      </View>
-      <ArchivedGamesContainer
-        games={userGames}
-        playerUsername={sessionStorage.getItem("username")}
-      />
+        <View style={styles.statCards}>
+          {timeControls.map((control, index) => {
+            return (
+              <StatsCard
+                key={index}
+                title={control.title}
+                iconPath={control.iconPath}
+                handlePress={() =>
+                  navigation.navigate("stats", { timeControl: control.title })
+                }
+              />
+            );
+          })}
+        </View>
+        <ArchivedGamesContainer
+          games={userGames}
+          playerUsername={sessionStorage.getItem("username")}
+        />
       </View>
     </View>
   );
@@ -176,7 +209,7 @@ const styles = StyleSheet.create({
     marginLeft: "50%",
     marginRight: "50%",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "space-between"
   },
 
   statText: {
@@ -188,7 +221,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     flexWrap: "wrap",
-    width: "30%",
+    width: "30%"
   },
   usernameHeader: {
     textAlign: "left",

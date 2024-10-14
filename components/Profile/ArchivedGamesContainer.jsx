@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     marginLeft: "15%",
     marginRight: "15%",
     backgroundColor: "black",
-    marginBottom: 20,
+    marginBottom: 20
   },
   gameHeader: {
     width: "100%",
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   gameHeaderText: {
     fontSize: 20,
-    color: "white",
+    color: "white"
   },
   dateAndSort: {
     width: "8%",

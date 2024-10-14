@@ -1,15 +1,13 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 const timeIcons = {
-    bullet: require('../../assets/appImages/bullet.png'),
-    blitz: require('../../assets/appImages/blitz.png'),
-    rapid: require('../../assets/appImages/rapid.png'),
-    classical: require('../../assets/appImages/classical.jpg'),
-  };
-  
+  bullet: require("../../assets/appImages/bullet.png"),
+  blitz: require("../../assets/appImages/blitz.png"),
+  rapid: require("../../assets/appImages/rapid.png"),
+  classical: require("../../assets/appImages/classical.jpg")
+};
 
 const ArchivedGameCard = ({ game, playerUsername }) => {
-    
   let iconKey = game.timeControl.split("_")[0].toLowerCase();
   let result = "draw";
   let player =
@@ -71,9 +69,7 @@ const ResultCard = ({ gameResult, reasons }) => {
 const PlayerInfoRow = ({ isWhite, username, rating }) => {
   return (
     <View style={styles.playerRow}>
-      <View
-        style={isWhite ? styles.whiteSquare : styles.blackSquare}
-      ></View>
+      <View style={isWhite ? styles.whiteSquare : styles.blackSquare}></View>
       <Text>{username}</Text>
       <Text>{`(${rating})`}</Text>
     </View>
