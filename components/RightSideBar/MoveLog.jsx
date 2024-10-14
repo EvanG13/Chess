@@ -8,7 +8,6 @@ const MoveLog = ({ moveList, board, setBoard, setMoveIndex, moveIndex }) => {
       <Text style={styles.moveLogTitle}>Game History</Text>
       {moveList && (
         <View style={styles.log}>
-          {" "}
           {moveList.map((move, index) => {
             return (
               <MoveLogItem
