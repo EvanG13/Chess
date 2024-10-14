@@ -51,11 +51,11 @@ const GamesHeader = ({ sortCriteria, setSortCriteria }) => {
 
   return (
     <View style={styles.gameHeader}>
-      <Text>Players</Text>
-      <Text>Result</Text>
-      <Text>Moves</Text>
+      <Text style={styles.gameHeaderText}>Players</Text>
+      <Text style={styles.gameHeaderText}>Result</Text>
+      <Text style={styles.gameHeaderText}>Moves</Text>
       <View style={styles.dateAndSort}>
-        <Text>Date</Text>
+        <Text style={styles.gameHeaderText}>Date</Text>
         <TouchableOpacity onPress={handlePress}>
           <Text>{sortCriteria === SortCriteria.ASCENDING ? "⬇️" : "⬆️"}</Text>
         </TouchableOpacity>
@@ -66,14 +66,22 @@ const GamesHeader = ({ sortCriteria, setSortCriteria }) => {
 
 const styles = StyleSheet.create({
   archivedContainer: {
-    width: "70%",
+    width: "48%",
+    height: "80%",
     marginLeft: "15%",
-    marginRight: "15%"
+    marginRight: "15%",
+    backgroundColor: "black",
+    marginBottom: 20,
   },
   gameHeader: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-evenly",
+    marginBottom: 3
+  },
+  gameHeaderText: {
+    fontSize: 20,
+    color: "white",
   },
   dateAndSort: {
     width: "8%",

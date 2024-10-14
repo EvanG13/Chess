@@ -5,6 +5,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import MainHeader from "../Main/MainHeader";
 import StatsCard from "./StatsCard";
 import ArchivedGamesContainer from "./ArchivedGamesContainer";
+import LinearGradient from "react-native-web-linear-gradient";
 
 const Stats = ({ navigation }) => {
   const [sessionToken, setSessionToken] = useState(null);
@@ -111,20 +112,26 @@ const Stats = ({ navigation }) => {
     }
   };
   return (
-    <View>
+    <View style={styles.stats}>
       <MainHeader navigation={navigation} />
-      <Text>User</Text>
+      <Text style={styles.usernameHeader}>{sessionStorage.getItem("username")}</Text>
       <Text>{username}</Text>
       {userData ? (
-        <>
-          <Text>Total Games won: {userData.totalWins}</Text>
-          <Text>Total Games lost: {userData.totalLosses}</Text>
-          <Text>Total Games drawn: {userData.totalDraws}</Text>
-        </>
+         <LinearGradient
+         start={{x: 0, y: 0}} end={{x: 1, y: 0}}
+         colors={['#000000', '#008000']}  // Black to Green
+         style={styles.gradient}
+       >
+        <View style={styles.rawStats}>
+          <Text style={styles.statText}>Total Games won: {userData.totalWins}</Text>
+          <Text style={styles.statText}>Total Games lost: {userData.totalLosses}</Text>
+          <Text style={styles.statText}>Total Games drawn: {userData.totalDraws}</Text>
+        </View>
+        </LinearGradient>
       ) : (
         <Text>Loading...</Text>
       )}
-
+      <View style={styles.main}>
       <View style={styles.statCards}>
         {timeControls.map((control, index) => {
           return (
@@ -143,17 +150,51 @@ const Stats = ({ navigation }) => {
         games={userGames}
         playerUsername={sessionStorage.getItem("username")}
       />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  stats: {
+    backgroundColor: "black",
+    color: "white",
+    height: "100%",
+    width: "100%"
+  },
+
+  main: {
+    flexDirection: "row",
+    height: "80%",
+    marginTop: "4%"
+  },
+
+  rawStats: {
+    color: "white",
+    flexDirection: "row",
+    width: "40%",
+    marginLeft: "50%",
+    marginRight: "50%",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  statText: {
+    color: "white",
+    fontSize: 18
+  },
+
   statCards: {
     flexDirection: "row",
     justifyContent: "space-around",
     flexWrap: "wrap",
-    width: "50%",
-    margin: "auto"
+    width: "30%",
+  },
+  usernameHeader: {
+    textAlign: "left",
+    margin: 10,
+    fontSize: 35,
+    color: "white"
   }
 });
 
