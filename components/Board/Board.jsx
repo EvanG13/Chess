@@ -154,7 +154,13 @@ export const Board = ({ route, navigation }) => {
 
   return (
     <View style={styles.gameView}>
-       {isStarted && <Timer isWhite={!isWhite} isWhiteTurn={isWhiteTurn} timeRemaining={isWhite ? blackTimer : whiteTimer}/>}
+      {isStarted && (
+        <Timer
+          isWhite={!isWhite}
+          isWhiteTurn={isWhiteTurn}
+          timeRemaining={isWhite ? blackTimer : whiteTimer}
+        />
+      )}
       <View style={styles.boardAndLogger}>
         <Switch
           value={blackSideBoard}
@@ -315,7 +321,13 @@ export const Board = ({ route, navigation }) => {
           </Modal>
         </View>
       </View>
-      {isStarted && <Timer isWhite={isWhite} isWhiteTurn={isWhiteTurn} timeRemaining={isWhite ? whiteTimer : blackTimer}/>}
+      {isStarted && (
+        <Timer
+          isWhite={isWhite}
+          isWhiteTurn={isWhiteTurn}
+          timeRemaining={isWhite ? whiteTimer : blackTimer}
+        />
+      )}
       <RightSideBar
         socket={socket}
         board={board}
