@@ -86,6 +86,12 @@ const styles = StyleSheet.create({
     padding: 5,
     height: "100%",
     width: "20%"
+  },
+  playerAndTimer:{
+    width: "80%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
   }
 });
 export default styles;
