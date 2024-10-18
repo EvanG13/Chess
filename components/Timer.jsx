@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   timerText: {
-    color: "black",
+    color: "black"
   }
 });
 

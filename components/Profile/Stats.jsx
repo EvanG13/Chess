@@ -29,15 +29,12 @@ const Stats = ({ navigation }) => {
     const userId = sessionStorage.getItem("userId");
     const getUserGames = async () => {
       try {
-        const response = await axiosInstance.get(
-          `/archivedGames/${userId}`,
-          {
-            headers: {
-              Authorization: token,
-              userId: userId
-            }
+        const response = await axiosInstance.get(`/archivedGames/${userId}`, {
+          headers: {
+            Authorization: token,
+            userId: userId
           }
-        );
+        });
         console.log(response.data);
       } catch (err) {
         console.log(err);

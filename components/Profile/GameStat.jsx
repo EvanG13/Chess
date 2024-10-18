@@ -3,7 +3,6 @@ import { View, Text } from "react-native";
 import axiosInstance from "../axiosInstance";
 import React, { useState, useEffect } from "react";
 
-
 const GameStat = ({ navigation }) => {
   const route = useRoute();
   const { timeControl } = route.params || {};

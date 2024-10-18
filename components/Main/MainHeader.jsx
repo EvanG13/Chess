@@ -4,7 +4,6 @@ import logo from "../../assets/appImages/logo.png";
 import { useIsFocused } from "@react-navigation/native";
 import axiosInstance from "../axiosInstance";
 
-
 const MainHeader = ({ navigation }) => {
   const [sessionToken, setSessionToken] = useState(null);
   const [username, setUsername] = useState(null);

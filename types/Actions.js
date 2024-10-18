@@ -8,7 +8,6 @@ const Actions = Object.freeze({
   OFFER_DRAW: "OFFER_DRAW"
 });
 
-
 //what to emit to backend
 export const EmitActions = Object.freeze({
   GAME_OVER: "GAME_OVER",
