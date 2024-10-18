@@ -1,3 +1,4 @@
+//what to recieve from backend
 const Actions = Object.freeze({
   GAME_START: "GAME_START",
   GAME_OVER: "GAME_OVER",
@@ -7,12 +8,12 @@ const Actions = Object.freeze({
   OFFER_DRAW: "OFFER_DRAW"
 });
 
+
+//what to emit to backend
 export const EmitActions = Object.freeze({
-  GAME_START: "GAME_START",
   GAME_OVER: "GAME_OVER",
   MOVE_MADE: "makeMove",
   CHAT_MESSAGE: "message",
-  GAME_CREATED: "GAME_CREATED",
   FORFEIT: "resign",
   OFFER_DRAW: "offerDraw"
 });
