@@ -1,5 +1,5 @@
 import { BACKEND_WEB_SOCKET_URL as url } from "@env";
-
+console.log(url);
 const createSocket = async function (userId) {
   return new Promise(function (resolve, reject) {
     let socket = new WebSocket(`${url}?userid=${userId}`);

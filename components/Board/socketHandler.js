@@ -45,7 +45,6 @@ const handleSocket = (event, setters) => {
       }
       const boardJson = fenToJSON(data.fen);
       const isWhiteTurn = data.isWhiteTurn;
-      console.log(setters.board);
       setters.setBoard({ ...setters.board, board: boardJson });
       setters.setIsWhiteTurn(isWhiteTurn);
       const newMove = {

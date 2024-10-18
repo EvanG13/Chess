@@ -1,8 +1,7 @@
 import { useRoute } from "@react-navigation/native";
 import { View, Text } from "react-native";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import React, { useState, useEffect } from "react";
-import { BACKEND_BASE_URL } from "@env";
 
 const GameStat = ({ navigation }) => {
   const route = useRoute();
@@ -13,7 +12,7 @@ const GameStat = ({ navigation }) => {
     const getData = async () => {
       let userData = null;
       try {
-        const response = await axios.get(`${BACKEND_BASE_URL}/stats`, {
+        const response = await axiosInstance.get(`/stats`, {
           headers: {
             Authorization: sessionStorage.getItem("sessionToken"),
             userId: sessionStorage.getItem("userId")

@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import axios from "axios";
-import { BACKEND_BASE_URL } from "@env";
+import axiosInstance from "../axiosInstance";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  //console.log(BACKEND_BASE_URL);
   const handleLogin = async () => {
     if (email === "" || password === "") {
       setError("Please fill out all fields");
@@ -17,7 +15,7 @@ const Login = ({ navigation }) => {
     }
 
     try {
-      const response = await axios.post(`${BACKEND_BASE_URL}/login`, {
+      const response = await axiosInstance.post("/login", {
         email,
         password
       });

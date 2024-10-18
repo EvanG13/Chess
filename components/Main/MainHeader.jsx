@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 import logo from "../../assets/appImages/logo.png";
 import { useIsFocused } from "@react-navigation/native";
-import axios from "axios";
-import { BACKEND_BASE_URL } from "@env";
+import axiosInstance from "../axiosInstance";
 
 const MainHeader = ({ navigation }) => {
   const [sessionToken, setSessionToken] = useState(null);
@@ -23,8 +22,8 @@ const MainHeader = ({ navigation }) => {
     sessionStorage.clear();
 
     try {
-      await axios.post(
-        `${BACKEND_BASE_URL}/logout`,
+      await axiosInstance.post(
+        `/logout`,
         {},
         {
           headers: {

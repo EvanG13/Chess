@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { BACKEND_BASE_URL } from "@env";
+import axiosInstance from "../axiosInstance";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import MainHeader from "../Main/MainHeader";
 import StatsCard from "./StatsCard";
@@ -34,15 +33,12 @@ const Stats = ({ navigation }) => {
     const userId = sessionStorage.getItem("userId");
     const getUserGames = async () => {
       try {
-        const response = await axios.get(
-          `${BACKEND_BASE_URL}/archivedGames/${userId}`,
-          {
-            headers: {
-              Authorization: token,
-              userId: userId
-            }
+        const response = await axiosInstance.get(`/archivedGames/${userId}`, {
+          headers: {
+            Authorization: token,
+            userId: userId
           }
-        );
+        });
         console.log(response.data);
         //DEBUG:
         // setUserGames(response.data.archivedGames);
@@ -103,7 +99,7 @@ const Stats = ({ navigation }) => {
       setSessionToken(token);
       setUsername(username);
       try {
-        const response = await axios.get(`${BACKEND_BASE_URL}/stats`, {
+        const response = await axiosInstance.get(`/stats`, {
           headers: {
             Authorization: token,
             userId: userId

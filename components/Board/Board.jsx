@@ -10,21 +10,17 @@ import React, { useState, useEffect } from "react";
 import getStartingBoard, { getNumberFromLetter } from "../Board/board.js";
 import selectSquare from "./selectSquare.js";
 import { Modal } from "react-native";
-import Logger from "../Logger/Logger.jsx";
 import { Switch } from "react-native-switch";
-import { BACKEND_BASE_URL } from "@env";
-import axios from "axios";
+
+import axiosInstance from "../axiosInstance.js";
 import createSocket from "../websocket.js";
 import loaderGif from "../../assets/appImages/loader.gif";
 import socketHandler from "./socketHandler.js";
 import styles from "./BoardStyles.js";
 import PlayerCard from "./PlayerCard.jsx";
 import fenToJSON from "./fenToJSON.js";
-import { TextInput } from "react-native-web";
-import handleSendChat from "../RightSideBar/handleSendChat.js";
-import ChatMessage from "../RightSideBar/ChatMessage.jsx";
-import ChatContainer from "../RightSideBar/ChatContainer.jsx";
 import RightSideBar from "../RightSideBar/RightSideBar.jsx";
+import Timer from "../Timer.jsx";
 
 export const Board = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
@@ -37,8 +33,8 @@ export const Board = ({ route, navigation }) => {
   const [moveList, setMoveList] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
   const [isStarted, setIsStarted] = useState(false);
-  const [whiteTimer, setWhiteTimer] = useState();
-  const [blackTimer, setBlackTimer] = useState();
+  const [whiteTimer, setWhiteTimer] = useState(300);
+  const [blackTimer, setBlackTimer] = useState(300);
   const [chatLog, setChatLog] = useState([]);
   const [player1, setPlayer1] = useState({
     name: sessionStorage.getItem("username"),
@@ -99,15 +95,12 @@ export const Board = ({ route, navigation }) => {
       await setupSocket();
       //check if user is already in game (like on a refresh)
       try {
-        const gameStateResponse = await axios.get(
-          `${BACKEND_BASE_URL}/gameState`,
-          {
-            headers: {
-              Authorization: sessionStorage.getItem("sessionToken"),
-              userid: sessionStorage.getItem("userId")
-            }
+        const gameStateResponse = await axiosInstance.get(`/gameState`, {
+          headers: {
+            Authorization: sessionStorage.getItem("sessionToken"),
+            userid: sessionStorage.getItem("userId")
           }
-        );
+        });
 
         console.log("user is in a game.");
         //user is in a game so set the game state
@@ -115,7 +108,9 @@ export const Board = ({ route, navigation }) => {
         console.log(gameState);
         const boardJson = fenToJSON(gameState.gameStateAsFen);
         setBoard({ ...board, board: boardJson });
-
+        const list = gameState.moveList;
+        setMoveList([...list]);
+        setMoveIndex(list.length - 1);
         setIsStarted(true);
         let players = gameState.players;
         if (players[0].username === sessionStorage.getItem("username")) {
@@ -175,7 +170,16 @@ export const Board = ({ route, navigation }) => {
         />
 
         <View style={styles.boardContainer}>
-          {isStarted && <PlayerCard player={player2} />}
+          {isStarted && (
+            <View style={styles.playerAndTimer}>
+              <Timer
+                isWhite={!isWhite}
+                isWhiteTurn={isWhiteTurn}
+                timeRemaining={isWhite ? blackTimer : whiteTimer}
+              />
+              <PlayerCard player={player2} />
+            </View>
+          )}
           {isStarted ? (
             <Text
               style={{ color: "white", fontSize: 25, marginBottom: 10 }}
@@ -279,7 +283,16 @@ export const Board = ({ route, navigation }) => {
                   );
                 })}
           </View>
-          {isStarted && <PlayerCard player={player1} />}
+          {isStarted && (
+            <View style={styles.playerAndTimer}>
+              <Timer
+                isWhite={isWhite}
+                isWhiteTurn={isWhiteTurn}
+                timeRemaining={isWhite ? whiteTimer : blackTimer}
+              />
+              <PlayerCard player={player1} />
+            </View>
+          )}
           <Modal
             visible={showWinner}
             animationType="fade"
