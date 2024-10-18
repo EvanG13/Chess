@@ -23,15 +23,22 @@ const Timer = ({ timeRemaining, isWhiteTurn, isWhite }) => {
   };
   return (
     <View style={styles.timerContainer}>
-      <Text>{formatTime(seconds)}</Text>
+      <Text style={styles.timerText}>{formatTime(seconds)}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  timer: {
-    height: 100,
-    width: 100
+  timerContainer: {
+    height: "50%",
+    backgroundColor: "yellow",
+    padding: 10,
+    margin: 10,
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  timerText: {
+    color: "black",
   }
 });
 
