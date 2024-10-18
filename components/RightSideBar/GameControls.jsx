@@ -4,6 +4,7 @@ import { EmitActions } from "../../types/Actions";
 
 const GameControls = ({ socket }) => {
   const handleForfeit = () => {
+    console.log("in handle forfeit");
     //TODO open modal to confirm that user wants to forfeit
     socket.sendMessage({
       action: EmitActions.FORFEIT,
