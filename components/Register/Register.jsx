@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { BACKEND_BASE_URL } from "@env";
-import axios from "axios";
+
+import axiosInstance from "../axiosInstance";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +10,6 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-
   const handleRegister = async () => {
     if (
       email === "" ||
@@ -28,7 +27,7 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axios.post(`${BACKEND_BASE_URL}/register`, {
+      const response = await axiosInstance.post(`/register`, {
         email,
         username,
         password
