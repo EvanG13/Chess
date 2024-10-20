@@ -40,7 +40,10 @@ const handleSocket = (event, setters) => {
       break;
     case Actions.MOVE_MADE: {
       if (!data.isSuccess) {
-        console.log("Invalid move");
+        const whiteRemainingTime = data.whiteRemainingTime;
+        const blackRemainingTime = data.blackRemainingTime;
+
+        console.log(whiteRemainingTime + " " + blackRemainingTime);
         return;
       }
       const boardJson = fenToJSON(data.fen);
