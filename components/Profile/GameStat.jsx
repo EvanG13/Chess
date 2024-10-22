@@ -2,6 +2,7 @@ import { useRoute } from "@react-navigation/native";
 import { View, Text } from "react-native";
 import axiosInstance from "../axiosInstance";
 import React, { useState, useEffect } from "react";
+import ArchivedGamesContainer from "./ArchivedGamesContainer";
 
 const GameStat = ({ navigation }) => {
   const route = useRoute();
@@ -47,6 +48,7 @@ const GameStat = ({ navigation }) => {
       ) : (
         <Text>Loading...</Text>
       )}
+      <ArchivedGamesContainer/>
     </View>
   );
 };
