@@ -76,7 +76,9 @@ export const Board = ({ route, navigation }) => {
             setPlayer2,
             moveList,
             setMoveList,
-            setMoveIndex
+            setMoveIndex,
+            setWhiteTimer,
+            setBlackTimer
           };
           socket.onmessage = function (event) {
             socketHandler(event, setters);
