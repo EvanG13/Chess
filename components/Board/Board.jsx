@@ -115,8 +115,18 @@ export const Board = ({ route, navigation }) => {
         setMoveList([...list]);
         setMoveIndex(list.length - 1);
         setIsStarted(true);
-        setBlackTimer(gameState.blackRemainingTime);
-        setWhiteTimer(gameState.whiteRemainingTime);
+        let bRemainingTime, wRemainingTime;
+        if(gameState.players[0].isWhite) {
+          bRemainingTime = gameState.players[1].remainingTime;
+          wRemainingTime = gameState.players[0].remainingTime;
+        }
+        else{
+          bRemainingTime = gameState.players[0].remainingTime;
+          wRemainingTime = gameState.players[1].remainingTime;
+        }
+        setBlackTimer(bRemainingTime);
+        setWhiteTimer(wRemainingTime);
+        console.log(bRemainingTime, wRemainingTime);
         let players = gameState.players;
         if (players[0].username === sessionStorage.getItem("username")) {
           setIsWhite(players[0].isWhite);
