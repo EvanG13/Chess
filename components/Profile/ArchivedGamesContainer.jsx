@@ -7,18 +7,19 @@ import axiosInstance from "../axiosInstance";
 const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
   const [sortCriteria, setSortCriteria] = useState(SortCriteria.DESCENDING);
   const [archivedGames, setArchivedGames] = useState([]);
-  // useEffect(() => {
-  //   let sortedGames = [...archivedGames];
-  //   if (sortCriteria === SortCriteria.DESCENDING)
-  //     sortedGames.sort(
-  //       (game, game2) => new Date(game.created) - new Date(game2.created)
-  //     );
-  //   else
-  //     sortedGames.sort(
-  //       (game, game2) => new Date(game2.created) - new Date(game.created)
-  //     );
-  //   setArchivedGames(sortedGames);
-  // }, [sortCriteria, archivedGames]);
+
+  useEffect(() => {
+    let sortedGames = [...archivedGames];
+    if (sortCriteria === SortCriteria.DESCENDING)
+      sortedGames.sort(
+        (game, game2) => new Date(game.created) - new Date(game2.created)
+      );
+    else
+      sortedGames.sort(
+        (game, game2) => new Date(game2.created) - new Date(game.created)
+      );
+    setArchivedGames(sortedGames);
+  }, [sortCriteria]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("sessionToken");
