@@ -11,6 +11,7 @@ import Login from "./components/Login/Login.jsx";
 import Tutorial from "./components/Tutorial/Tutorial.jsx";
 import Stats from "./components/Profile/Stats.jsx";
 import GameStat from "./components/Profile/GameStat.jsx";
+import GameReview from "./views/GameReview.jsx";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
         <Stack.Screen name="tutorial" component={Tutorial} />
         <Stack.Screen name="profile" component={Stats} />
         <Stack.Screen name="stats" component={GameStat} />
+        <Stack.Screen name="reviewGame" component={GameReview} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>

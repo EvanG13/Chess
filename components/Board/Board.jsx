@@ -98,12 +98,7 @@ export const Board = ({ route, navigation }) => {
       await setupSocket();
       //check if user is already in game (like on a refresh)
       try {
-        const gameStateResponse = await axiosInstance.get(`/gameState`, {
-          headers: {
-            Authorization: sessionStorage.getItem("sessionToken"),
-            userid: sessionStorage.getItem("userId")
-          }
-        });
+        const gameStateResponse = await axiosInstance.get(`/gameState`);
 
         console.log("user is in a game.");
         //user is in a game so set the game state
