@@ -10,7 +10,6 @@ const Stats = ({ navigation }) => {
   const [sessionToken, setSessionToken] = useState(null);
   const [username, setUsername] = useState(null);
   const [userData, setUserData] = useState(null);
-  const [userGames, setUserGames] = useState([]);
   const timeControls = [
     {
       title: "Bullet 1",
@@ -31,69 +30,6 @@ const Stats = ({ navigation }) => {
   useEffect(() => {
     const token = sessionStorage.getItem("sessionToken");
     const userId = sessionStorage.getItem("userId");
-    const getUserGames = async () => {
-      try {
-        const response = await axiosInstance.get(`/archivedGames/${userId}`, {
-          headers: {
-            Authorization: token,
-            userId: userId
-          }
-        });
-        console.log(response.data);
-        //DEBUG:
-        // setUserGames(response.data.archivedGames);
-        setUserGames([
-          {
-            resultReason: "CHECKMATE",
-            numMoves: 15,
-            timeControl: "BLITZ_5",
-            created: "Oct 12, 2023, 12:13:45 AM",
-            players: [
-              {
-                isWinner: true,
-                playerId: "id1",
-                username: "user1",
-                isWhite: false,
-                rating: 1200
-              },
-              {
-                isWinner: false,
-                playerId: "id2",
-                username: "user2",
-                isWhite: true,
-                rating: 1120
-              }
-            ],
-            id: "670a21a9e135ae2f48a25c00"
-          },
-          {
-            resultReason: "ABORTED",
-            numMoves: 26,
-            timeControl: "BULLET_1",
-            created: "Oct 12, 2024, 12:13:45 AM",
-            players: [
-              {
-                isWinner: false,
-                playerId: "id1",
-                username: "user1",
-                isWhite: true,
-                rating: 1604
-              },
-              {
-                isWinner: true,
-                playerId: "id2",
-                username: "user2",
-                isWhite: false,
-                rating: 120
-              }
-            ],
-            id: "670a21a9e135ae2f48a25c06"
-          }
-        ]);
-      } catch (err) {
-        console.log(err);
-      }
-    };
 
     const getUserData = async () => {
       setSessionToken(token);
@@ -117,7 +53,6 @@ const Stats = ({ navigation }) => {
       return;
     }
     getUserData();
-    getUserGames();
   }, [navigation]);
 
   const setTotals = (data) => {
@@ -176,7 +111,6 @@ const Stats = ({ navigation }) => {
           })}
         </View>
         <ArchivedGamesContainer
-          games={userGames}
           playerUsername={sessionStorage.getItem("username")}
         />
       </View>

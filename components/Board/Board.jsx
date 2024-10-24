@@ -21,8 +21,10 @@ import PlayerCard from "./PlayerCard.jsx";
 import fenToJSON from "./fenToJSON.js";
 import RightSideBar from "../RightSideBar/RightSideBar.jsx";
 import Timer from "../Timer.jsx";
+import TimeControls from "../../types/TimeControls.js";
 
 export const Board = ({ route, navigation }) => {
+  const { timeControl, isLocalGame } = route.params;
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
   const [isWhite, setIsWhite] = useState(false);
   const [board, setBoard] = useState(getStartingBoard()); // 8x8 array
@@ -33,8 +35,8 @@ export const Board = ({ route, navigation }) => {
   const [moveList, setMoveList] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
   const [isStarted, setIsStarted] = useState(false);
-  const [whiteTimer, setWhiteTimer] = useState(300);
-  const [blackTimer, setBlackTimer] = useState(300);
+  const [whiteTimer, setWhiteTimer] = useState(TimeControls[timeControl]);
+  const [blackTimer, setBlackTimer] = useState(TimeControls[timeControl]);
   const [chatLog, setChatLog] = useState([]);
   const [player1, setPlayer1] = useState({
     name: sessionStorage.getItem("username"),
@@ -48,7 +50,6 @@ export const Board = ({ route, navigation }) => {
   let [socket, setSocket] = useState(null);
   const [blackSideBoard, setBlackSideBoard] = useState(false);
 
-  const { timeControl, isLocalGame } = route.params;
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const numberCol = ["8. ", "7. ", "6. ", "5. ", "4. ", "3. ", "2. ", "1. "];
 
@@ -75,7 +76,9 @@ export const Board = ({ route, navigation }) => {
             setPlayer2,
             moveList,
             setMoveList,
-            setMoveIndex
+            setMoveIndex,
+            setWhiteTimer,
+            setBlackTimer
           };
           socket.onmessage = function (event) {
             socketHandler(event, setters);
@@ -112,6 +115,17 @@ export const Board = ({ route, navigation }) => {
         setMoveList([...list]);
         setMoveIndex(list.length - 1);
         setIsStarted(true);
+        let bRemainingTime, wRemainingTime;
+        if (gameState.players[0].isWhite) {
+          bRemainingTime = gameState.players[1].remainingTime;
+          wRemainingTime = gameState.players[0].remainingTime;
+        } else {
+          bRemainingTime = gameState.players[0].remainingTime;
+          wRemainingTime = gameState.players[1].remainingTime;
+        }
+        setBlackTimer(bRemainingTime);
+        setWhiteTimer(wRemainingTime);
+        console.log(bRemainingTime, wRemainingTime);
         let players = gameState.players;
         if (players[0].username === sessionStorage.getItem("username")) {
           setIsWhite(players[0].isWhite);

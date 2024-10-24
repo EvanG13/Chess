@@ -39,8 +39,11 @@ const handleSocket = (event, setters) => {
       console.log(data);
       break;
     case Actions.MOVE_MADE: {
+      const whiteRemainingTime = data.whiteRemainingTime;
+      const blackRemainingTime = data.blackRemainingTime;
+
       if (!data.isSuccess) {
-        console.log("Invalid move");
+        console.log(whiteRemainingTime + " " + blackRemainingTime);
         return;
       }
       const boardJson = fenToJSON(data.fen);
@@ -54,6 +57,8 @@ const handleSocket = (event, setters) => {
       setters.moveList.push(newMove);
       setters.setMoveList([...setters.moveList]);
       setters.setMoveIndex(setters.moveList.length - 1);
+      setters.setWhiteTimer(whiteRemainingTime);
+      setters.setBlackTimer(blackRemainingTime);
       break;
     }
     case Actions.GAME_CREATED:
