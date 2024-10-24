@@ -116,11 +116,10 @@ export const Board = ({ route, navigation }) => {
         setMoveIndex(list.length - 1);
         setIsStarted(true);
         let bRemainingTime, wRemainingTime;
-        if(gameState.players[0].isWhite) {
+        if (gameState.players[0].isWhite) {
           bRemainingTime = gameState.players[1].remainingTime;
           wRemainingTime = gameState.players[0].remainingTime;
-        }
-        else{
+        } else {
           bRemainingTime = gameState.players[0].remainingTime;
           wRemainingTime = gameState.players[1].remainingTime;
         }
