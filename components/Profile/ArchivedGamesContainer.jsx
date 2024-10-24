@@ -22,8 +22,6 @@ const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
   }, [sortCriteria]);
 
   useEffect(() => {
-    const token = sessionStorage.getItem("sessionToken");
-    const userId = sessionStorage.getItem("userId");
     const username = sessionStorage.getItem("username");
 
     const getUserGames = async () => {
@@ -33,12 +31,7 @@ const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
           path += `?timeControl=${timeControl}`;
         }
 
-        const response = await axiosInstance.get(path, {
-          headers: {
-            Authorization: token,
-            userId: userId
-          }
-        });
+        const response = await axiosInstance.get(path);
         console.log(response.data);
         //DEBUG:
         // setArchivedGames(response.data.archivedGames);

@@ -7,7 +7,6 @@ import ArchivedGamesContainer from "./ArchivedGamesContainer";
 import LinearGradient from "react-native-web-linear-gradient";
 
 const Stats = ({ navigation }) => {
-  const [sessionToken, setSessionToken] = useState(null);
   const [username, setUsername] = useState(null);
   const [userData, setUserData] = useState(null);
   const timeControls = [
@@ -29,18 +28,11 @@ const Stats = ({ navigation }) => {
 
   useEffect(() => {
     const token = sessionStorage.getItem("sessionToken");
-    const userId = sessionStorage.getItem("userId");
 
     const getUserData = async () => {
-      setSessionToken(token);
       setUsername(username);
       try {
-        const response = await axiosInstance.get(`/stats`, {
-          headers: {
-            Authorization: token,
-            userId: userId
-          }
-        });
+        const response = await axiosInstance.get(`/stats`);
 
         const userData = response.data;
         setTotals(userData);

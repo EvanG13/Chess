@@ -17,21 +17,10 @@ const MainHeader = ({ navigation }) => {
   }, [isFocused]); // Update token state AFTER screen is focused to prevent timing issues when reading from sessionStorage
 
   const handleLogout = async () => {
-    const token = sessionStorage.getItem("sessionToken");
-    const userId = sessionStorage.getItem("userId");
     sessionStorage.clear();
 
     try {
-      await axiosInstance.post(
-        `/logout`,
-        {},
-        {
-          headers: {
-            Authorization: token,
-            userId: userId
-          }
-        }
-      );
+      await axiosInstance.post(`/logout`);
     } catch (error) {
       console.error("Error during logout:", error);
     }
