@@ -15,7 +15,7 @@ import { Switch } from "react-native-switch";
 import axiosInstance from "../axiosInstance.js";
 import createSocket from "../websocket.js";
 import loaderGif from "../../assets/appImages/loader.gif";
-import socketHandler from "./socketHandler.js";
+import socketHandler from "./websocket/socketHandler.js";
 import styles from "./BoardStyles.js";
 import PlayerCard from "./PlayerCard.jsx";
 import fenToJSON from "./fenToJSON.js";
