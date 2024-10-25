@@ -148,6 +148,7 @@ export const updateKingState = (
 };
 
 export const emitMove = (LETTERS, selectedSquare, row, col, socket) => {
+  console.log("in emitMove");
   const fromLetter = LETTERS[selectedSquare[1] + 1];
   const toLetter = LETTERS[col + 1];
   const fromTo = `${fromLetter}${8 - selectedSquare[0]}${toLetter}${8 - row}`;
