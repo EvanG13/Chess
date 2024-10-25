@@ -1,5 +1,10 @@
 import Actions from "../../../types/Actions";
-import {handleGameStart, handleMoveMade, handleGameOver, handleChatMessage } from "./socketFunctions";
+import {
+  handleGameStart,
+  handleMoveMade,
+  handleGameOver,
+  handleChatMessage
+} from "./socketFunctions";
 const handleSocket = (event, setters) => {
   const { action, data } = JSON.parse(event.data);
   console.log(action, data);
@@ -12,7 +17,7 @@ const handleSocket = (event, setters) => {
       handleGameOver(setters, data);
       break;
     case Actions.MOVE_MADE: {
-     handleMoveMade(setters, data);
+      handleMoveMade(setters, data);
       break;
     }
     case Actions.GAME_CREATED:
