@@ -43,16 +43,9 @@ const OnlineGameView = ({ route, navigation }) => {
     rating: 1000
   });
   const [player2, setPlayer2] = useState({ name: "opponent", rating: 1000 });
-
-  //close the socket when component dismounts
-  useEffect(() => {
-    return () => {
-      socket.close();
-      socket = null;
-    };
-  }, []);
-
   let [socket, setSocket] = useState(null);
+
+  
   //open the socket
   useEffect(() => {
     const setupSocket = async () => {
@@ -90,6 +83,7 @@ const OnlineGameView = ({ route, navigation }) => {
         }
       }
     };
+
     const setupGame = async () => {
       if (sessionStorage.getItem("userId") == undefined) {
         navigation.navigate("login");
@@ -104,10 +98,13 @@ const OnlineGameView = ({ route, navigation }) => {
 
         const boardJson = fenToJSON(gameState.gameStateAsFen);
         setBoard({ ...board, board: boardJson });
+
         const list = gameState.moveList;
+
         setMoveList([...list]);
         setMoveIndex(list.length - 1);
         setIsStarted(true);
+
         let bRemainingTime, wRemainingTime;
         if (gameState.players[0].isWhite) {
           bRemainingTime = gameState.players[1].remainingTime;
@@ -142,6 +139,14 @@ const OnlineGameView = ({ route, navigation }) => {
     setupGame();
   }, []);
 
+  //close the socket when component dismounts
+  useEffect(() => {
+    return () => {
+      socket.close();
+      socket = null;
+    };
+  }, []);
+
   return (
     <View style={styles.gameView}>
       <View style={styles.boardAndLogger}>
@@ -157,7 +162,6 @@ const OnlineGameView = ({ route, navigation }) => {
             </View>
           )}
 
-          {/* turn player text */}
           {isStarted ? null : (
             <View style={styles.loaderContainer}>
               <Image source={loaderGif} style={{ width: 120, height: 120 }} />
