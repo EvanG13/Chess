@@ -1,4 +1,4 @@
-import fenToJSON from "./fenToJSON";
+import fenToJSON from "../components/Board/fenToJSON";
 
 export const handleGameStart = (setters, data) => {
   console.log("inside handle Game start")
