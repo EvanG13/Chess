@@ -3,11 +3,14 @@ import {
   handleGameStart,
   handleMoveMade,
   handleGameOver,
-  handleChatMessage
+  handleChatMessage,
+  handleDrawOffer
 } from "./socketFunctions";
 const handleSocket = (event, setters) => {
   const { action, data } = JSON.parse(event.data);
+
   console.log(action, data);
+
   switch (action) {
     case Actions.GAME_START: {
       handleGameStart(setters, data);
@@ -25,6 +28,10 @@ const handleSocket = (event, setters) => {
       break;
     case Actions.CHAT_MESSAGE: {
       handleChatMessage(setters, data);
+      break;
+    }
+    case Actions.OFFER_DRAW: {
+      handleDrawOffer(setters);
       break;
     }
     default:

@@ -20,6 +20,8 @@ import socketHandler from "../../../socket/socketHandler.js";
 import { Modal } from "react-native";
 import axiosInstance from "../../../components/axiosInstance.js";
 import fenToJSON from "../../../components/Board/fenToJSON.js";
+import PromptModal from "../../../components/PromptModal/PromptModal.jsx";
+import GameOverModal from "../../../components/gameOverModal/GameOverModal.jsx";
 
 const OnlineGameView = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
@@ -28,15 +30,19 @@ const OnlineGameView = ({ route, navigation }) => {
   const [blackSideBoard, setBlackSideBoard] = useState(false);
   const [isWhite, setIsWhite] = useState(false);
 
+  const [promptType, setPromptType] = useState("");
+  const [promptVisible, setPromptVisible] = useState(false);
+
   const [moveList, setMoveList] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
-
   const { timeControl } = route.params;
   const [whiteTimer, setWhiteTimer] = useState(TimeControls[timeControl]);
   const [blackTimer, setBlackTimer] = useState(TimeControls[timeControl]);
   const [chatLog, setChatLog] = useState([]);
 
   const [hasWon, setHasWon] = useState(false);
+  const [gameOverModalVisible, setGameOverModalVisible] = useState(false);
+  const [gameOverMessage, setGameOverMessage] = useState("");
   const [showWinner, setShowWinner] = useState(false);
   const [player1, setPlayer1] = useState({
     name: sessionStorage.getItem("username"),
@@ -70,7 +76,11 @@ const OnlineGameView = ({ route, navigation }) => {
             setMoveList,
             setMoveIndex,
             setWhiteTimer,
-            setBlackTimer
+            setBlackTimer,
+            setGameOverModalVisible,
+            setGameOverMessage,
+            setPromptType,
+            setPromptVisible
           };
           socket.onmessage = function (event) {
             socketHandler(event, setters);
@@ -193,7 +203,18 @@ const OnlineGameView = ({ route, navigation }) => {
               <PlayerCard player={player1} />
             </View>
           )}
-
+          <PromptModal
+            isVisible={promptVisible}
+            setIsVisible={setPromptVisible}
+            type={promptType}
+            socket={socket}
+          />
+          <GameOverModal
+            isVisible={gameOverModalVisible}
+            setIsVisible={setGameOverModalVisible}
+            message={gameOverMessage}
+            socket={socket}
+          />
           <Modal
             visible={showWinner}
             animationType="fade"
@@ -242,6 +263,8 @@ const OnlineGameView = ({ route, navigation }) => {
         moveList={moveList}
         chatLog={chatLog}
         setChatLog={setChatLog}
+        setPromptType={setPromptType}
+        setPromptVisible={setPromptVisible}
       />
     </View>
   );

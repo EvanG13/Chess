@@ -1,22 +1,14 @@
-import { View, TouchableOpacity, Image, StyleSheet, Text } from "react-native";
-import { EmitActions } from "../../types/Actions";
+import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 
-const GameControls = ({ socket }) => {
+const GameControls = ({ socket, setPromptType, setPromptVisible }) => {
   const handleForfeit = () => {
-    console.log("in handle forfeit");
-    //TODO open modal to confirm that user wants to forfeit
-    socket.sendMessage({
-      action: EmitActions.FORFEIT,
-      gameId: sessionStorage.getItem("gameId")
-    });
+    setPromptType("forfeit");
+    setPromptVisible(true);
   };
 
   const handleOfferDraw = () => {
-    //TODO open modal to confirm that user wants to offer a draw. The modal should be the one resonsible for the socket
-    socket.sendMessage({
-      action: EmitActions.OFFER_DRAW,
-      gameId: sessionStorage.getItem("gameId")
-    });
+    setPromptType("offerDraw");
+    setPromptVisible(true);
   };
 
   return (

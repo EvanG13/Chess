@@ -32,7 +32,9 @@ export const handleGameStart = (setters, data) => {
 //-------------------------------------------------------------------------
 
 export const handleGameOver = (setters, data) => {
-  console.log(setters, data);
+  const displayMessage = data.displayMessage;
+  setters.setGameOverModalVisible(true);
+  setters.setGameOverMessage(displayMessage);
 };
 
 //-------------------------------------------------------------------------
@@ -67,4 +69,11 @@ export const handleChatMessage = (setters, data) => {
   let log = setters.chatLog;
   log.push({ message: data.chatMessage });
   setters.setChatLog([...log]);
+};
+
+//-------------------------------------------------------------------------
+
+export const handleDrawOffer = (setters) => {
+  setters.setPromptType("acceptDraw");
+  setters.setPromptVisible(true);
 };

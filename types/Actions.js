@@ -5,7 +5,7 @@ const Actions = Object.freeze({
   MOVE_MADE: "MOVE_MADE",
   CHAT_MESSAGE: "CHAT_MESSAGE",
   GAME_CREATED: "GAME_CREATED",
-  OFFER_DRAW: "OFFER_DRAW"
+  OFFER_DRAW: "DRAW_OFFER"
 });
 
 //what to emit to backend
@@ -14,7 +14,9 @@ export const EmitActions = Object.freeze({
   MOVE_MADE: "makeMove",
   CHAT_MESSAGE: "message",
   FORFEIT: "resign",
-  OFFER_DRAW: "offerDraw"
+  OFFER_DRAW: "offerDraw",
+  ACCEPT_DRAW: "accept",
+  DECLINE_DRAW: "decline"
 });
 
 export default Actions;
