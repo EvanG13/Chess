@@ -1,41 +1,22 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  Image
-} from "react-native";
+import {View, Text} from "react-native";
 import { BoardSquare } from "../BoardSquare/BoardSquare";
-import React, { useState, useEffect, useContext } from "react";
-import getStartingBoard, { getNumberFromLetter } from "../Board/board.js";
+import React, { useState, useEffect} from "react";
+import { getNumberFromLetter } from "../Board/board.js";
 import selectSquare from "./selectSquare.js";
 import { Switch } from "react-native-switch";
 
-import axiosInstance from "../axiosInstance.js";
-import createSocket from "../websocket.js";
-import loaderGif from "../../assets/appImages/loader.gif";
-import socketHandler from "./socketHandler.js";
 import styles from "./BoardStyles.js";
-import PlayerCard from "./PlayerCard.jsx";
-import fenToJSON from "./fenToJSON.js";
-import RightSideBar from "../RightSideBar/RightSideBar.jsx";
-import Timer from "../Timer/Timer.jsx";
-import TimeControls from "../../types/TimeControls.js";
 
-const Board = ({ board, isWhiteTurn, setHasWon, setShowWinner, socket }) => {
-  console.table(board);
-  //console.log("params " + isWhiteTurn);
-  const [isWhite, setIsWhite] = useState(false);
+
+const Board = ({ board, isWhiteTurn, setHasWon, setShowWinner, socket, isWhite, blackSideBoard, setBlackSideBoard }) => { 
+
   const [validMoves, setValidMoves] = useState([]);
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
-  //const {selectSquareArgs} = useContext(selectSquareContext);
-
   const [kingSquare, setKingSquare] = useState({
     whiteKing: [7, 4],
     blackKing: [0, 4]
   });
-
-  const [blackSideBoard, setBlackSideBoard] = useState(false);
+  // const [blackSideBoard, setBlackSideBoard] = useState(false);
 
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const numberCol = ["8. ", "7. ", "6. ", "5. ", "4. ", "3. ", "2. ", "1. "];
