@@ -40,16 +40,22 @@ const styles = StyleSheet.create({
     height: "5%",
     width: "100"
   },
+
   controlButton: {
     width: "40%",
     backgroundColor: "black",
     color: "white",
-    borderColor: "white"
+    borderColor: "white",
+    borderWidth: 1,
+    height: "80%",
+   justifyContent: "center",
+   alignItems: "center"
   },
+
   buttonText: {
     color: "white",
     textAlign: "center",
-    fontSize: 15
+    fontSize: 12
   }
 });
 
