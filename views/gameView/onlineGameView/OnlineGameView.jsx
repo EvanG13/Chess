@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import loaderGif from "../../../assets/appImages/loader.gif";
 
-import styles from "../../../components/Board/BoardStyles.js";
+import styles from "./OnlineGameStyles.js";
 import RightSideBar from "../../../components/RightSideBar/RightSideBar.jsx";
 import Timer from "../../../components/Timer/Timer.jsx";
 import TimeControls from "../../../types/TimeControls.js";
@@ -98,14 +98,11 @@ const OnlineGameView = ({ route, navigation }) => {
       await setupSocket();
       //check if user is already in game (like on a refresh)
       try {
-        console.log("trying");
+        
         const gameStateResponse = await axiosInstance.get(`/gameState`);
-
-        console.log("user is in a game.");
-
         //user is in a game so set the game state
         const gameState = gameStateResponse.data;
-        console.log(gameState);
+    
         const boardJson = fenToJSON(gameState.gameStateAsFen);
         setBoard({ ...board, board: boardJson });
         const list = gameState.moveList;
@@ -122,7 +119,7 @@ const OnlineGameView = ({ route, navigation }) => {
         }
         setBlackTimer(bRemainingTime);
         setWhiteTimer(wRemainingTime);
-        console.log(bRemainingTime, wRemainingTime);
+
         let players = gameState.players;
         if (players[0].username === sessionStorage.getItem("username")) {
           setIsWhite(players[0].isWhite);
@@ -135,14 +132,7 @@ const OnlineGameView = ({ route, navigation }) => {
         }
         setIsWhiteTurn(gameState.isWhitesTurn);
       } catch (error) {
-        // if (error.response.status !== 404) {
-        //   console.error("Error during getGameState:", error);
-        //   //TODO: handle this error -- the user can't get the game state regardless of if they are in a game or not
-        //   return;
-        // }
-        console.log(error);
         //user is not in a game so try to find a game
-        console.log("user is not in a game.");
         socket.sendMessage({
           action: "joinGame",
           timeControl,
@@ -169,11 +159,7 @@ const OnlineGameView = ({ route, navigation }) => {
           )}
 
           {/* turn player text */}
-          {isStarted ? (
-            <Text
-              style={{ color: "white", fontSize: 25, marginBottom: 10 }}
-            >{`${isWhiteTurn ? "white" : "black"} player to move.`}</Text>
-          ) : (
+          {isStarted ? null : (
             <View style={styles.loaderContainer}>
               <Image source={loaderGif} style={{ width: 120, height: 120 }} />
               <Text style={{ color: "white", margin: 10, fontSize: 30 }}>
@@ -191,7 +177,6 @@ const OnlineGameView = ({ route, navigation }) => {
               blackSideBoard,
               setBlackSideBoard,
               isWhite,
-              setIsWhite,
               socket
             }}
           />
