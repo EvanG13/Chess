@@ -21,6 +21,7 @@ import { Modal } from "react-native";
 import axiosInstance from "../../../components/axiosInstance.js";
 import fenToJSON from "../../../components/Board/fenToJSON.js";
 import PromptModal from "../../../components/PromptModal/PromptModal.jsx";
+import GameOverModal from "../../../components/gameOverModal/GameOverModal.jsx";
 
 
 const OnlineGameView = ({ route, navigation }) => {
@@ -32,7 +33,7 @@ const OnlineGameView = ({ route, navigation }) => {
 
   const [promptType, setPromptType] = useState("");
   const [promptVisible, setPromptVisible] = useState(false);
-  
+
   const [moveList, setMoveList] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
   const { timeControl } = route.params;
@@ -41,6 +42,8 @@ const OnlineGameView = ({ route, navigation }) => {
   const [chatLog, setChatLog] = useState([]);
 
   const [hasWon, setHasWon] = useState(false);
+  const [gameOverModalVisible, setGameOverModalVisible] = useState(false);
+  const [gameOverMessage, setGameOverMessage] = useState("");
   const [showWinner, setShowWinner] = useState(false);
   const [player1, setPlayer1] = useState({
     name: sessionStorage.getItem("username"),
@@ -74,7 +77,9 @@ const OnlineGameView = ({ route, navigation }) => {
             setMoveList,
             setMoveIndex,
             setWhiteTimer,
-            setBlackTimer
+            setBlackTimer,
+            setGameOverModalVisible,
+            setGameOverMessage,
           };
           socket.onmessage = function (event) {
             socketHandler(event, setters);
@@ -198,6 +203,7 @@ const OnlineGameView = ({ route, navigation }) => {
             </View>
           )}
           <PromptModal isVisible={promptVisible} setIsVisible={setPromptVisible} type={promptType} socket={socket}/>
+          <GameOverModal isVisible={gameOverModalVisible} setIsVisible={setGameOverModalVisible} message={gameOverMessage} socket={socket}/>
           <Modal
             visible={showWinner}
             animationType="fade"
