@@ -71,10 +71,9 @@ export const handleChatMessage = (setters, data) => {
   setters.setChatLog([...log]);
 };
 
-
 //-------------------------------------------------------------------------
 
-export const handleDrawOffer = (setters, data) => {
-    setters.setPromptType("acceptDraw");
-    setters.setPromptVisible(true);
-}
+export const handleDrawOffer = (setters) => {
+  setters.setPromptType("acceptDraw");
+  setters.setPromptVisible(true);
+};

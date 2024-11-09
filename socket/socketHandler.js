@@ -31,7 +31,7 @@ const handleSocket = (event, setters) => {
       break;
     }
     case Actions.OFFER_DRAW: {
-      handleDrawOffer(setters, data);
+      handleDrawOffer(setters);
       break;
     }
     default:
