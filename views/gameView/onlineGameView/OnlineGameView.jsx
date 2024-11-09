@@ -78,7 +78,9 @@ const OnlineGameView = ({ route, navigation }) => {
             setWhiteTimer,
             setBlackTimer,
             setGameOverModalVisible,
-            setGameOverMessage
+            setGameOverMessage,
+            setPromptType,
+            setPromptVisible
           };
           socket.onmessage = function (event) {
             socketHandler(event, setters);

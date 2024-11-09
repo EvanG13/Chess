@@ -70,3 +70,11 @@ export const handleChatMessage = (setters, data) => {
   log.push({ message: data.chatMessage });
   setters.setChatLog([...log]);
 };
+
+
+//-------------------------------------------------------------------------
+
+export const handleDrawOffer = (setters, data) => {
+    setters.setPromptType("acceptDraw");
+    setters.setPromptVisible(true);
+}
