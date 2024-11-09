@@ -1,5 +1,4 @@
-
-import { View} from "react-native";
+import { View } from "react-native";
 import MoveLog from "./MoveLog";
 import GameControls from "./GameControls";
 import ChatContainer from "../Chat/ChatContainer";
@@ -25,10 +24,7 @@ const RightSideBar = ({
         moveList={moveList}
       />
       <GameControls socket={socket} />
-      <ChatContainer
-        chatLog={chatLog}
-        socket={socket}
-      />
+      <ChatContainer chatLog={chatLog} socket={socket} />
     </View>
   );
 };

@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 1,
     height: "80%",
-   justifyContent: "center",
-   alignItems: "center"
+    justifyContent: "center",
+    alignItems: "center"
   },
 
   buttonText: {

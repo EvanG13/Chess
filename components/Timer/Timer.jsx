@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { View, Text} from "react-native";
+import { View, Text } from "react-native";
 import styles from "./TimerStyles";
 import { formatTime } from "./algorithms";
-
 
 const Timer = ({ timeRemaining, isWhiteTurn, isWhite }) => {
   const [seconds, setSeconds] = useState(timeRemaining);
@@ -25,6 +24,5 @@ const Timer = ({ timeRemaining, isWhiteTurn, isWhite }) => {
     </View>
   );
 };
-
 
 export default Timer;

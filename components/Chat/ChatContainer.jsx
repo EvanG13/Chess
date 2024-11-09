@@ -1,12 +1,7 @@
 import handleSendChat from "./handleSendChat";
 import { useState } from "react";
 import ChatMessage from "./ChatMessage";
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Text
-} from "react-native";
+import { View, TextInput, TouchableOpacity, Text } from "react-native";
 
 import styles from "./ChatContainerStyles";
 
@@ -39,7 +34,5 @@ const ChatContainer = ({ socket, chatLog }) => {
     </View>
   );
 };
-
-
 
 export default ChatContainer;
