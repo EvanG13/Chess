@@ -5,7 +5,6 @@ import MoveLogItem from "./MoveLogItem";
 const MoveLog = ({ moveList, board, setBoard, setMoveIndex, moveIndex }) => {
   return (
     <View style={styles.moveLog}>
-      <Text style={styles.moveLogTitle}>Game History</Text>
       {moveList && (
         <View style={styles.log}>
           {moveList.map((move, index) => {
@@ -32,17 +31,11 @@ const styles = StyleSheet.create({
   moveLog: {
     height: "55%",
     width: "100%",
-    backgroundColor: "black"
-  },
-
-  moveLogTitle: {
-    alignItems: "center",
-    color: "white",
-    fontFamily: "Roboto",
-    fontSize: 30
+    backgroundColor: "black",
+    marginTop: 10
   },
   log: {
-    height: "80%",
+    height: "100%",
     width: "100%",
     backgroundColor: "white",
     flexDirection: "row",

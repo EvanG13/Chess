@@ -1,4 +1,3 @@
-import react from "react";
 import { View, TouchableOpacity, Image, StyleSheet, Text } from "react-native";
 import { EmitActions } from "../../types/Actions";
 
@@ -26,7 +25,7 @@ const GameControls = ({ socket }) => {
         <Text style={styles.buttonText}>Forfeit</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.controlButton} onPress={handleOfferDraw}>
-        <Text style={styles.buttonText}>OfferDraw</Text>
+        <Text style={styles.buttonText}>Offer Draw</Text>
       </TouchableOpacity>
     </View>
   );
@@ -41,14 +40,22 @@ const styles = StyleSheet.create({
     height: "5%",
     width: "100"
   },
+
   controlButton: {
-    width: "30%",
-    backgroundColor: "green",
-    color: "white"
+    width: "40%",
+    backgroundColor: "black",
+    color: "white",
+    borderColor: "white",
+    borderWidth: 1,
+    height: "80%",
+    justifyContent: "center",
+    alignItems: "center"
   },
+
   buttonText: {
     color: "white",
-    textAlign: "center"
+    textAlign: "center",
+    fontSize: 12
   }
 });
 

@@ -42,7 +42,7 @@ const PlayGameOptions = ({ navigation }) => {
 
   const handlePress = (requestTitle) => {
     console.log(requestTitle);
-    navigation.navigate("localGame", { timeControl: requestTitle });
+    navigation.navigate("onlineGame", { timeControl: requestTitle });
   };
 
   return (
