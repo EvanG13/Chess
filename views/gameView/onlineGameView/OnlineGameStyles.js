@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     height: "fit-content"
   },
-  
+
   loaderContainer: {
     position: "absolute",
     top: 0,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.4)", // Semi-transparent background
     zIndex: 1
-  },
+  }
 });
 
 export default styles;

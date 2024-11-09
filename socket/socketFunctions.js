@@ -1,7 +1,6 @@
 import fenToJSON from "../components/Board/fenToJSON";
 
 export const handleGameStart = (setters, data) => {
-  console.log("inside handle Game start")
   setters.setIsStarted(true);
   const players = data.game.players;
   if (players[0].username === sessionStorage.getItem("username")) {
@@ -30,9 +29,13 @@ export const handleGameStart = (setters, data) => {
   sessionStorage.setItem("gameId", data.gameId);
 };
 
+//-------------------------------------------------------------------------
+
 export const handleGameOver = (setters, data) => {
   console.log(setters, data);
 };
+
+//-------------------------------------------------------------------------
 
 export const handleMoveMade = (setters, data) => {
   console.log(setters, data);
@@ -57,6 +60,8 @@ export const handleMoveMade = (setters, data) => {
   setters.setWhiteTimer(whiteRemainingTime);
   setters.setBlackTimer(blackRemainingTime);
 };
+
+//-------------------------------------------------------------------------
 
 export const handleChatMessage = (setters, data) => {
   let log = setters.chatLog;

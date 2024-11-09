@@ -45,7 +45,6 @@ const OnlineGameView = ({ route, navigation }) => {
   const [player2, setPlayer2] = useState({ name: "opponent", rating: 1000 });
   let [socket, setSocket] = useState(null);
 
-  
   //open the socket
   useEffect(() => {
     const setupSocket = async () => {
