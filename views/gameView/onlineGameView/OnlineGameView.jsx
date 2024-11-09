@@ -23,7 +23,6 @@ import fenToJSON from "../../../components/Board/fenToJSON.js";
 import PromptModal from "../../../components/PromptModal/PromptModal.jsx";
 import GameOverModal from "../../../components/gameOverModal/GameOverModal.jsx";
 
-
 const OnlineGameView = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
   const [isStarted, setIsStarted] = useState(false);
@@ -79,7 +78,7 @@ const OnlineGameView = ({ route, navigation }) => {
             setWhiteTimer,
             setBlackTimer,
             setGameOverModalVisible,
-            setGameOverMessage,
+            setGameOverMessage
           };
           socket.onmessage = function (event) {
             socketHandler(event, setters);
@@ -202,8 +201,18 @@ const OnlineGameView = ({ route, navigation }) => {
               <PlayerCard player={player1} />
             </View>
           )}
-          <PromptModal isVisible={promptVisible} setIsVisible={setPromptVisible} type={promptType} socket={socket}/>
-          <GameOverModal isVisible={gameOverModalVisible} setIsVisible={setGameOverModalVisible} message={gameOverMessage} socket={socket}/>
+          <PromptModal
+            isVisible={promptVisible}
+            setIsVisible={setPromptVisible}
+            type={promptType}
+            socket={socket}
+          />
+          <GameOverModal
+            isVisible={gameOverModalVisible}
+            setIsVisible={setGameOverModalVisible}
+            message={gameOverMessage}
+            socket={socket}
+          />
           <Modal
             visible={showWinner}
             animationType="fade"
@@ -253,7 +262,7 @@ const OnlineGameView = ({ route, navigation }) => {
         chatLog={chatLog}
         setChatLog={setChatLog}
         setPromptType={setPromptType}
-        setPromptVisible={setPromptVisible} 
+        setPromptVisible={setPromptVisible}
       />
     </View>
   );

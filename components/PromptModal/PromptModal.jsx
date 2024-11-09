@@ -15,7 +15,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
     case "forfeit":
       message = "Are you sure you want to forfeit?";
       break;
-    
+
     default:
       message = "ERROR: Invalid type";
   }
@@ -23,7 +23,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
   const handleAcceptDraw = () => {
     socket.sendMessage({
       action: EmitActions.ACCEPT_DRAW,
-      gameId: sessionStorage.getItem("gameId"),
+      gameId: sessionStorage.getItem("gameId")
     });
     setIsVisible(false);
   };
@@ -31,7 +31,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
   const handleConfirmDraw = () => {
     socket.sendMessage({
       action: EmitActions.OFFER_DRAW,
-      gameId: sessionStorage.getItem("gameId"),
+      gameId: sessionStorage.getItem("gameId")
     });
     setIsVisible(false);
   };
@@ -39,7 +39,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
   const handleDeclineDraw = () => {
     socket.sendMessage({
       action: EmitActions.DECLINE_DRAW,
-      gameId: sessionStorage.getItem("gameId"),
+      gameId: sessionStorage.getItem("gameId")
     });
     setIsVisible(false);
   };
@@ -47,7 +47,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
   const handleConfirmForfeit = () => {
     socket.sendMessage({
       action: EmitActions.FORFEIT,
-      gameId: sessionStorage.getItem("gameId"),
+      gameId: sessionStorage.getItem("gameId")
     });
     setIsVisible(false);
   };
@@ -56,8 +56,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
     setIsVisible(false);
   };
 
-
-  if (!isVisible) return null; 
+  if (!isVisible) return null;
 
   return (
     <View style={styles.modalContainer}>
@@ -70,26 +69,32 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
         </TouchableOpacity>
         <Text style={styles.messageText}>{message}</Text>
         <View style={styles.buttonBox}>
-        <TouchableOpacity
-          onPress={
-            type === "offerDraw"
-              ? handleConfirmDraw
-              : type === "acceptDraw"
-              ? handleAcceptDraw
-              : handleConfirmForfeit
-          }
-        >
-          <Text style={styles.buttonText}>
-            {type === "forfeit" || type === "offerDraw" ? "Confirm" : "Accept"}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={type === "acceptDraw" ? handleDeclineDraw : handleCancelForfeit}
-        >
-          <Text style={styles.buttonText}>
-            {type === "forfeit" || type === "offerDraw" ? "Cancel" : "Decline"}
-          </Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={
+              type === "offerDraw"
+                ? handleConfirmDraw
+                : type === "acceptDraw"
+                  ? handleAcceptDraw
+                  : handleConfirmForfeit
+            }
+          >
+            <Text style={styles.buttonText}>
+              {type === "forfeit" || type === "offerDraw"
+                ? "Confirm"
+                : "Accept"}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={
+              type === "acceptDraw" ? handleDeclineDraw : handleCancelForfeit
+            }
+          >
+            <Text style={styles.buttonText}>
+              {type === "forfeit" || type === "offerDraw"
+                ? "Cancel"
+                : "Decline"}
+            </Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </View>

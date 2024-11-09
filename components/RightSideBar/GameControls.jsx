@@ -1,7 +1,6 @@
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 
-
-const GameControls = ({ socket, setPromptType, setPromptVisible }) => {   
+const GameControls = ({ socket, setPromptType, setPromptVisible }) => {
   const handleForfeit = () => {
     setPromptType("forfeit");
     setPromptVisible(true);

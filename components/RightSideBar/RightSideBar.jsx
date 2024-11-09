@@ -13,7 +13,7 @@ const RightSideBar = ({
   moveList,
   chatLog,
   setPromptType,
-  setPromptVisible 
+  setPromptVisible
 }) => {
   return (
     <View style={styles.rightSideBar}>
@@ -26,10 +26,10 @@ const RightSideBar = ({
         moveList={moveList}
       />
       <GameControls
-       socket={socket}
-       setPromptType={setPromptType}
-       setPromptVisible={setPromptVisible} 
-         />  
+        socket={socket}
+        setPromptType={setPromptType}
+        setPromptVisible={setPromptVisible}
+      />
       <ChatContainer chatLog={chatLog} socket={socket} />
     </View>
   );

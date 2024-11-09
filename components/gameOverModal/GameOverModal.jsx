@@ -3,12 +3,11 @@ import { EmitActions } from "../../types/Actions.js";
 import styles from "../PromptModal/PromptModalStyles.js";
 
 const GameOverModal = ({ isVisible, setIsVisible, message, socket }) => {
+  const handleRematch = () => {};
 
-    const handleRematch = () => {};
+  const handleNewGame = () => {};
 
-    const handleNewGame = () => {};
-
-  if (!isVisible) return null; 
+  if (!isVisible) return null;
 
   return (
     <View style={styles.modalContainer}>
@@ -21,20 +20,12 @@ const GameOverModal = ({ isVisible, setIsVisible, message, socket }) => {
         </TouchableOpacity>
         <Text style={styles.messageText}>{message}</Text>
         <View style={styles.buttonBox}>
-        <TouchableOpacity
-          onPress={handleRematch}
-        >
-          <Text style={styles.buttonText}>
-            Rematch
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleNewGame}
-        >
-          <Text style={styles.buttonText}>
-            New Game
-          </Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={handleRematch}>
+            <Text style={styles.buttonText}>Rematch</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleNewGame}>
+            <Text style={styles.buttonText}>New Game</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </View>
