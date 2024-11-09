@@ -15,6 +15,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
     case "forfeit":
       message = "Are you sure you want to forfeit?";
       break;
+    
     default:
       message = "ERROR: Invalid type";
   }
@@ -54,6 +55,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
   const handleCancelForfeit = () => {
     setIsVisible(false);
   };
+
 
   if (!isVisible) return null; 
 
