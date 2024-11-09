@@ -11,6 +11,7 @@ export const selectNewPiece = (
   isWhite,
   kingSquare
 ) => {
+ 
   if (board.board[row][col].piece) {
     if (
       (board.board[row][col].piece.color === "white" &&
