@@ -2,7 +2,7 @@ import react from "react";
 import { View, StyleSheet } from "react-native";
 import MoveLog from "./MoveLog";
 import GameControls from "./GameControls";
-import ChatContainer from "./ChatContainer";
+import ChatContainer from "../Chat/ChatContainer";
 
 const RightSideBar = ({
   socket,
@@ -11,8 +11,7 @@ const RightSideBar = ({
   moveIndex,
   setMoveIndex,
   moveList,
-  chatLog,
-  setChatLog
+  chatLog
 }) => {
   return (
     <View style={styles.rightSideBar}>
@@ -28,7 +27,6 @@ const RightSideBar = ({
       <ChatContainer
         chatLog={chatLog}
         socket={socket}
-        setChatLog={setChatLog}
       />
     </View>
   );
