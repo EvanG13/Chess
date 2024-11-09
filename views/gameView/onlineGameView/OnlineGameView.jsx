@@ -98,11 +98,10 @@ const OnlineGameView = ({ route, navigation }) => {
       await setupSocket();
       //check if user is already in game (like on a refresh)
       try {
-        
         const gameStateResponse = await axiosInstance.get(`/gameState`);
         //user is in a game so set the game state
         const gameState = gameStateResponse.data;
-    
+
         const boardJson = fenToJSON(gameState.gameStateAsFen);
         setBoard({ ...board, board: boardJson });
         const list = gameState.moveList;

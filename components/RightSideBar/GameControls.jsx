@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     width: "40%",
     backgroundColor: "black",
     color: "white",
-    borderColor: "white",
+    borderColor: "white"
   },
   buttonText: {
     color: "white",

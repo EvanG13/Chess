@@ -1,15 +1,22 @@
-import {View, Text} from "react-native";
+import { View, Text } from "react-native";
 import { BoardSquare } from "../BoardSquare/BoardSquare";
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { getNumberFromLetter } from "../Board/board.js";
 import selectSquare from "./selectSquare.js";
 import { Switch } from "react-native-switch";
 
 import styles from "./BoardStyles.js";
 
-
-const Board = ({ board, isWhiteTurn, setHasWon, setShowWinner, socket, isWhite, blackSideBoard, setBlackSideBoard }) => { 
-
+const Board = ({
+  board,
+  isWhiteTurn,
+  setHasWon,
+  setShowWinner,
+  socket,
+  isWhite,
+  blackSideBoard,
+  setBlackSideBoard
+}) => {
   const [validMoves, setValidMoves] = useState([]);
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
   const [kingSquare, setKingSquare] = useState({
