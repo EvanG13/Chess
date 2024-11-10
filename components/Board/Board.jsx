@@ -15,7 +15,8 @@ const Board = ({
   socket,
   isWhite,
   blackSideBoard,
-  setBlackSideBoard
+  setBlackSideBoard,
+  setIsWhiteTurn
 }) => {
   const [validMoves, setValidMoves] = useState([]);
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
@@ -96,7 +97,8 @@ const Board = ({
                             setHasWon,
                             setShowWinner,
                             socket,
-                            isWhite
+                            isWhite,
+                            setIsWhiteTurn
                           );
                         }}
                         isSelected={

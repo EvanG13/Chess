@@ -25,7 +25,8 @@ const selectSquare = (
   setHasWon,
   setShowWinner,
   socket,
-  isWhite
+  isWhite,
+  setIsWhiteTurn
 ) => {
   //get the row and column of the square that was clicked
   let row = number;
@@ -66,7 +67,7 @@ const selectSquare = (
 
   // if a legal destination square is picked
   if (isValidMove(board, selectedSquare, row, col, validMoves)) {
-    let newBoard = movePiece(board, row, col, selectedSquare, LETTERS);
+    let newBoard = movePiece(board, row, col, selectedSquare, LETTERS, setIsWhiteTurn);
 
     //set enPassant state
     updateEnPassant(newBoard, row, col, isWhiteTurn, board, selectedSquare);
