@@ -23,7 +23,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
   const handleAcceptDraw = () => {
     socket.sendMessage({
       action: EmitActions.OFFER_DRAW,
-      drawAction: "accept",
+      drawAction: "ACCEPT",
       gameId: sessionStorage.getItem("gameId")
     });
     setIsVisible(false);
@@ -32,7 +32,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
   const handleConfirmDraw = () => {
     socket.sendMessage({
       action: EmitActions.OFFER_DRAW,
-      drawAction: "offer",
+      drawAction: "OFFER",
       gameId: sessionStorage.getItem("gameId")
     });
     setIsVisible(false);
@@ -41,7 +41,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
   const handleDeclineDraw = () => {
     socket.sendMessage({
       action: EmitActions.OFFER_DRAW,
-      drawAction: "decline",
+      drawAction: "DENY",
       gameId: sessionStorage.getItem("gameId")
     });
     setIsVisible(false);
