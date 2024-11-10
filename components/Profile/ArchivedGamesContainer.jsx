@@ -30,59 +30,11 @@ const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
         if (timeControl) {
           path += `?timeControl=${timeControl}`;
         }
-
+        
         const response = await axiosInstance.get(path);
         console.log(response.data);
-        //DEBUG:
-        // setArchivedGames(response.data.archivedGames);
-        setArchivedGames([
-          {
-            resultReason: "CHECKMATE",
-            numMoves: 15,
-            timeControl: "BLITZ_5",
-            created: "Oct 12, 2023, 12:13:45 AM",
-            players: [
-              {
-                isWinner: true,
-                playerId: "id1",
-                username: "user1",
-                isWhite: false,
-                rating: 1200
-              },
-              {
-                isWinner: false,
-                playerId: "id2",
-                username: "user2",
-                isWhite: true,
-                rating: 1120
-              }
-            ],
-            id: "670a21a9e135ae2f48a25c00"
-          },
-          {
-            resultReason: "ABORTED",
-            numMoves: 26,
-            timeControl: "BULLET_1",
-            created: "Oct 12, 2024, 12:13:45 AM",
-            players: [
-              {
-                isWinner: false,
-                playerId: "id1",
-                username: "user1",
-                isWhite: true,
-                rating: 1604
-              },
-              {
-                isWinner: true,
-                playerId: "id2",
-                username: "user2",
-                isWhite: false,
-                rating: 120
-              }
-            ],
-            id: "670a21a9e135ae2f48a25c06"
-          }
-        ]);
+        
+        setArchivedGames([...response.data.archivedGames]);
       } catch (err) {
         console.log(err);
       }
