@@ -15,8 +15,7 @@ export const EmitActions = Object.freeze({
   CHAT_MESSAGE: "message",
   FORFEIT: "resign",
   OFFER_DRAW: "offerDraw",
-  ACCEPT_DRAW: "accept",
-  DECLINE_DRAW: "decline"
+  TIMEOUT: "timeout"
 });
 
 export default Actions;
