@@ -43,12 +43,18 @@ const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
     getUserGames();
   }, []);
 
+
+  if(archivedGames.length === 0)
+    return <Text style={{color: "white", textAlign: "center", margin: 50}}>No games found</Text>
+  
+
   return (
     <View style={styles.archivedContainer}>
       <GamesHeader
         sortCriteria={sortCriteria}
         setSortCriteria={setSortCriteria}
       />
+     
        <ScrollView>
 
         {archivedGames.map((game, index) => {
