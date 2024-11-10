@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import ArchivedGameCard from "./ArchivedGameCard";
 import SortCriteria from "../../types/SortCriteria";
@@ -49,17 +49,19 @@ const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
         sortCriteria={sortCriteria}
         setSortCriteria={setSortCriteria}
       />
-      <View>
+       <ScrollView>
+
         {archivedGames.map((game, index) => {
           return (
             <ArchivedGameCard
               game={game}
-              key={`archivedGame-${index}`}
+              key={index}
+              cardNumber={index}
               playerUsername={playerUsername}
             />
           );
         })}
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -91,7 +93,7 @@ const GamesHeader = ({ sortCriteria, setSortCriteria }) => {
 const styles = StyleSheet.create({
   archivedContainer: {
     width: "48%",
-    height: "80%",
+    height: "60%",
     marginLeft: "15%",
     marginRight: "15%",
     backgroundColor: "black",

@@ -7,7 +7,8 @@ const timeIcons = {
   classical: require("../../assets/appImages/classical.jpg")
 };
 
-const ArchivedGameCard = ({ game, playerUsername }) => {
+const ArchivedGameCard = ({ game, playerUsername, cardNumber }) => {
+  let backgroundColor = ( Number(cardNumber) % 2 != 0 ) ? styles.oddBackground : styles.evenBackground;
   let iconKey = game.timeControl.split("_")[0].toLowerCase();
   let result = "draw";
   let player =
@@ -25,11 +26,11 @@ const ArchivedGameCard = ({ game, playerUsername }) => {
 
   const reviewGame = () => {
     //TODO pass the navigation prop down the line
-    //use the navigation to nav to a GameReview component also passing in the game.id or the moveList?
+    //use the navigation to nav to a GameReview component also passing in the game.id as a param
   };
 
   return (
-    <TouchableOpacity style={styles.archivedCard} onPress={reviewGame}>
+    <TouchableOpacity style={[styles.archivedCard, backgroundColor]} onPress={reviewGame}>
       <View style={styles.playersBox}>
         <View>
           <Image style={styles.timeIcon} source={timeIcons[iconKey]} />
@@ -82,11 +83,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     alignItems: "center",
-    backgroundColor: "grey",
     borderColor: "black",
     borderBottomWidth: 2,
     marginBottom: 2
   },
+  evenBackground: {
+    backgroundColor: "grey"
+  },
+
+  oddBackground: {
+    backgroundColor: "white"
+  },
+
   timeIcon: {
     margin: 4,
     width: 30,
