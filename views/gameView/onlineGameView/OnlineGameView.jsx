@@ -63,8 +63,6 @@ const OnlineGameView = ({ route, navigation }) => {
   //socket stuff
   let [socket, setSocket] = useState(null);
 
-
-
   //open the socket
   useEffect(() => {
     const setupSocket = async () => {
@@ -171,16 +169,14 @@ const OnlineGameView = ({ route, navigation }) => {
   }, []);
 
   //listen for player timeouts
-  useEffect(() =>{
-
-    if((whiteTimer <= 0 && !isWhite) || (blackTimer <= 0 && isWhite) ){
+  useEffect(() => {
+    if ((whiteTimer <= 0 && !isWhite) || (blackTimer <= 0 && isWhite)) {
       console.log("timout detected!!!");
       socket.sendMessage({
         action: "timeout",
         gameId: sessionStorage.getItem("gameId")
       });
     }
-
   }, [whiteTimer, blackTimer]);
 
   return (

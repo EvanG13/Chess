@@ -60,7 +60,14 @@ export const isValidMove = (board, selectedSquare, row, col, validMoves) => {
   );
 };
 
-export const movePiece = (board, row, col, selectedSquare, LETTERS, setIsWhiteTurn) => {
+export const movePiece = (
+  board,
+  row,
+  col,
+  selectedSquare,
+  LETTERS,
+  setIsWhiteTurn
+) => {
   const newBoard = [...board.board];
 
   //place the piece in its legal destination square

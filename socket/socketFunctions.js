@@ -46,7 +46,7 @@ export const handleMoveMade = (setters, data) => {
 
   if (!data.isSuccess) {
     console.log(whiteRemainingTime + " " + blackRemainingTime);
-    setters.setIsWhiteTurn(prev => !prev);
+    setters.setIsWhiteTurn((prev) => !prev);
     return;
   }
   const boardJson = fenToJSON(data.fen);

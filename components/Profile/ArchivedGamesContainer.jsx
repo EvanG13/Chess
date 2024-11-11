@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView
+} from "react-native";
 import { useState, useEffect } from "react";
 import ArchivedGameCard from "./ArchivedGameCard";
 import SortCriteria from "../../types/SortCriteria";
@@ -30,10 +36,10 @@ const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
         if (timeControl) {
           path += `?timeControl=${timeControl}`;
         }
-        
+
         const response = await axiosInstance.get(path);
         console.log(response.data);
-        
+
         setArchivedGames([...response.data.archivedGames]);
       } catch (err) {
         console.log(err);
@@ -43,10 +49,12 @@ const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
     getUserGames();
   }, []);
 
-
-  if(archivedGames.length === 0)
-    return <Text style={{color: "white", textAlign: "center", margin: 50}}>No games found</Text>
-  
+  if (archivedGames.length === 0)
+    return (
+      <Text style={{ color: "white", textAlign: "center", margin: 50 }}>
+        No games found
+      </Text>
+    );
 
   return (
     <View style={styles.archivedContainer}>
@@ -54,9 +62,8 @@ const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
         sortCriteria={sortCriteria}
         setSortCriteria={setSortCriteria}
       />
-     
-       <ScrollView>
 
+      <ScrollView>
         {archivedGames.map((game, index) => {
           return (
             <ArchivedGameCard

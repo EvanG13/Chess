@@ -67,7 +67,14 @@ const selectSquare = (
 
   // if a legal destination square is picked
   if (isValidMove(board, selectedSquare, row, col, validMoves)) {
-    let newBoard = movePiece(board, row, col, selectedSquare, LETTERS, setIsWhiteTurn);
+    let newBoard = movePiece(
+      board,
+      row,
+      col,
+      selectedSquare,
+      LETTERS,
+      setIsWhiteTurn
+    );
 
     //set enPassant state
     updateEnPassant(newBoard, row, col, isWhiteTurn, board, selectedSquare);

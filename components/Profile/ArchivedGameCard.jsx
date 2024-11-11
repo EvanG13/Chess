@@ -8,7 +8,8 @@ const timeIcons = {
 };
 
 const ArchivedGameCard = ({ game, playerUsername, cardNumber }) => {
-  let backgroundColor = ( Number(cardNumber) % 2 != 0 ) ? styles.oddBackground : styles.evenBackground;
+  let backgroundColor =
+    Number(cardNumber) % 2 != 0 ? styles.oddBackground : styles.evenBackground;
   let iconKey = game.timeControl.split("_")[0].toLowerCase();
   let result = "draw";
   let player =
@@ -30,7 +31,10 @@ const ArchivedGameCard = ({ game, playerUsername, cardNumber }) => {
   };
 
   return (
-    <TouchableOpacity style={[styles.archivedCard, backgroundColor]} onPress={reviewGame}>
+    <TouchableOpacity
+      style={[styles.archivedCard, backgroundColor]}
+      onPress={reviewGame}
+    >
       <View style={styles.playersBox}>
         <View>
           <Image style={styles.timeIcon} source={timeIcons[iconKey]} />

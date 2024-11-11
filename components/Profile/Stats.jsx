@@ -27,7 +27,6 @@ const Stats = ({ navigation }) => {
   ];
 
   useEffect(() => {
-
     const getUserData = async () => {
       setUsername(username);
       try {

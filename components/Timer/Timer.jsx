@@ -10,7 +10,7 @@ const Timer = ({ timeRemaining, isWhiteTurn, isWhite, setTimeRemaining }) => {
     let interval;
     if ((isWhite && isWhiteTurn) || (!isWhite && !isWhiteTurn)) {
       interval = setInterval(() => {
-        if(seconds > 0){
+        if (seconds > 0) {
           setSeconds((prevSeconds) => Math.max(prevSeconds - 1, 0));
           setTimeRemaining((prevTime) => Math.max(prevTime - 1, 0));
         }
