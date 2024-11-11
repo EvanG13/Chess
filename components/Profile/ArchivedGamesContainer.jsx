@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView
+} from "react-native";
 import { useState, useEffect } from "react";
 import ArchivedGameCard from "./ArchivedGameCard";
 import SortCriteria from "../../types/SortCriteria";
@@ -33,56 +39,8 @@ const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
 
         const response = await axiosInstance.get(path);
         console.log(response.data);
-        //DEBUG:
-        // setArchivedGames(response.data.archivedGames);
-        setArchivedGames([
-          {
-            resultReason: "CHECKMATE",
-            numMoves: 15,
-            timeControl: "BLITZ_5",
-            created: "Oct 12, 2023, 12:13:45 AM",
-            players: [
-              {
-                isWinner: true,
-                playerId: "id1",
-                username: "user1",
-                isWhite: false,
-                rating: 1200
-              },
-              {
-                isWinner: false,
-                playerId: "id2",
-                username: "user2",
-                isWhite: true,
-                rating: 1120
-              }
-            ],
-            id: "670a21a9e135ae2f48a25c00"
-          },
-          {
-            resultReason: "ABORTED",
-            numMoves: 26,
-            timeControl: "BULLET_1",
-            created: "Oct 12, 2024, 12:13:45 AM",
-            players: [
-              {
-                isWinner: false,
-                playerId: "id1",
-                username: "user1",
-                isWhite: true,
-                rating: 1604
-              },
-              {
-                isWinner: true,
-                playerId: "id2",
-                username: "user2",
-                isWhite: false,
-                rating: 120
-              }
-            ],
-            id: "670a21a9e135ae2f48a25c06"
-          }
-        ]);
+
+        setArchivedGames([...response.data.archivedGames]);
       } catch (err) {
         console.log(err);
       }
@@ -91,23 +49,32 @@ const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
     getUserGames();
   }, []);
 
+  if (archivedGames.length === 0)
+    return (
+      <Text style={{ color: "white", textAlign: "center", margin: 50 }}>
+        No games found
+      </Text>
+    );
+
   return (
     <View style={styles.archivedContainer}>
       <GamesHeader
         sortCriteria={sortCriteria}
         setSortCriteria={setSortCriteria}
       />
-      <View>
+
+      <ScrollView>
         {archivedGames.map((game, index) => {
           return (
             <ArchivedGameCard
               game={game}
-              key={`archivedGame-${index}`}
+              key={index}
+              cardNumber={index}
               playerUsername={playerUsername}
             />
           );
         })}
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -139,7 +106,7 @@ const GamesHeader = ({ sortCriteria, setSortCriteria }) => {
 const styles = StyleSheet.create({
   archivedContainer: {
     width: "48%",
-    height: "80%",
+    height: "60%",
     marginLeft: "15%",
     marginRight: "15%",
     backgroundColor: "black",

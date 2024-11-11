@@ -27,28 +27,40 @@ const OnlineGameView = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
   const [isStarted, setIsStarted] = useState(false);
   const [board, setBoard] = useState(getStartingBoard());
-  const [blackSideBoard, setBlackSideBoard] = useState(false);
-  const [isWhite, setIsWhite] = useState(false);
 
+  const [blackSideBoard, setBlackSideBoard] = useState(false); //if true then black pieces are on bottom, else white pieces are on bottom
+  const [isWhite, setIsWhite] = useState(false); //true if the client is the white player
+
+  //modal stuff
   const [promptType, setPromptType] = useState("");
   const [promptVisible, setPromptVisible] = useState(false);
+  const [gameOverModalVisible, setGameOverModalVisible] = useState(false);
+  const [gameOverMessage, setGameOverMessage] = useState("");
 
+  //move log stuff
   const [moveList, setMoveList] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
+
+  //timers stuff
   const { timeControl } = route.params;
-  const [whiteTimer, setWhiteTimer] = useState(TimeControls[timeControl]);
+  const [whiteTimer, setWhiteTimer] = useState(TimeControls[timeControl]); //time remaining in seconds
   const [blackTimer, setBlackTimer] = useState(TimeControls[timeControl]);
+
+  //chat stuff
   const [chatLog, setChatLog] = useState([]);
 
   const [hasWon, setHasWon] = useState(false);
-  const [gameOverModalVisible, setGameOverModalVisible] = useState(false);
-  const [gameOverMessage, setGameOverMessage] = useState("");
+
   const [showWinner, setShowWinner] = useState(false);
+
+  //player stuff
   const [player1, setPlayer1] = useState({
     name: sessionStorage.getItem("username"),
     rating: 1000
   });
   const [player2, setPlayer2] = useState({ name: "opponent", rating: 1000 });
+
+  //socket stuff
   let [socket, setSocket] = useState(null);
 
   //open the socket
@@ -156,6 +168,17 @@ const OnlineGameView = ({ route, navigation }) => {
     };
   }, []);
 
+  //listen for player timeouts
+  useEffect(() => {
+    if ((whiteTimer <= 0 && !isWhite) || (blackTimer <= 0 && isWhite)) {
+      console.log("timout detected!!!");
+      socket.sendMessage({
+        action: "timeout",
+        gameId: sessionStorage.getItem("gameId")
+      });
+    }
+  }, [whiteTimer, blackTimer]);
+
   return (
     <View style={styles.gameView}>
       <View style={styles.boardAndLogger}>
@@ -166,6 +189,7 @@ const OnlineGameView = ({ route, navigation }) => {
                 isWhite={!isWhite}
                 isWhiteTurn={isWhiteTurn}
                 timeRemaining={isWhite ? blackTimer : whiteTimer}
+                setTimeRemaining={isWhite ? setBlackTimer : setWhiteTimer}
               />
               <PlayerCard player={player2} />
             </View>
@@ -189,7 +213,8 @@ const OnlineGameView = ({ route, navigation }) => {
               blackSideBoard,
               setBlackSideBoard,
               isWhite,
-              socket
+              socket,
+              setIsWhiteTurn
             }}
           />
 
@@ -199,6 +224,7 @@ const OnlineGameView = ({ route, navigation }) => {
                 isWhite={isWhite}
                 isWhiteTurn={isWhiteTurn}
                 timeRemaining={isWhite ? whiteTimer : blackTimer}
+                setTimeRemaining={isWhite ? setWhiteTimer : setBlackTimer}
               />
               <PlayerCard player={player1} />
             </View>

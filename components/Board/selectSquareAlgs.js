@@ -60,7 +60,14 @@ export const isValidMove = (board, selectedSquare, row, col, validMoves) => {
   );
 };
 
-export const movePiece = (board, row, col, selectedSquare, LETTERS) => {
+export const movePiece = (
+  board,
+  row,
+  col,
+  selectedSquare,
+  LETTERS,
+  setIsWhiteTurn
+) => {
   const newBoard = [...board.board];
 
   //place the piece in its legal destination square
@@ -72,6 +79,8 @@ export const movePiece = (board, row, col, selectedSquare, LETTERS) => {
   newBoard[row][col].piece.number = row;
   //remove the moved piece from its starting square
   newBoard[selectedSquare[0]][selectedSquare[1]].piece = null;
+  //switch to opponent's turn
+  setIsWhiteTurn((prev) => !prev);
   return newBoard;
 };
 

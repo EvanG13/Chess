@@ -7,8 +7,7 @@ import {
   handleDrawOffer
 } from "./socketFunctions";
 const handleSocket = (event, setters) => {
-  const { action, data } = JSON.parse(event.data);
-
+  const { websocketResponseAction: action, data } = JSON.parse(event.data);
   console.log(action, data);
 
   switch (action) {

@@ -27,13 +27,10 @@ const Stats = ({ navigation }) => {
   ];
 
   useEffect(() => {
-    const token = sessionStorage.getItem("sessionToken");
-
     const getUserData = async () => {
       setUsername(username);
       try {
         const response = await axiosInstance.get(`/stats`);
-
         const userData = response.data;
         setTotals(userData);
       } catch (error) {
@@ -143,7 +140,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     flexWrap: "wrap",
-    width: "30%"
+    width: "30%",
+    height: "50%",
+    padding: 10,
+    marginLeft: "5%"
   },
   usernameHeader: {
     textAlign: "left",
