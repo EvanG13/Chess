@@ -1,9 +1,14 @@
 import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import { EmitActions } from "../../types/Actions";
 import styles from "./PromptModalStyles.js";
+import handlers from "./handlers.js";
 
 const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
   let message;
+  let splitType = type.split(" ");
+  type = splitType[0];
+
+  let fromTo = type === "promote" ? splitType[1] : null;
 
   switch (type) {
     case "offerDraw":
@@ -15,49 +20,15 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
     case "forfeit":
       message = "Are you sure you want to forfeit?";
       break;
+    case "promote":
+      message = "Promote pawn to:";
+      break;
 
     default:
       message = "ERROR: Invalid type";
   }
 
-  const handleAcceptDraw = () => {
-    socket.sendMessage({
-      action: EmitActions.OFFER_DRAW,
-      drawAction: "ACCEPT",
-      gameId: sessionStorage.getItem("gameId")
-    });
-    setIsVisible(false);
-  };
 
-  const handleConfirmDraw = () => {
-    socket.sendMessage({
-      action: EmitActions.OFFER_DRAW,
-      drawAction: "OFFER",
-      gameId: sessionStorage.getItem("gameId")
-    });
-    setIsVisible(false);
-  };
-
-  const handleDeclineDraw = () => {
-    socket.sendMessage({
-      action: EmitActions.OFFER_DRAW,
-      drawAction: "DENY",
-      gameId: sessionStorage.getItem("gameId")
-    });
-    setIsVisible(false);
-  };
-
-  const handleConfirmForfeit = () => {
-    socket.sendMessage({
-      action: EmitActions.FORFEIT,
-      gameId: sessionStorage.getItem("gameId")
-    });
-    setIsVisible(false);
-  };
-
-  const handleCancelForfeit = () => {
-    setIsVisible(false);
-  };
 
   if (!isVisible) return null;
 
@@ -72,30 +43,57 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
         </TouchableOpacity>
         <Text style={styles.messageText}>{message}</Text>
         <View style={styles.buttonBox}>
+
           <TouchableOpacity
-            onPress={
-              type === "offerDraw"
-                ? handleConfirmDraw
-                : type === "acceptDraw"
-                  ? handleAcceptDraw
-                  : handleConfirmForfeit
+           onPress={() => {
+            if (type === "offerDraw") {
+              handlers.handleConfirmDraw(socket);
+
+            } else if (type === "acceptDraw") {
+              handlers.handleAcceptDraw(socket);
+
+            } else if (type === "forfeit") {
+              handlers.handleConfirmForfeit(socket);
+              
+            } else {
+              handlers.handlePromote(socket, "q", fromTo);
             }
+            
+            setIsVisible(false);
+          }}
+          
           >
             <Text style={styles.buttonText}>
               {type === "forfeit" || type === "offerDraw"
                 ? "Confirm"
-                : "Accept"}
+                : type === "acceptDraw" 
+                ? "Accept"
+                : "Queen"
+                }
             </Text>
           </TouchableOpacity>
+
+
           <TouchableOpacity
-            onPress={
-              type === "acceptDraw" ? handleDeclineDraw : handleCancelForfeit
+           onPress={() => {
+            if (type === "acceptDraw") {
+              handlers.handleDeclineDraw(socket);
+            } else if (type === "forfeit") {
+              handlers.handleCancelForfeit(socket);
+            } else {
+              handlers.handlePromote(socket, "n", fromTo);
             }
+          
+            setIsVisible(false);
+          }}
+          
           >
             <Text style={styles.buttonText}>
               {type === "forfeit" || type === "offerDraw"
                 ? "Cancel"
-                : "Decline"}
+                : type === "acceptDraw" 
+                  ? "Decline" 
+                  : "Knight"}
             </Text>
           </TouchableOpacity>
         </View>
