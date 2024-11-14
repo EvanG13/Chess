@@ -79,8 +79,7 @@ const selectSquare = (
       setPromptType,
       setPromptVisible
     );
-    if(newBoard === "promote") {
-      
+    if (newBoard === "promote") {
       //deselect current piece since finished promoting their piece
       setSelectedSquare([]);
       setValidMoves([]);
@@ -120,7 +119,6 @@ const selectSquare = (
 
     if (isCheckmate) {
       console.log("checkmate detected!");
-      
     }
     //update the move log
   }

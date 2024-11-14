@@ -24,7 +24,8 @@ class Pawn extends Piece {
     if (rightAbove.piece === null) {
       //if the pawn is in starting position
       if (
-        ((this.number === 1 && this.color === "black") || (this.number == 6 && this.color === "white")) &&
+        ((this.number === 1 && this.color === "black") ||
+          (this.number == 6 && this.color === "white")) &&
         board.board[this.number + direction * 2][
           this.convertLetterToNumber(this.letter)
         ].piece === null

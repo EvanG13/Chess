@@ -28,8 +28,6 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
       message = "ERROR: Invalid type";
   }
 
-
-
   if (!isVisible) return null;
 
   return (
@@ -43,56 +41,48 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
         </TouchableOpacity>
         <Text style={styles.messageText}>{message}</Text>
         <View style={styles.buttonBox}>
-
           <TouchableOpacity
-           onPress={() => {
-            if (type === "offerDraw") {
-              handlers.handleConfirmDraw(socket);
+            onPress={() => {
+              if (type === "offerDraw") {
+                handlers.handleConfirmDraw(socket);
+              } else if (type === "acceptDraw") {
+                handlers.handleAcceptDraw(socket);
+              } else if (type === "forfeit") {
+                handlers.handleConfirmForfeit(socket);
+              } else {
+                handlers.handlePromote(socket, "q", fromTo);
+              }
 
-            } else if (type === "acceptDraw") {
-              handlers.handleAcceptDraw(socket);
-
-            } else if (type === "forfeit") {
-              handlers.handleConfirmForfeit(socket);
-              
-            } else {
-              handlers.handlePromote(socket, "q", fromTo);
-            }
-            
-            setIsVisible(false);
-          }}
-          
+              setIsVisible(false);
+            }}
           >
             <Text style={styles.buttonText}>
               {type === "forfeit" || type === "offerDraw"
                 ? "Confirm"
-                : type === "acceptDraw" 
-                ? "Accept"
-                : "Queen"
-                }
+                : type === "acceptDraw"
+                  ? "Accept"
+                  : "Queen"}
             </Text>
           </TouchableOpacity>
 
-
           <TouchableOpacity
-           onPress={() => {
-            if (type === "acceptDraw") {
-              handlers.handleDeclineDraw(socket);
-            } else if (type === "forfeit") {
-              handlers.handleCancelForfeit(socket);
-            } else {
-              handlers.handlePromote(socket, "n", fromTo);
-            }
-          
-            setIsVisible(false);
-          }}
-          
+            onPress={() => {
+              if (type === "acceptDraw") {
+                handlers.handleDeclineDraw(socket);
+              } else if (type === "forfeit") {
+                handlers.handleCancelForfeit(socket);
+              } else {
+                handlers.handlePromote(socket, "n", fromTo);
+              }
+
+              setIsVisible(false);
+            }}
           >
             <Text style={styles.buttonText}>
               {type === "forfeit" || type === "offerDraw"
                 ? "Cancel"
-                : type === "acceptDraw" 
-                  ? "Decline" 
+                : type === "acceptDraw"
+                  ? "Decline"
                   : "Knight"}
             </Text>
           </TouchableOpacity>

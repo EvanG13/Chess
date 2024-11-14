@@ -40,7 +40,6 @@ export const handleGameOver = (setters, data) => {
 //-------------------------------------------------------------------------
 
 export const handleMoveMade = (setters, data) => {
- 
   const whiteRemainingTime = data.whiteRemainingTime;
   const blackRemainingTime = data.blackRemainingTime;
 

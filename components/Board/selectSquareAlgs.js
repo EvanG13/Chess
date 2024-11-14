@@ -81,8 +81,8 @@ export const movePiece = (
   newBoard[row][col].piece.number = row;
   //remove the moved piece from its starting square
   newBoard[selectedSquare[0]][selectedSquare[1]].piece = null;
-  //if the piece was a pawn, and it made it to the promotion row, 
-  if(newBoard[row][col].piece.name === "pawn" && (row === 0 || row === 7)){
+  //if the piece was a pawn, and it made it to the promotion row,
+  if (newBoard[row][col].piece.name === "pawn" && (row === 0 || row === 7)) {
     //generate the fromTo string
     const fromLetter = LETTERS[selectedSquare[1] + 1];
     const toLetter = LETTERS[col + 1];
