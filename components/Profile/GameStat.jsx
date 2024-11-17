@@ -32,8 +32,8 @@ const GameStat = ({ navigation }) => {
     getData();
   }, []);
   return (
-    <View style = {styles.GameStat}>
-      <Text style = {styles.timeControlTitle}>{timeControl}</Text>
+    <View style={styles.GameStat}>
+      <Text style={styles.timeControlTitle}>{timeControl}</Text>
       {gameStats ? (
         <View style={styles.diagnostics}>
           <Text style={styles.diagnosticsText}>Wins: {gameStats.wins}</Text>
@@ -44,10 +44,10 @@ const GameStat = ({ navigation }) => {
       ) : (
         <Text>Loading...</Text>
       )}
-      <ArchivedGamesContainer 
-      playerUsername={sessionStorage.getItem("username")}
-      timeControl={timeControl}/>
-     
+      <ArchivedGamesContainer
+        playerUsername={sessionStorage.getItem("username")}
+        timeControl={timeControl}
+      />
     </View>
   );
 };

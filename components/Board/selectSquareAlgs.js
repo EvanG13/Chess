@@ -182,12 +182,7 @@ export const emitMove = (LETTERS, selectedSquare, row, col, socket) => {
   });
 };
 
-export const handleCheckmate = (
-  isWhiteTurn,
-  kingSquare,
-  board,
-  LETTERS
-) => {
+export const handleCheckmate = (isWhiteTurn, kingSquare, board, LETTERS) => {
   let newPlayerColor = isWhiteTurn ? "black" : "white";
   let [kingRow, kingCol] = kingSquare[`${newPlayerColor}King`];
   let king = new King(newPlayerColor, LETTERS[kingCol + 1], kingRow);

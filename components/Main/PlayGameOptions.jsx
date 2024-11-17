@@ -5,7 +5,6 @@ import StatsCard from "../Profile/StatsCard";
 // import { styles } from "../Profile/StatsCard";
 
 const PlayGameOptions = ({ navigation }) => {
-
   const timeControls = [
     {
       title: "Bullet 1",

@@ -2,7 +2,14 @@ import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import { EmitActions } from "../../types/Actions.js";
 import styles from "../PromptModal/PromptModalStyles.js";
 
-const GameOverModal = ({ isVisible, setIsVisible, message, socket, navigation, timeControl }) => {
+const GameOverModal = ({
+  isVisible,
+  setIsVisible,
+  message,
+  socket,
+  navigation,
+  timeControl
+}) => {
   const handleRematch = () => {};
 
   const handleNewGame = () => {
