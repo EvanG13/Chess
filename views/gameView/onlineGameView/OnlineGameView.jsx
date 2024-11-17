@@ -238,6 +238,8 @@ const OnlineGameView = ({ route, navigation }) => {
             setIsVisible={setGameOverModalVisible}
             message={gameOverMessage}
             socket={socket}
+            navigation={navigation}
+            timeControl={timeControl}
           />
         </View>
       </View>
