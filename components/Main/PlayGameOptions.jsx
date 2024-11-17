@@ -5,13 +5,7 @@ import StatsCard from "../Profile/StatsCard";
 // import { styles } from "../Profile/StatsCard";
 
 const PlayGameOptions = ({ navigation }) => {
-  const requestTimeControls = {
-    "Bullet 1": "BULLET_1",
-    "Blitz 3": "BLITZ_3",
-    "Blitz 5": "BLITZ_5",
-    "Rapid 10": "RAPID_10",
-    "Classical 30": "CLASSICAL_30"
-  };
+
   const timeControls = [
     {
       title: "Bullet 1",
@@ -21,7 +15,7 @@ const PlayGameOptions = ({ navigation }) => {
     {
       title: "Bullet 3",
       requestTitle: "BULLET_3",
-      iconPath: require("../../assets/appImages/blitz.png")
+      iconPath: require("../../assets/appImages/bullet.png")
     },
     {
       title: "Blitz 5",

@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
-import { EmitActions } from "../../types/Actions";
+
 import styles from "./PromptModalStyles.js";
 import handlers from "./handlers.js";
 
