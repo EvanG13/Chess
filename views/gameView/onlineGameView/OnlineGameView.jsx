@@ -214,7 +214,9 @@ const OnlineGameView = ({ route, navigation }) => {
               setBlackSideBoard,
               isWhite,
               socket,
-              setIsWhiteTurn
+              setIsWhiteTurn,
+              setPromptType,
+              setPromptVisible
             }}
           />
 

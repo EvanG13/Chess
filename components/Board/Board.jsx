@@ -16,7 +16,9 @@ const Board = ({
   isWhite,
   blackSideBoard,
   setBlackSideBoard,
-  setIsWhiteTurn
+  setIsWhiteTurn,
+  setPromptType,
+  setPromptVisible
 }) => {
   const [validMoves, setValidMoves] = useState([]);
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
@@ -98,7 +100,9 @@ const Board = ({
                             setShowWinner,
                             socket,
                             isWhite,
-                            setIsWhiteTurn
+                            setIsWhiteTurn,
+                            setPromptType,
+                            setPromptVisible
                           );
                         }}
                         isSelected={

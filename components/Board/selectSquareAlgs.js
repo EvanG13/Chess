@@ -66,7 +66,9 @@ export const movePiece = (
   col,
   selectedSquare,
   LETTERS,
-  setIsWhiteTurn
+  setIsWhiteTurn,
+  setPromptType,
+  setPromptVisible
 ) => {
   const newBoard = [...board.board];
 
@@ -79,6 +81,17 @@ export const movePiece = (
   newBoard[row][col].piece.number = row;
   //remove the moved piece from its starting square
   newBoard[selectedSquare[0]][selectedSquare[1]].piece = null;
+  //if the piece was a pawn, and it made it to the promotion row,
+  if (newBoard[row][col].piece.name === "pawn" && (row === 0 || row === 7)) {
+    //generate the fromTo string
+    const fromLetter = LETTERS[selectedSquare[1] + 1];
+    const toLetter = LETTERS[col + 1];
+    const fromTo = `${fromLetter}${8 - selectedSquare[0]}${toLetter}${8 - row}`;
+    //open the modal
+    setPromptType("promote " + fromTo);
+    setPromptVisible(true);
+    return "promote";
+  }
   //switch to opponent's turn
   setIsWhiteTurn((prev) => !prev);
   return newBoard;
