@@ -71,8 +71,6 @@ const OnlineGameView = ({ route, navigation }) => {
           socket = await createSocket(sessionStorage.getItem("userId"));
           const setters = {
             setIsStarted,
-            setHasWon,
-            setShowWinner,
             setBoard,
             board,
             setBlackSideBoard,
@@ -208,8 +206,6 @@ const OnlineGameView = ({ route, navigation }) => {
             {...{
               board,
               isWhiteTurn,
-              setHasWon,
-              setShowWinner,
               blackSideBoard,
               setBlackSideBoard,
               isWhite,
@@ -243,42 +239,6 @@ const OnlineGameView = ({ route, navigation }) => {
             message={gameOverMessage}
             socket={socket}
           />
-          <Modal
-            visible={showWinner}
-            animationType="fade"
-            onRequestClose={() => setShowWinner(false)}
-            transparent
-          >
-            <SafeAreaView style={[styles.fill, styles.grey]}>
-              <TouchableOpacity
-                style={styles.darkGreen}
-                onPress={() => {
-                  setShowWinner(false);
-                }}
-              >
-                <Text style={[styles.darkGreen, styles.rightAlign]}>X</Text>
-              </TouchableOpacity>
-              <Text style={styles.winnerText}>
-                {isWhiteTurn ? "Black" : "White"} player has won!
-              </Text>
-              <TouchableOpacity
-                style={styles.darkGreen}
-                onPress={() => {
-                  console.log("TODO implement rematch button");
-                }}
-              >
-                <Text style={styles.buttonText}>Rematch</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.darkGreen}
-                onPress={() => {
-                  console.log("TODO implement new game button");
-                }}
-              >
-                <Text style={styles.buttonText}>New Game</Text>
-              </TouchableOpacity>
-            </SafeAreaView>
-          </Modal>
         </View>
       </View>
 
