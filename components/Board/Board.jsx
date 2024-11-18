@@ -10,8 +10,6 @@ import styles from "./BoardStyles.js";
 const Board = ({
   board,
   isWhiteTurn,
-  setHasWon,
-  setShowWinner,
   socket,
   isWhite,
   blackSideBoard,
@@ -96,8 +94,6 @@ const Board = ({
                             setValidMoves,
                             kingSquare,
                             setKingSquare,
-                            setHasWon,
-                            setShowWinner,
                             socket,
                             isWhite,
                             setIsWhiteTurn,

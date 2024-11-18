@@ -16,7 +16,11 @@ const ArchivedGameCard = ({ game, playerUsername, cardNumber }) => {
     game.players[0].username === playerUsername
       ? game.players[0]
       : game.players[1];
-  if (!game.players[0].isWinner && !game.players[1].isWinner) {
+  if (
+    game.resultReason !== "CHECKMATE" &&
+    game.resultReason !== "TIMEOUT" &&
+    game.resultReason !== "FORFEIT"
+  ) {
     result = "draw";
   } else {
     if (player.isWinner) result = "win";

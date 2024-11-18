@@ -22,8 +22,6 @@ const selectSquare = (
   setValidMoves,
   kingSquare,
   setKingSquare,
-  setHasWon,
-  setShowWinner,
   socket,
   isWhite,
   setIsWhiteTurn,
@@ -112,8 +110,6 @@ const selectSquare = (
       isWhiteTurn,
       kingSquare,
       board,
-      setHasWon,
-      setShowWinner,
       LETTERS
     ); //TODO: try passing in newBoard instead of board here.
 
