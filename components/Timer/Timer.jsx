@@ -3,11 +3,17 @@ import { View, Text } from "react-native";
 import styles from "./TimerStyles";
 import { formatTime } from "./algorithms";
 
-const Timer = ({ timeRemaining, isWhiteTurn, isWhite, setTimeRemaining, isGameOver }) => {
+const Timer = ({
+  timeRemaining,
+  isWhiteTurn,
+  isWhite,
+  setTimeRemaining,
+  isGameOver
+}) => {
   const [seconds, setSeconds] = useState(timeRemaining);
 
   useEffect(() => {
-    if(isGameOver){ 
+    if (isGameOver) {
       return;
     }
     let interval;

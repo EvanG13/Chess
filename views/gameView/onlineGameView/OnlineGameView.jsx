@@ -24,7 +24,6 @@ import PromptModal from "../../../components/PromptModal/PromptModal.jsx";
 import GameOverModal from "../../../components/gameOverModal/GameOverModal.jsx";
 
 const OnlineGameView = ({ route, navigation }) => {
-
   //game state stuff
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
   const [isStarted, setIsStarted] = useState(false);
@@ -172,7 +171,8 @@ const OnlineGameView = ({ route, navigation }) => {
 
   //listen for player timeouts
   useEffect(() => {
-    if ((whiteTimer <= 0 && !isWhite) || (blackTimer <= 0 && isWhite)) { //white reports black player timeout and vice versa
+    if ((whiteTimer <= 0 && !isWhite) || (blackTimer <= 0 && isWhite)) {
+      //white reports black player timeout and vice versa
       console.log("timout detected!!!");
       socket.sendMessage({
         action: "timeout",
