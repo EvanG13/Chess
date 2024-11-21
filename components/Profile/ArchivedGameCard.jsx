@@ -7,7 +7,7 @@ const timeIcons = {
   classical: require("../../assets/appImages/classical.jpg")
 };
 
-const ArchivedGameCard = ({ game, playerUsername, cardNumber }) => {
+const ArchivedGameCard = ({ navigation, game, playerUsername, cardNumber }) => {
   let backgroundColor =
     Number(cardNumber) % 2 != 0 ? styles.oddBackground : styles.evenBackground;
   let iconKey = game.timeControl.split("_")[0].toLowerCase();
@@ -26,8 +26,8 @@ const ArchivedGameCard = ({ game, playerUsername, cardNumber }) => {
   }
 
   const reviewGame = () => {
-    //TODO pass the navigation prop down the line
     //use the navigation to nav to a GameReview component also passing in the game.id as a param
+    navigation.navigate("reviewGame", { gameId: game.id });
   };
 
   return (

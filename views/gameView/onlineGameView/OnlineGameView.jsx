@@ -22,6 +22,7 @@ import axiosInstance from "../../../components/axiosInstance.js";
 import fenToJSON from "../../../components/Board/fenToJSON.js";
 import PromptModal from "../../../components/PromptModal/PromptModal.jsx";
 import GameOverModal from "../../../components/gameOverModal/GameOverModal.jsx";
+import MoveLog from "../../../components/RightSideBar/MoveLog.jsx";
 
 const OnlineGameView = ({ route, navigation }) => {
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn

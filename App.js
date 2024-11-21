@@ -12,7 +12,7 @@ import Tutorial from "./components/Tutorial/Tutorial.jsx";
 import Stats from "./components/Profile/Stats.jsx";
 import GameStat from "./components/Profile/GameStat.jsx";
 import OnlineGameView from "./views/gameView/onlineGameView/OnlineGameView.jsx";
-//import GameReview from "./views/GameReview.jsx";
+import ReviewGameView from "./views/gameView/gameReview/ReviewGameView.jsx";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -26,6 +26,7 @@ export default function App() {
           initialParams={{ isLocalGame: true }}
         />
         <Stack.Screen name="onlineGame" component={OnlineGameView} />
+        <Stack.Screen name="reviewGame" component={ReviewGameView} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="register" component={Register} />
         <Stack.Screen name="tutorial" component={Tutorial} />

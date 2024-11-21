@@ -18,7 +18,6 @@ const RightSideBar = ({
   return (
     <View style={styles.rightSideBar}>
       <MoveLog
-        socket={socket}
         board={board}
         setBoard={setBoard}
         moveIndex={moveIndex}

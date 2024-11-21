@@ -43,7 +43,7 @@ const GameStat = ({ navigation }) => {
       ) : (
         <Text>Loading...</Text>
       )}
-      <ArchivedGamesContainer />
+      <ArchivedGamesContainer navigation={navigation} />
     </View>
   );
 };

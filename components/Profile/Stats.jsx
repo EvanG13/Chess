@@ -100,6 +100,7 @@ const Stats = ({ navigation }) => {
           })}
         </View>
         <ArchivedGamesContainer
+          navigation={navigation}
           playerUsername={sessionStorage.getItem("username")}
         />
       </View>
