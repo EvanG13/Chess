@@ -35,6 +35,7 @@ export const handleGameOver = (setters, data) => {
   const displayMessage = data.displayMessage;
   setters.setGameOverModalVisible(true);
   setters.setGameOverMessage(displayMessage);
+  setters.setIsGameOver(true);
 };
 
 //-------------------------------------------------------------------------
