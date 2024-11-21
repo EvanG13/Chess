@@ -24,8 +24,11 @@ import PromptModal from "../../../components/PromptModal/PromptModal.jsx";
 import GameOverModal from "../../../components/gameOverModal/GameOverModal.jsx";
 
 const OnlineGameView = ({ route, navigation }) => {
+
+  //game state stuff
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
   const [isStarted, setIsStarted] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
   const [board, setBoard] = useState(getStartingBoard());
 
   const [blackSideBoard, setBlackSideBoard] = useState(false); //if true then black pieces are on bottom, else white pieces are on bottom
@@ -90,7 +93,8 @@ const OnlineGameView = ({ route, navigation }) => {
             setGameOverModalVisible,
             setGameOverMessage,
             setPromptType,
-            setPromptVisible
+            setPromptVisible,
+            setIsGameOver
           };
           socket.onmessage = function (event) {
             socketHandler(event, setters);
@@ -168,7 +172,7 @@ const OnlineGameView = ({ route, navigation }) => {
 
   //listen for player timeouts
   useEffect(() => {
-    if ((whiteTimer <= 0 && !isWhite) || (blackTimer <= 0 && isWhite)) {
+    if ((whiteTimer <= 0 && !isWhite) || (blackTimer <= 0 && isWhite)) { //white reports black player timeout and vice versa
       console.log("timout detected!!!");
       socket.sendMessage({
         action: "timeout",
@@ -188,6 +192,7 @@ const OnlineGameView = ({ route, navigation }) => {
                 isWhiteTurn={isWhiteTurn}
                 timeRemaining={isWhite ? blackTimer : whiteTimer}
                 setTimeRemaining={isWhite ? setBlackTimer : setWhiteTimer}
+                isGameOver={isGameOver}
               />
               <PlayerCard player={player2} />
             </View>
@@ -212,7 +217,8 @@ const OnlineGameView = ({ route, navigation }) => {
               socket,
               setIsWhiteTurn,
               setPromptType,
-              setPromptVisible
+              setPromptVisible,
+              isGameOver
             }}
           />
 
@@ -223,6 +229,7 @@ const OnlineGameView = ({ route, navigation }) => {
                 isWhiteTurn={isWhiteTurn}
                 timeRemaining={isWhite ? whiteTimer : blackTimer}
                 setTimeRemaining={isWhite ? setWhiteTimer : setBlackTimer}
+                isGameOver={isGameOver}
               />
               <PlayerCard player={player1} />
             </View>
