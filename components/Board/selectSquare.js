@@ -26,8 +26,12 @@ const selectSquare = (
   isWhite,
   setIsWhiteTurn,
   setPromptType,
-  setPromptVisible
+  setPromptVisible,
+  isGameOver
 ) => {
+  if (isGameOver) {
+    return;
+  }
   //get the row and column of the square that was clicked
   let row = number;
   let col = getNumberFromLetter(letter);
