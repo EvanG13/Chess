@@ -35,19 +35,19 @@ export const handleGameOver = (setters, data) => {
   const displayMessage = data.displayMessage;
   setters.setGameOverModalVisible(true);
   setters.setGameOverMessage(displayMessage);
+  setters.setIsGameOver(true);
 };
 
 //-------------------------------------------------------------------------
 
 export const handleMoveMade = (setters, data) => {
-  console.log(setters, data);
   const whiteRemainingTime = data.whiteRemainingTime;
   const blackRemainingTime = data.blackRemainingTime;
 
   if (!data.isSuccess) {
     console.log(whiteRemainingTime + " " + blackRemainingTime);
     setters.setIsWhiteTurn((prev) => !prev);
-    return;
+    return; //TODO: the backend should send the previous fen so that we can revert the board state
   }
   const boardJson = fenToJSON(data.fen);
   const isWhiteTurn = data.isWhiteTurn;

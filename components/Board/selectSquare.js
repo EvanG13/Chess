@@ -22,12 +22,16 @@ const selectSquare = (
   setValidMoves,
   kingSquare,
   setKingSquare,
-  setHasWon,
-  setShowWinner,
   socket,
   isWhite,
-  setIsWhiteTurn
+  setIsWhiteTurn,
+  setPromptType,
+  setPromptVisible,
+  isGameOver
 ) => {
+  if (isGameOver) {
+    return;
+  }
   //get the row and column of the square that was clicked
   let row = number;
   let col = getNumberFromLetter(letter);
@@ -73,8 +77,16 @@ const selectSquare = (
       col,
       selectedSquare,
       LETTERS,
-      setIsWhiteTurn
+      setIsWhiteTurn,
+      setPromptType,
+      setPromptVisible
     );
+    if (newBoard === "promote") {
+      //deselect current piece since finished promoting their piece
+      setSelectedSquare([]);
+      setValidMoves([]);
+      return;
+    } //if the move was a pawn promotion, return early as control is now in the promotion modal.
 
     //set enPassant state
     updateEnPassant(newBoard, row, col, isWhiteTurn, board, selectedSquare);
@@ -102,14 +114,11 @@ const selectSquare = (
       isWhiteTurn,
       kingSquare,
       board,
-      setHasWon,
-      setShowWinner,
       LETTERS
     ); //TODO: try passing in newBoard instead of board here.
 
     if (isCheckmate) {
       console.log("checkmate detected!");
-      //TODO: emit a game over event if it was checkmate. This should be verified in backend.
     }
     //update the move log
   }

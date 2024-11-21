@@ -25,8 +25,10 @@ import GameOverModal from "../../../components/gameOverModal/GameOverModal.jsx";
 import MoveLog from "../../../components/RightSideBar/MoveLog.jsx";
 
 const OnlineGameView = ({ route, navigation }) => {
+  //game state stuff
   const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
   const [isStarted, setIsStarted] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
   const [board, setBoard] = useState(getStartingBoard());
 
   const [blackSideBoard, setBlackSideBoard] = useState(false); //if true then black pieces are on bottom, else white pieces are on bottom
@@ -72,8 +74,6 @@ const OnlineGameView = ({ route, navigation }) => {
           socket = await createSocket(sessionStorage.getItem("userId"));
           const setters = {
             setIsStarted,
-            setHasWon,
-            setShowWinner,
             setBoard,
             board,
             setBlackSideBoard,
@@ -93,7 +93,8 @@ const OnlineGameView = ({ route, navigation }) => {
             setGameOverModalVisible,
             setGameOverMessage,
             setPromptType,
-            setPromptVisible
+            setPromptVisible,
+            setIsGameOver
           };
           socket.onmessage = function (event) {
             socketHandler(event, setters);
@@ -172,6 +173,7 @@ const OnlineGameView = ({ route, navigation }) => {
   //listen for player timeouts
   useEffect(() => {
     if ((whiteTimer <= 0 && !isWhite) || (blackTimer <= 0 && isWhite)) {
+      //white reports black player timeout and vice versa
       console.log("timout detected!!!");
       socket.sendMessage({
         action: "timeout",
@@ -191,6 +193,7 @@ const OnlineGameView = ({ route, navigation }) => {
                 isWhiteTurn={isWhiteTurn}
                 timeRemaining={isWhite ? blackTimer : whiteTimer}
                 setTimeRemaining={isWhite ? setBlackTimer : setWhiteTimer}
+                isGameOver={isGameOver}
               />
               <PlayerCard player={player2} />
             </View>
@@ -209,13 +212,14 @@ const OnlineGameView = ({ route, navigation }) => {
             {...{
               board,
               isWhiteTurn,
-              setHasWon,
-              setShowWinner,
               blackSideBoard,
               setBlackSideBoard,
               isWhite,
               socket,
-              setIsWhiteTurn
+              setIsWhiteTurn,
+              setPromptType,
+              setPromptVisible,
+              isGameOver
             }}
           />
 
@@ -226,6 +230,7 @@ const OnlineGameView = ({ route, navigation }) => {
                 isWhiteTurn={isWhiteTurn}
                 timeRemaining={isWhite ? whiteTimer : blackTimer}
                 setTimeRemaining={isWhite ? setWhiteTimer : setBlackTimer}
+                isGameOver={isGameOver}
               />
               <PlayerCard player={player1} />
             </View>
@@ -241,43 +246,9 @@ const OnlineGameView = ({ route, navigation }) => {
             setIsVisible={setGameOverModalVisible}
             message={gameOverMessage}
             socket={socket}
+            navigation={navigation}
+            timeControl={timeControl}
           />
-          <Modal
-            visible={showWinner}
-            animationType="fade"
-            onRequestClose={() => setShowWinner(false)}
-            transparent
-          >
-            <SafeAreaView style={[styles.fill, styles.grey]}>
-              <TouchableOpacity
-                style={styles.darkGreen}
-                onPress={() => {
-                  setShowWinner(false);
-                }}
-              >
-                <Text style={[styles.darkGreen, styles.rightAlign]}>X</Text>
-              </TouchableOpacity>
-              <Text style={styles.winnerText}>
-                {isWhiteTurn ? "Black" : "White"} player has won!
-              </Text>
-              <TouchableOpacity
-                style={styles.darkGreen}
-                onPress={() => {
-                  console.log("TODO implement rematch button");
-                }}
-              >
-                <Text style={styles.buttonText}>Rematch</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.darkGreen}
-                onPress={() => {
-                  console.log("TODO implement new game button");
-                }}
-              >
-                <Text style={styles.buttonText}>New Game</Text>
-              </TouchableOpacity>
-            </SafeAreaView>
-          </Modal>
         </View>
       </View>
 

@@ -10,13 +10,14 @@ import styles from "./BoardStyles.js";
 const Board = ({
   board,
   isWhiteTurn,
-  setHasWon,
-  setShowWinner,
   socket,
   isWhite,
   blackSideBoard,
   setBlackSideBoard,
-  setIsWhiteTurn
+  setIsWhiteTurn,
+  setPromptType,
+  setPromptVisible,
+  isGameOver
 }) => {
   const [validMoves, setValidMoves] = useState([]);
   const [selectedSquare, setSelectedSquare] = useState([]); // [number, number] must be a piece
@@ -94,11 +95,12 @@ const Board = ({
                             setValidMoves,
                             kingSquare,
                             setKingSquare,
-                            setHasWon,
-                            setShowWinner,
                             socket,
                             isWhite,
-                            setIsWhiteTurn
+                            setIsWhiteTurn,
+                            setPromptType,
+                            setPromptVisible,
+                            isGameOver
                           );
                         }}
                         isSelected={

@@ -38,6 +38,11 @@ const ArchivedGamesContainer = ({
       try {
         let path = `/archivedGames/${username}`;
         if (timeControl) {
+          let format;
+          let time;
+          [format, time] = timeControl.split(" ");
+          timeControl = `${format.toUpperCase()}_${time}`;
+
           path += `?timeControl=${timeControl}`;
         }
 

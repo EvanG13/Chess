@@ -8,7 +8,7 @@ import {
 } from "./socketFunctions";
 const handleSocket = (event, setters) => {
   const { websocketResponseAction: action, data } = JSON.parse(event.data);
-  console.log(action, data);
+  console.info(action, data);
 
   switch (action) {
     case Actions.GAME_START: {
@@ -23,7 +23,7 @@ const handleSocket = (event, setters) => {
       break;
     }
     case Actions.GAME_CREATED:
-      console.log(data);
+      console.info(data);
       break;
     case Actions.CHAT_MESSAGE: {
       handleChatMessage(setters, data);
@@ -34,7 +34,7 @@ const handleSocket = (event, setters) => {
       break;
     }
     default:
-      console.log(event);
+      console.error("not a supported action type: " + event);
   }
 };
 
