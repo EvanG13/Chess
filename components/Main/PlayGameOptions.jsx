@@ -7,29 +7,24 @@ import StatsCard from "../Profile/StatsCard";
 const PlayGameOptions = ({ navigation }) => {
   const timeControls = [
     {
-      title: "Bullet 1",
+      title: "Bullet",
       requestTitle: "BULLET_1",
-      iconPath: require("../../assets/appImages/bullet.png")
+      time: "1+0"
     },
     {
-      title: "Bullet 3",
+      title: "Bullet",
       requestTitle: "BULLET_3",
-      iconPath: require("../../assets/appImages/bullet.png")
+      time: "3+0"
     },
     {
-      title: "Blitz 5",
+      title: "Blitz",
       requestTitle: "BLITZ_5",
-      iconPath: require("../../assets/appImages/blitz.png")
+      time: "5+0"
     },
     {
-      title: "Rapid 10",
-      requestTitle: "BLITZ_10", //TODO this should be rapid 10 in the backend
-      iconPath: require("../../assets/appImages/rapid.png")
-    },
-    {
-      title: "Classical 30", //TODO this should be added as a time control in the backend
-      requestTitle: "CLASSICAL_30",
-      iconPath: require("../../assets/appImages/classical.jpg")
+      title: "Rapid",
+      requestTitle: "BLITZ_10",
+      time: "10+0"
     }
   ];
 
@@ -46,7 +41,7 @@ const PlayGameOptions = ({ navigation }) => {
             <StatsCard
               key={index}
               title={control.title}
-              iconPath={control.iconPath}
+              time={control.time}
               navigate={navigation.navigate}
               handlePress={() => handlePress(control.requestTitle)}
             />

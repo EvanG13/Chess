@@ -25,38 +25,18 @@ const Main = ({ navigation }) => {
       <MainHeader navigation={navigation} />
       <View style={styles.mainBody}>
         <Image source={chessBoardImg} style={styles.pageHero} />
-        <View style={styles.textParagraph}>
-          <Text style={styles.paragraphHeader}>Stock Trout</Text>
-          <Text style={styles.text}>
-            Play chess online. <br></br>
-            Learn chess through our{" "}
-            <Text
-              style={{ color: "blue" }}
-              onPress={() => navigation.navigate("tutorial")}
+        <View style={styles.rightSide}>
+          <View style={styles.buttonContainer}>
+            {isLoggedIn && <PlayGameOptions navigation={navigation} />}
+            <TouchableOpacity
+              style={styles.localGameButton}
+              onPress={() => {
+                navigation.navigate("localGame");
+              }}
             >
-              Tutorial
-            </Text>
-            . <br></br>
-            Play chess locally. <br></br>
-            Practice infinte puzzles. <br></br>
-            TikTok, Instagram Reels, Youtube shorts. <br></br>
-            Temple Run and epic fails.<br></br>
-            Have fun!
-          </Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          {isLoggedIn && (
-            <Text style={styles.paragraphHeader}>Play Online</Text>
-          )}
-          {isLoggedIn && <PlayGameOptions navigation={navigation} />}
-          <TouchableOpacity
-            style={styles.localGameButton}
-            onPress={() => {
-              navigation.navigate("localGame");
-            }}
-          >
-            <Text style={{ color: "white", fontSize: "20" }}>Local Game</Text>
-          </TouchableOpacity>
+              <Text style={{ color: "white", fontSize: "20" }}>Local Game</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -76,25 +56,13 @@ const styles = StyleSheet.create({
     color: "white",
     marginBottom: "5%"
   },
-  text: {
-    color: "white",
-    fontSize: 20,
-    fontFamily: "Arial"
-  },
   paragraphHeader: {
     color: "white",
-    fontSize: 30,
+    fontSize: 60,
     marginBottom: "5%",
     fontFamily: "Roboto",
     fontWeight: "bold",
     textAlign: "center"
-  },
-  textParagraph: {
-    marginTop: "12%",
-    width: "30%",
-    height: "100%"
-    // justifyContent: "center",
-    //alignItems: "center"
   },
   mainBody: {
     height: "80%",
@@ -103,7 +71,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-evenly"
+  },
+  rightSide: {
+    alignItems: "center"
   },
   buttonContainer: {
     width: 0.2 * width,
@@ -113,7 +84,11 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     padding: 10,
     borderRadius: 10,
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttons: {
+    flexDirection: "column"
   },
   tutorial: {
     width: width * 0.28,
@@ -125,8 +100,6 @@ const styles = StyleSheet.create({
   },
   pageHero: {
     marginBottom: "2%",
-    width: width * 0.28,
-    height: width * 0.28
   },
   localGameButton: {
     height: 50,
