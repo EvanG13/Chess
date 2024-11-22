@@ -13,8 +13,8 @@ const MoveLog = ({ moveList, board, setBoard, setMoveIndex, moveIndex }) => {
                 board={board}
                 setBoard={setBoard}
                 setMoveIndex={setMoveIndex}
-                san={move.san}
                 fen={move.fen}
+                san={move.san}
                 isActive={index === moveIndex}
                 index={index}
                 key={`move-${index}`}

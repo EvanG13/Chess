@@ -10,7 +10,11 @@ import ArchivedGameCard from "./ArchivedGameCard";
 import SortCriteria from "../../types/SortCriteria";
 import axiosInstance from "../axiosInstance";
 
-const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
+const ArchivedGamesContainer = ({
+  navigation,
+  playerUsername,
+  timeControl
+}) => {
   const [sortCriteria, setSortCriteria] = useState(SortCriteria.DESCENDING);
   const [archivedGames, setArchivedGames] = useState([]);
 
@@ -72,6 +76,7 @@ const ArchivedGamesContainer = ({ playerUsername, timeControl }) => {
         {archivedGames.map((game, index) => {
           return (
             <ArchivedGameCard
+              navigation={navigation}
               game={game}
               key={index}
               cardNumber={index}

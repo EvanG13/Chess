@@ -22,10 +22,6 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center"
   },
-  rightAlign: {
-    padding: "2%",
-    textAlign: "right"
-  },
   boardContainer: {
     flex: 1,
     justifyContent: "center",

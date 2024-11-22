@@ -12,6 +12,9 @@ const MoveLogItem = ({
   index
 }) => {
   const handleClick = () => {
+    console.log("HANDLING CLIC");
+    console.log(fen);
+    console.log(fenToJSON(fen));
     const json = fenToJSON(fen);
     setBoard({ ...board, board: json });
     setMoveIndex(index);
