@@ -119,8 +119,8 @@ const styles = StyleSheet.create({
     color: "white"
   },
   logo: {
-    height: 60,
-    width: 60
+    height: 100,
+    width: 100
   }
 });
 

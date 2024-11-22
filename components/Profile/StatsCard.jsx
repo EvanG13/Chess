@@ -28,10 +28,10 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     textAlign: "center",
     alignItems: "center"
-  },  
+  },
   cardHover: {
     boxShadow: "0px 0px 10px 0px rgb(0,0,0)"
-  }, 
+  },
   time: {
     color: "black",
     fontSize: 30

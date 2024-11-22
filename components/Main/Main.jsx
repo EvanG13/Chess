@@ -7,7 +7,7 @@ import {
   Dimensions //TODO: use the window listener to update the width and height of the page if user changes the window size
 } from "react-native";
 import MainHeader from "./MainHeader";
-import chessBoardImg from "../../assets/appImages/chessboard.png";
+import chessBoardImg from "../../assets/appImages/logo.png";
 import PlayGameOptions from "./PlayGameOptions";
 import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   buttons: {
     flexDirection: "column"
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     height: "80%"
   },
   pageHero: {
-    marginBottom: "2%",
+    marginBottom: "2%"
   },
   localGameButton: {
     height: 50,

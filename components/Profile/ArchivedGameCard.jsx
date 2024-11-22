@@ -1,10 +1,10 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 const timeIcons = {
-  bullet: require("../../assets/appImages/bullet.png"),
-  blitz: require("../../assets/appImages/blitz.png"),
-  rapid: require("../../assets/appImages/rapid.png"),
-  classical: require("../../assets/appImages/classical.jpg")
+  bullet: require("../../assets/appImages/logo.png"),
+  blitz: require("../../assets/appImages/logo.png"),
+  rapid: require("../../assets/appImages/logo.png"),
+  classical: require("../../assets/appImages/logo.png")
 };
 
 const ArchivedGameCard = ({ navigation, game, playerUsername, cardNumber }) => {
