@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "50%",
     marginLeft: 10,
-    marginRight: 10,
+    marginRight: 10
   },
   navItem: {
     backgroundColor: "green",

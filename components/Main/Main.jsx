@@ -17,7 +17,6 @@ const Main = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const isFocused = useIsFocused();
 
-  
   useEffect(() => {
     setIsLoggedIn(sessionStorage.getItem("userId") ? true : false);
   }, [isFocused]); // Update token state AFTER screen is focused to prevent timing issues when reading from sessionStorage
