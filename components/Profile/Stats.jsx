@@ -11,18 +11,14 @@ const Stats = ({ navigation }) => {
   const [userData, setUserData] = useState(null);
   const timeControls = [
     {
-      title: "Bullet 1",
-      iconPath: require("../../assets/appImages/bullet.png")
+      title: "Bullet",
+      time: "1+0"
     },
-    { title: "Blitz 3", iconPath: require("../../assets/appImages/blitz.png") },
-    { title: "Blitz 5", iconPath: require("../../assets/appImages/blitz.png") },
+    { title: "Blitz", time: "3+0" },
+    { title: "Blitz", time: "5+0" },
     {
       title: "Rapid 10",
-      iconPath: require("../../assets/appImages/rapid.png")
-    },
-    {
-      title: "Classical 30",
-      iconPath: require("../../assets/appImages/classical.jpg")
+      time: "10+0"
     }
   ];
 
@@ -91,7 +87,7 @@ const Stats = ({ navigation }) => {
               <StatsCard
                 key={index}
                 title={control.title}
-                iconPath={control.iconPath}
+                time={control.time}
                 handlePress={() =>
                   navigation.navigate("stats", { timeControl: control.title })
                 }

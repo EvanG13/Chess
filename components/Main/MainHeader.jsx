@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import { View, StyleSheet, Text, Pressable, Image } from "react-native";
 import logo from "../../assets/appImages/logo.png";
 import { useIsFocused } from "@react-navigation/native";
 import axiosInstance from "../axiosInstance";
@@ -35,62 +35,54 @@ const MainHeader = ({ navigation }) => {
       <View style={styles.paddingLeft}></View>
       <View style={styles.navBar}>
         <Image source={logo} style={styles.logo} />
-        <TouchableOpacity
+        <Pressable
           style={styles.navItem}
           onPress={() => {
             navigation.navigate("Chess");
           }}
         >
-          <Text style={{ color: "white" }}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+          <Text style={styles.texts}>Home</Text>
+        </Pressable>
+        <Pressable
           style={styles.navItem}
           onPress={() => {
-            navigation.navigate("tutorial");
+            navigation.navigate("Chess");
           }}
         >
-          <Text style={{ color: "white" }}>Learn</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.navItem}
-          onPress={() => {
-            navigation.navigate("tutorial");
-          }}
-        >
-          <Text style={{ color: "white" }}>Puzzles</Text>
-        </TouchableOpacity>
+          <Text style={styles.texts}>Puzzles</Text>
+        </Pressable>
         {sessionToken ? (
           <>
-            <TouchableOpacity
+            <Pressable
               style={styles.navItem}
               onPress={() => {
                 navigation.navigate("profile");
               }}
             >
-              <Text style={{ color: "white" }}>{username}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.navItem} onPress={handleLogout}>
-              <Text style={{ color: "white" }}>Logout</Text>
-            </TouchableOpacity>
+              <Text style={styles.texts}>{username}</Text>
+            </Pressable>
+            <Pressable style={styles.navItem} onPress={handleLogout}>
+              <Text style={styles.texts}>Logout</Text>
+            </Pressable>
           </>
         ) : (
           <>
-            <TouchableOpacity
+            <Pressable
               style={styles.navItem}
               onPress={() => {
                 navigation.navigate("login");
               }}
             >
-              <Text style={{ color: "white" }}>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
+              <Text style={styles.texts}>Login</Text>
+            </Pressable>
+            <Pressable
               style={styles.navItem}
               onPress={() => {
                 navigation.navigate("register");
               }}
             >
-              <Text style={{ color: "white" }}>Register</Text>
-            </TouchableOpacity>
+              <Text style={styles.texts}>Register</Text>
+            </Pressable>
           </>
         )}
       </View>
@@ -108,7 +100,7 @@ const styles = StyleSheet.create({
   },
   navBar: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     alignItems: "center",
     width: "50%",
     marginLeft: 10,
@@ -118,9 +110,13 @@ const styles = StyleSheet.create({
     backgroundColor: "green",
     color: "white"
   },
+  texts: {
+    color: "white",
+    fontSize: 38
+  },
   logo: {
-    height: 60,
-    width: 60
+    height: 100,
+    width: 100
   }
 });
 
