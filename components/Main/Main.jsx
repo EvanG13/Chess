@@ -2,7 +2,7 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  Pressable,
   Image,
   Dimensions //TODO: use the window listener to update the width and height of the page if user changes the window size
 } from "react-native";
@@ -17,6 +17,7 @@ const Main = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const isFocused = useIsFocused();
 
+  
   useEffect(() => {
     setIsLoggedIn(sessionStorage.getItem("userId") ? true : false);
   }, [isFocused]); // Update token state AFTER screen is focused to prevent timing issues when reading from sessionStorage
@@ -28,14 +29,14 @@ const Main = ({ navigation }) => {
         <View style={styles.rightSide}>
           <View style={styles.buttonContainer}>
             {isLoggedIn && <PlayGameOptions navigation={navigation} />}
-            <TouchableOpacity
+            <Pressable
               style={styles.localGameButton}
               onPress={() => {
                 navigation.navigate("localGame");
               }}
             >
               <Text style={{ color: "white", fontSize: "20" }}>Local Game</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
         </View>
       </View>
