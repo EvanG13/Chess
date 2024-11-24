@@ -15,7 +15,7 @@
   },
   "plugins": ["react"],
   "rules": {
-    "indent": ["warn", 2, { "SwitchCase": 1 }], //prettier does not agree with this rule
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
