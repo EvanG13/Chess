@@ -32,7 +32,8 @@
     "react-native-switch": "^1.5.1",
     "react-native-web": "~0.19.6",
     "react-native-web-linear-gradient": "^1.1.2",
-    "websocket": "^1.0.35"
+    "websocket": "^1.0.35",
+    "expo-secure-store": "~14.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
