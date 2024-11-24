@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 const StatsCard = ({ title, time, handlePress }) => {
   return (

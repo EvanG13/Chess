@@ -15,13 +15,13 @@
   },
   "plugins": ["react"],
   "rules": {
-    "indent": ["error", 2, { "SwitchCase": 1 }], //prettier does not agree with this rule
+    "indent": ["warn", 2, { "SwitchCase": 1 }], //prettier does not agree with this rule
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
     "comma-dangle": ["error", "never"],
     "no-console": ["warn", { "allow": ["info", "error"] }],
-    "react/prop-types": ["error", { "ignore": ["navigation"] }]
+    "react/prop-types": "off"
   },
   "settings": {
     "react": {

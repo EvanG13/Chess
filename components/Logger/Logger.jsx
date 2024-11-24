@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import Move from "./Move";
-import { useState } from "react";
+import React from "react";
 
 const Logger = ({ log, setBoard, setIsWhiteTurn, moveIndex, setMoveIndex }) => {
   const setBoardAndIndex = (newBoard, someIndex) => {

@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import axiosInstance from "../axiosInstance";
 
-const Register = () => {
+const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +27,7 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axiosInstance.post(`/register`, {
+      const response = await axiosInstance.post("/register", {
         email,
         username,
         password

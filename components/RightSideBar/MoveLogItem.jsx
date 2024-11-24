@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
 import fenToJSON from "../Board/fenToJSON";
 

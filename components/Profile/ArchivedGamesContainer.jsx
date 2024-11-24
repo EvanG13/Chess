@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ScrollView
 } from "react-native";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ArchivedGameCard from "./ArchivedGameCard";
 import SortCriteria from "../../types/SortCriteria";
 import axiosInstance from "../axiosInstance";

@@ -14,7 +14,7 @@ const GameStat = ({ navigation }) => {
     const getData = async () => {
       let userData = null;
       try {
-        const response = await axiosInstance.get(`/stats`);
+        const response = await axiosInstance.get("/stats");
 
         userData = response.data;
         userData = userData[timeControl.split(" ")[0].toLowerCase()];

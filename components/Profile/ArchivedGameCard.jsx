@@ -1,3 +1,4 @@
+import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 const timeIcons = {
@@ -67,7 +68,7 @@ const ArchivedGameCard = ({ navigation, game, playerUsername, cardNumber }) => {
   );
 };
 
-const ResultCard = ({ gameResult, reasons }) => {
+const ResultCard = ({ gameResult }) => {
   return (
     <View style={styles.resultCard}>
       <Text>{gameResult}</Text>
