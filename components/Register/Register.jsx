@@ -45,40 +45,40 @@ const Register = ({ navigation }) => {
   return (
     <View style={styles.registerContainer}>
       <View style={styles.registerCard}>
-          {/* Black background inside the card */}
-          <View style={styles.innerCard}>
-            <Text style={styles.registerHeader}>Register</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Username"
-              value={username}
-              onChangeText={setUsername}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              secureTextEntry
-            />
-            <Button title="Register" onPress={handleRegister} />
-            {error.length > 0 ? (
-              <Text style={styles.errorCard}>{error}</Text>
-            ) : null}
-          </View>
+        {/* Black background inside the card */}
+        <View style={styles.innerCard}>
+          <Text style={styles.registerHeader}>Register</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Username"
+            value={username}
+            onChangeText={setUsername}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry
+          />
+          <Button title="Register" onPress={handleRegister} />
+          {error.length > 0 ? (
+            <Text style={styles.errorCard}>{error}</Text>
+          ) : null}
+        </View>
       </View>
     </View>
   );

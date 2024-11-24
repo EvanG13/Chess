@@ -38,27 +38,27 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.loginContainer}>
       <View style={styles.loginCard}>
-          <View style={styles.innerCard}>
-            <Text style={styles.loginHeader}>Login</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-            />
+        <View style={styles.innerCard}>
+          <Text style={styles.loginHeader}>Login</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+          />
 
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-            <Button title="Login" onPress={handleLogin} />
-            {error.length > 0 ? (
-              <Text style={styles.errorCard}>{error}</Text>
-            ) : null}
-          </View>
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+          <Button title="Login" onPress={handleLogin} />
+          {error.length > 0 ? (
+            <Text style={styles.errorCard}>{error}</Text>
+          ) : null}
+        </View>
       </View>
     </View>
   );

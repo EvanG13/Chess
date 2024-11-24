@@ -43,7 +43,7 @@ const MainHeader = ({ navigation }) => {
     <View style={styles.mainHeader}>
       <View style={styles.paddingLeft}></View>
       <View style={styles.navBar}>
-{/*         <Image source={logo} style={styles.logo} /> */}
+        {/*         <Image source={logo} style={styles.logo} /> */}
         <Pressable
           style={styles.navItem}
           onPress={() => {
