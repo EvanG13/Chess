@@ -20,7 +20,7 @@ const MainHeader = ({ navigation }) => {
     sessionStorage.clear();
 
     try {
-      await axiosInstance.post(`/logout`);
+      await axiosInstance.post("/logout");
     } catch (error) {
       console.error("Error during logout:", error);
     }

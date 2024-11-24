@@ -9,7 +9,7 @@ import {
 import MainHeader from "./MainHeader";
 import chessBoardImg from "../../assets/appImages/logo.png";
 import PlayGameOptions from "./PlayGameOptions";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
 
