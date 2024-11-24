@@ -1,9 +1,10 @@
 import fenToJSON from "../components/Board/fenToJSON";
+import * as SecureStore from "expo-secure-store";
 
-export const handleGameStart = (setters, data) => {
+export const handleGameStart = async (setters, data) => {
   setters.setIsStarted(true);
   const players = data.game.players;
-  if (players[0].username === sessionStorage.getItem("username")) {
+  if (players[0].username === (await SecureStore.getItemAsync("username"))) {
     setters.setBlackSideBoard(!players[0].isWhite);
     setters.setIsWhite(players[0].isWhite);
     setters.setPlayer1({
@@ -26,7 +27,8 @@ export const handleGameStart = (setters, data) => {
       rating: players[0].rating
     });
   }
-  sessionStorage.setItem("gameId", data.gameId);
+
+  await SecureStore.setItemAsync("gameId", data.gameId);
 };
 
 //-------------------------------------------------------------------------

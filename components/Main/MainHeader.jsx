@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Pressable, Image } from "react-native";
 import logo from "../../assets/appImages/logo.png";
 import { useIsFocused } from "@react-navigation/native";
 import axiosInstance from "../axiosInstance";
+import * as SecureStore from "expo-secure-store";
 
 const MainHeader = ({ navigation }) => {
   const [sessionToken, setSessionToken] = useState(null);
@@ -10,23 +11,31 @@ const MainHeader = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    const token = sessionStorage.getItem("sessionToken");
-    const username = sessionStorage.getItem("username");
-    setSessionToken(token);
-    setUsername(username);
-  }, [isFocused]); // Update token state AFTER screen is focused to prevent timing issues when reading from sessionStorage
+    const fetchCredentials = async () => {
+      try {
+        const token = await SecureStore.getItemAsync("sessionToken");
+        const username = await SecureStore.getItemAsync("username");
+        setSessionToken(token);
+        setUsername(username);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
+    fetchCredentials();
+  }, [isFocused]);
   const handleLogout = async () => {
-    sessionStorage.clear();
-
     try {
+      await SecureStore.deleteItemAsync("sessionToken");
+      await SecureStore.deleteItemAsync("username");
+      await SecureStore.deleteItemAsync("userId");
       await axiosInstance.post("/logout");
     } catch (error) {
       console.error("Error during logout:", error);
     }
 
-    // Clear session state and navigate to login screen
     setSessionToken(null);
+    setUsername(null);
     navigation.navigate("login");
   };
 
@@ -34,7 +43,7 @@ const MainHeader = ({ navigation }) => {
     <View style={styles.mainHeader}>
       <View style={styles.paddingLeft}></View>
       <View style={styles.navBar}>
-        <Image source={logo} style={styles.logo} />
+{/*         <Image source={logo} style={styles.logo} /> */}
         <Pressable
           style={styles.navItem}
           onPress={() => {

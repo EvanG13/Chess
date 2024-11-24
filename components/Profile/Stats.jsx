@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import MainHeader from "../Main/MainHeader";
 import StatsCard from "./StatsCard";
 import ArchivedGamesContainer from "./ArchivedGamesContainer";
 import LinearGradient from "react-native-web-linear-gradient";
+import * as SecureStore from "expo-secure-store";
 
 const Stats = ({ navigation }) => {
   const [username, setUsername] = useState(null);
@@ -24,19 +25,24 @@ const Stats = ({ navigation }) => {
 
   useEffect(() => {
     const getUserData = async () => {
-      setUsername(username);
+      const token = await SecureStore.getItemAsync("sessionToken");
+      if (!token) {
+        navigation.navigate("login");
+        return;
+      }
+
       try {
-        const response = await axiosInstance.get(`/stats`);
+        setUsername(await SecureStore.getItemAsync("username"));
+
+        const response = await axiosInstance.get("/stats");
         const userData = response.data;
+
         setTotals(userData);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
-    if (!sessionStorage.getItem("sessionToken")) {
-      navigation.navigate("login");
-      return;
-    }
+
     getUserData();
   }, [navigation]);
 
@@ -54,9 +60,7 @@ const Stats = ({ navigation }) => {
   return (
     <View style={styles.stats}>
       <MainHeader navigation={navigation} />
-      <Text style={styles.usernameHeader}>
-        {sessionStorage.getItem("username")}
-      </Text>
+      <Text style={styles.usernameHeader}>{username}</Text>
       <Text>{username}</Text>
       {userData ? (
         <LinearGradient
@@ -97,7 +101,7 @@ const Stats = ({ navigation }) => {
         </View>
         <ArchivedGamesContainer
           navigation={navigation}
-          playerUsername={sessionStorage.getItem("username")}
+          playerUsername={username}
         />
       </View>
     </View>

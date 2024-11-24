@@ -1,11 +1,12 @@
 import { EmitActions } from "../../types/Actions";
+import * as SecureStore from "expo-secure-store";
 
-const handleSendChat = (socket, message) => {
+const handleSendChat = async (socket, message) => {
   socket.sendMessage({
     action: EmitActions.CHAT_MESSAGE,
-    username: sessionStorage.getItem("username"),
+    username: await SecureStore.getItemAsync("username"),
     chatMessage: message,
-    userId: sessionStorage.getItem("userId")
+    userId: await SecureStore.getItemAsync("userId")
   });
 };
 

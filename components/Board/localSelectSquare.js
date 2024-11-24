@@ -8,8 +8,9 @@ import {
   selectDifferentPiece,
   selectNewPiece
 } from "./selectSquareAlgs.js";
+import * as SecureStore from "expo-secure-store";
 
-const localSelectSquare = (
+const localSelectSquare = async (
   number,
   letter,
   board,
@@ -147,8 +148,8 @@ const localSelectSquare = (
     socket.sendMessage({
       action: EmitActions.MOVE_MADE,
       move: fromTo,
-      gameId: sessionStorage.getItem("gameId"),
-      playerId: sessionStorage.getItem("userId")
+      gameId: await SecureStore.getItemAsync("gameId"),
+      playerId: await SecureStore.getItemAsync("userId")
     });
     // setBoard(newBoard);
     setSelectedSquare([]);

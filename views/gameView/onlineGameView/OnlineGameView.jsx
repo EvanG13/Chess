@@ -1,12 +1,6 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  Image
-} from "react-native";
+import { View, Text, Image } from "react-native";
 import loaderGif from "../../../assets/appImages/loader.gif";
-
+import React from "react";
 import styles from "./OnlineGameStyles.js";
 import RightSideBar from "../../../components/RightSideBar/RightSideBar.jsx";
 import Timer from "../../../components/Timer/Timer.jsx";
@@ -17,12 +11,11 @@ import getStartingBoard from "../../../components/Board/board.js";
 import PlayerCard from "../../../components/Board/PlayerCard.jsx";
 import createSocket from "../../../socket/websocket.js";
 import socketHandler from "../../../socket/socketHandler.js";
-import { Modal } from "react-native";
 import axiosInstance from "../../../components/axiosInstance.js";
 import fenToJSON from "../../../components/Board/fenToJSON.js";
 import PromptModal from "../../../components/PromptModal/PromptModal.jsx";
 import GameOverModal from "../../../components/gameOverModal/GameOverModal.jsx";
-import MoveLog from "../../../components/RightSideBar/MoveLog.jsx";
+import * as SecureStore from "expo-secure-store";
 
 const OnlineGameView = ({ route, navigation }) => {
   //game state stuff
@@ -52,26 +45,29 @@ const OnlineGameView = ({ route, navigation }) => {
   //chat stuff
   const [chatLog, setChatLog] = useState([]);
 
-  const [hasWon, setHasWon] = useState(false);
-
-  const [showWinner, setShowWinner] = useState(false);
-
   //player stuff
-  const [player1, setPlayer1] = useState({
-    name: sessionStorage.getItem("username"),
-    rating: 1000
-  });
+  const [player1, setPlayer1] = useState({});
   const [player2, setPlayer2] = useState({ name: "opponent", rating: 1000 });
 
   //socket stuff
   let [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    const playerData = async () => {
+      const username = await SecureStore.setItemAsync("username");
+
+      setPlayer1({ name: username, rating: 100 });
+    };
+
+    playerData();
+  });
 
   //open the socket
   useEffect(() => {
     const setupSocket = async () => {
       if (!socket) {
         try {
-          socket = await createSocket(sessionStorage.getItem("userId"));
+          socket = await createSocket(await SecureStore.getItemAsync("userId"));
           const setters = {
             setIsStarted,
             setBoard,
@@ -108,14 +104,14 @@ const OnlineGameView = ({ route, navigation }) => {
     };
 
     const setupGame = async () => {
-      if (sessionStorage.getItem("userId") == undefined) {
+      if (!(await SecureStore.getItemAsync("userId"))) {
         navigation.navigate("login");
         return;
       }
       await setupSocket();
       //check if user is already in game (like on a refresh)
       try {
-        const gameStateResponse = await axiosInstance.get(`/gameState`);
+        const gameStateResponse = await axiosInstance.get("/gameState");
         //user is in a game so set the game state
         const gameState = gameStateResponse.data;
 
@@ -140,7 +136,9 @@ const OnlineGameView = ({ route, navigation }) => {
         setWhiteTimer(wRemainingTime);
 
         let players = gameState.players;
-        if (players[0].username === sessionStorage.getItem("username")) {
+        if (
+          players[0].username === (await SecureStore.getItemAsync("username"))
+        ) {
           setIsWhite(players[0].isWhite);
           setBlackSideBoard(!players[0].isWhite);
           setPlayer2({ name: players[1].username, rating: players[1].rating });
@@ -155,7 +153,7 @@ const OnlineGameView = ({ route, navigation }) => {
         socket.sendMessage({
           action: "joinGame",
           timeControl,
-          userId: sessionStorage.getItem("userId")
+          userId: await SecureStore.getItemAsync("userId")
         });
       }
     };
@@ -172,14 +170,18 @@ const OnlineGameView = ({ route, navigation }) => {
 
   //listen for player timeouts
   useEffect(() => {
-    if ((whiteTimer <= 0 && !isWhite) || (blackTimer <= 0 && isWhite)) {
-      //white reports black player timeout and vice versa
-      console.log("timout detected!!!");
-      socket.sendMessage({
-        action: "timeout",
-        gameId: sessionStorage.getItem("gameId")
-      });
-    }
+    const playerTimeout = async () => {
+      if ((whiteTimer <= 0 && !isWhite) || (blackTimer <= 0 && isWhite)) {
+        //white reports black player timeout and vice versa
+        console.log("timout detected!!!");
+        socket.sendMessage({
+          action: "timeout",
+          gameId: await SecureStore.getItemAsync("gameId")
+        });
+      }
+    };
+
+    playerTimeout();
   }, [whiteTimer, blackTimer]);
 
   return (

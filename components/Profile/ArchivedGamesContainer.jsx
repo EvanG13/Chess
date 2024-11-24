@@ -9,6 +9,7 @@ import React, { useState, useEffect } from "react";
 import ArchivedGameCard from "./ArchivedGameCard";
 import SortCriteria from "../../types/SortCriteria";
 import axiosInstance from "../axiosInstance";
+import * as SecureStore from "expo-secure-store";
 
 const ArchivedGamesContainer = ({
   navigation,
@@ -32,10 +33,10 @@ const ArchivedGamesContainer = ({
   }, [sortCriteria]);
 
   useEffect(() => {
-    const username = sessionStorage.getItem("username");
-
     const getUserGames = async () => {
       try {
+        const username = await SecureStore.getItemAsync("username");
+
         let path = `/archivedGames/${username}`;
         if (timeControl) {
           let format;

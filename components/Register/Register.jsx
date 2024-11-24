@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 
 import axiosInstance from "../axiosInstance";
 
@@ -46,21 +45,6 @@ const Register = ({ navigation }) => {
   return (
     <View style={styles.registerContainer}>
       <View style={styles.registerCard}>
-        {/* Rainbow border */}
-        <LinearGradient
-          colors={[
-            "red",
-            "orange",
-            "yellow",
-            "green",
-            "blue",
-            "indigo",
-            "violet"
-          ]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.gradient}
-        >
           {/* Black background inside the card */}
           <View style={styles.innerCard}>
             <Text style={styles.registerHeader}>Register</Text>
@@ -95,7 +79,6 @@ const Register = ({ navigation }) => {
               <Text style={styles.errorCard}>{error}</Text>
             ) : null}
           </View>
-        </LinearGradient>
       </View>
     </View>
   );
