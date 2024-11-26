@@ -4,6 +4,8 @@ import logo from "../../assets/appImages/logo.png";
 import { useIsFocused } from "@react-navigation/native";
 import axiosInstance from "../axiosInstance";
 import * as SecureStore from "expo-secure-store";
+import { Dropdown } from "react-native-element-dropdown";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const MainHeader = ({ navigation }) => {
   const [sessionToken, setSessionToken] = useState(null);
@@ -24,6 +26,7 @@ const MainHeader = ({ navigation }) => {
 
     fetchCredentials();
   }, [isFocused]);
+
   const handleLogout = async () => {
     try {
       await SecureStore.deleteItemAsync("sessionToken");
@@ -39,11 +42,18 @@ const MainHeader = ({ navigation }) => {
     navigation.navigate("login");
   };
 
+  const performOption = (option) => {
+    if (option === "logout") {
+      handleLogout();
+    } else if (option === "profile") {
+      navigation.navigate("profile");
+    }
+  };
+
   return (
     <View style={styles.mainHeader}>
       <View style={styles.paddingLeft}></View>
       <View style={styles.navBar}>
-        {/*         <Image source={logo} style={styles.logo} /> */}
         <Pressable
           style={styles.navItem}
           onPress={() => {
@@ -52,27 +62,29 @@ const MainHeader = ({ navigation }) => {
         >
           <Text style={styles.texts}>Home</Text>
         </Pressable>
-        <Pressable
-          style={styles.navItem}
-          onPress={() => {
-            navigation.navigate("Chess");
-          }}
-        >
-          <Text style={styles.texts}>Puzzles</Text>
-        </Pressable>
         {sessionToken ? (
           <>
-            <Pressable
-              style={styles.navItem}
-              onPress={() => {
-                navigation.navigate("profile");
+            <Dropdown
+              style={styles.dropdown}
+              data={[
+                { label: "Profile", value: "profile" },
+                { label: "Logout", value: "logout" }
+              ]}
+              labelField="label"
+              valueField="value"
+              placeholder={username}
+              placeholderStyle={styles.placeholderStyle}
+              onChange={(item) => {
+                performOption(item.value);
               }}
-            >
-              <Text style={styles.texts}>{username}</Text>
-            </Pressable>
-            <Pressable style={styles.navItem} onPress={handleLogout}>
-              <Text style={styles.texts}>Logout</Text>
-            </Pressable>
+              renderRightIcon={() => (
+                <Icon
+                  name="user-circle-o"
+                  size={30}
+                  color="white"
+                />
+              )}
+            />
           </>
         ) : (
           <>
@@ -109,23 +121,29 @@ const styles = StyleSheet.create({
   },
   navBar: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    width: "50%",
-    marginLeft: 10,
-    marginRight: 10
+    width: "100%"
   },
   navItem: {
     backgroundColor: "green",
-    color: "white"
+    marginTop: 40
   },
   texts: {
     color: "white",
-    fontSize: 38
+    fontSize: 20
   },
-  logo: {
-    height: 100,
-    width: 100
+  dropdownContainer: {
+    flexDirection: "column",
+    justifyContent: "center"
+  },
+  dropdown: {
+    marginTop: 40,
+    width: "40%",
+    fontSize: 20
+  },
+  placeholderStyle: {
+    color: "white",
   }
 });
 
