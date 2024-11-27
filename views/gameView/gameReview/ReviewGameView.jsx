@@ -31,18 +31,29 @@ const ReviewGameView = ({ route }) => {
       gameInfo = await axiosInstance.get(`/archivedGame/${gameId}`);
       setMoveList([...gameInfo.data.moveList]);
       setPlayers([...gameInfo.data.players]);
+      console.log(players);
     }
     getGameInfo();
   }, []);
 
   useEffect(() => {
     //setMoveIndex(moveList.length-1);
+    console.log("move");
     console.log(gameInfo);
   }, [moveList]);
 
   return (
     <View style={styles.reviewView}>
-      <View style={styles.boardContainer}>
+      <View style={styles.rowOne}>
+        <ReviewGameBar
+          moveList={moveList}
+          board={board}
+          setBoard={setBoard}
+          setMoveIndex={setMoveIndex}
+          moveIndex={moveIndex}
+        />
+      </View>
+      <View style={styles.rowTwo}>
         {players.length != 0 && (
           <PlayerCard
             player={{
@@ -60,20 +71,13 @@ const ReviewGameView = ({ route }) => {
             board
           }}
         />
+        {/*       <View style={styles.boardContainer}> */}
+
+        {/*       </View> */}
 
         {players.length != 0 && (
           <PlayerCard player={{ name: username, rating: 800 }} />
         )}
-      </View>
-
-      <View style={styles.moveLog}>
-        <ReviewGameBar
-          moveList={moveList}
-          board={board}
-          setBoard={setBoard}
-          setMoveIndex={setMoveIndex}
-          moveIndex={moveIndex}
-        />
       </View>
     </View>
   );

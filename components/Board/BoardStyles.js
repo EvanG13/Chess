@@ -23,17 +23,15 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   boardContainer: {
-    flex: 1,
-    justifyContent: "center",
+    flexDirection: "column",
     alignItems: "center",
     backgroundColor: "black"
   },
   boardAndLogger: {
-    height: height,
-    flex: 1,
-    justifyContent: "center",
+    flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "black"
+    backgroundColor: "black",
+    gap: 10
   },
   letters: {
     flexDirection: "row",
