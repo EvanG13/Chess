@@ -78,11 +78,7 @@ const MainHeader = ({ navigation }) => {
                 performOption(item.value);
               }}
               renderRightIcon={() => (
-                <Icon
-                  name="user-circle-o"
-                  size={30}
-                  color="white"
-                />
+                <Icon name="user-circle-o" size={30} color="white" />
               )}
             />
           </>
@@ -143,7 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   placeholderStyle: {
-    color: "white",
+    color: "white"
   }
 });
 

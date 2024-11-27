@@ -1,14 +1,21 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 
-const StatsCard = ({ title, time, handlePress }) => {
+const StatsCard = ({
+  title,
+  time,
+  handlePress,
+  cardStyle,
+  timeStyle,
+  titleStyle
+}) => {
   return (
-    <TouchableOpacity style={styles.card} onPress={handlePress}>
+    <Pressable style={[styles.card, cardStyle]} onPress={handlePress}>
       <View style={styles.innerCard}>
-        <Text style={styles.time}>{time}</Text>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={[styles.time, timeStyle]}>{time}</Text>
+        <Text style={[styles.title, titleStyle]}>{title}</Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
@@ -18,11 +25,10 @@ export const styles = StyleSheet.create({
     height: 100,
     backgroundColor: "white",
     borderRadius: 10,
-    padding: 10,
-    margin: 10,
+    padding: 5,
+    margin: 5,
     justifyContent: "center",
-    alignItems: "center",
-    boxShadow: "0px 0px 5px 0px rgb(0,0,0)"
+    alignItems: "center"
   },
   innerCard: {
     flexDirection: "column",
@@ -39,10 +45,6 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     opacity: 0.85
-  },
-  icon: {
-    width: 50,
-    height: 50
   }
 });
 

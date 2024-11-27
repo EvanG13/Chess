@@ -31,7 +31,6 @@ const Main = ({ navigation }) => {
     <View style={styles.main}>
       <MainHeader navigation={navigation} />
       <View style={styles.mainBody}>
-        {/*         <Image source={chessBoardImg} style={styles.pageHero} /> */}
         <View style={styles.rightSide}>
           <View style={styles.buttonContainer}>
             {isLoggedIn && <PlayGameOptions navigation={navigation} />}

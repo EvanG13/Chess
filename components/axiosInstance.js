@@ -12,7 +12,6 @@ axiosInstance.interceptors.request.use(
   async (config) => {
     const token = await SecureStore.getItemAsync("sessionToken");
     const userId = await SecureStore.getItemAsync("userId");
-    console.log(token);
 
     if (token) {
       config.headers["Authorization"] = token;

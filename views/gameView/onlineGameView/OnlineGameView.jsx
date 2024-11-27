@@ -203,7 +203,10 @@ const OnlineGameView = ({ route, navigation }) => {
 
           {isStarted ? null : (
             <View style={styles.loaderContainer}>
-              <Image source={loaderGif} style={{ width: 120, height: 120 }} />
+              <Image
+                source={require("../../../assets/appImages/loader.gif")}
+                style={styles.gif}
+              />
               <Text style={{ color: "white", margin: 10, fontSize: 30 }}>
                 Searching For Game...
               </Text>

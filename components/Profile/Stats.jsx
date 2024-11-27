@@ -4,7 +4,6 @@ import { View, StyleSheet, Text } from "react-native";
 import MainHeader from "../Main/MainHeader";
 import StatsCard from "./StatsCard";
 import ArchivedGamesContainer from "./ArchivedGamesContainer";
-import LinearGradient from "react-native-web-linear-gradient";
 import * as SecureStore from "expo-secure-store";
 
 const Stats = ({ navigation }) => {
@@ -18,7 +17,7 @@ const Stats = ({ navigation }) => {
     { title: "Blitz", time: "3+0" },
     { title: "Blitz", time: "5+0" },
     {
-      title: "Rapid 10",
+      title: "Rapid",
       time: "10+0"
     }
   ];
@@ -60,31 +59,8 @@ const Stats = ({ navigation }) => {
   return (
     <View style={styles.stats}>
       <MainHeader navigation={navigation} />
-      <Text style={styles.usernameHeader}>{username}</Text>
-      <Text>{username}</Text>
-      {userData ? (
-        <LinearGradient
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          colors={["#000000", "#008000"]} // Black to Green
-          style={styles.gradient}
-        >
-          <View style={styles.rawStats}>
-            <Text style={styles.statText}>
-              Total Games won: {userData.totalWins}
-            </Text>
-            <Text style={styles.statText}>
-              Total Games lost: {userData.totalLosses}
-            </Text>
-            <Text style={styles.statText}>
-              Total Games drawn: {userData.totalDraws}
-            </Text>
-          </View>
-        </LinearGradient>
-      ) : (
-        <Text>Loading...</Text>
-      )}
-      <View style={styles.main}>
+      <View styles={styles.secondaryHeader}>
+        <Text style={styles.usernameHeader}>{username}</Text>
         <View style={styles.statCards}>
           {timeControls.map((control, index) => {
             return (
@@ -95,10 +71,25 @@ const Stats = ({ navigation }) => {
                 handlePress={() =>
                   navigation.navigate("stats", { timeControl: control.title })
                 }
+                cardStyle={styles.cardStyle}
+                timeStyle={styles.timeStyle}
+                titleStyle={styles.titleStyle}
               />
             );
           })}
         </View>
+        {/*     TODO : convert username to a passed in argument   */}
+        {userData ? (
+          <View style={styles.rawStats}>
+            <Text style={styles.statText}>Win: {userData.totalWins}</Text>
+            <Text style={styles.statText}>Loss: {userData.totalLosses}</Text>
+            <Text style={styles.statText}>Draw: {userData.totalDraws}</Text>
+          </View>
+        ) : (
+          <Text>Loading...</Text>
+        )}
+      </View>
+      <View style={styles.main}>
         <ArchivedGamesContainer
           navigation={navigation}
           playerUsername={username}
@@ -125,32 +116,37 @@ const styles = StyleSheet.create({
   rawStats: {
     color: "white",
     flexDirection: "row",
-    width: "40%",
-    marginLeft: "50%",
-    marginRight: "50%",
-    alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginLeft: 10,
+    width: "90%"
   },
-
   statText: {
     color: "white",
     fontSize: 18
   },
-
   statCards: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    flexWrap: "wrap",
-    width: "30%",
-    height: "50%",
-    padding: 10,
-    marginLeft: "5%"
+    flexDirection: "row"
   },
   usernameHeader: {
     textAlign: "left",
     margin: 10,
-    fontSize: 35,
+    fontSize: 20,
     color: "white"
+  },
+  cardStyle: {
+    width: 40,
+    height: 40,
+    marginLeft: 10
+  },
+  timeStyle: {
+    display: "none"
+  },
+  titleStyle: {
+    fontSize: 10
+  },
+  secondaryHeader: {
+    flexDirection: "column",
+    width: "80%"
   }
 });
 

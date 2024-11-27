@@ -25,12 +25,10 @@ const Board = ({
     whiteKing: [7, 4],
     blackKing: [0, 4]
   });
-  // const [blackSideBoard, setBlackSideBoard] = useState(false);
 
   const letterRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const numberCol = ["8. ", "7. ", "6. ", "5. ", "4. ", "3. ", "2. ", "1. "];
 
-  //close the socket when component dismounts
   useEffect(() => {
     return () => {
       if (socket) {

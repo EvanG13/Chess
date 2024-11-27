@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView
-} from "react-native";
+import { View, Text, Pressable, StyleSheet, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import ArchivedGameCard from "./ArchivedGameCard";
 import SortCriteria from "../../types/SortCriteria";
@@ -48,7 +42,6 @@ const ArchivedGamesContainer = ({
         }
 
         const response = await axiosInstance.get(path);
-        console.log(response.data);
 
         setArchivedGames([...response.data.archivedGames]);
       } catch (err) {
@@ -106,9 +99,9 @@ const GamesHeader = ({ sortCriteria, setSortCriteria }) => {
       <Text style={styles.gameHeaderText}>Moves</Text>
       <View style={styles.dateAndSort}>
         <Text style={styles.gameHeaderText}>Date</Text>
-        <TouchableOpacity onPress={handlePress}>
+        <Pressable onPress={handlePress}>
           <Text>{sortCriteria === SortCriteria.ASCENDING ? "⬇️" : "⬆️"}</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
@@ -116,17 +109,18 @@ const GamesHeader = ({ sortCriteria, setSortCriteria }) => {
 
 const styles = StyleSheet.create({
   archivedContainer: {
-    width: "48%",
+    width: "95%",
     height: "60%",
-    marginLeft: "15%",
+    marginLeft: 10,
     marginRight: "15%",
     backgroundColor: "black",
+    flexDirection: "column",
     marginBottom: 20
   },
   gameHeader: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     marginBottom: 3
   },
   gameHeaderText: {
@@ -134,10 +128,9 @@ const styles = StyleSheet.create({
     color: "white"
   },
   dateAndSort: {
-    width: "8%",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    gap: 5
   }
 });
 
