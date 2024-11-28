@@ -38,7 +38,6 @@ const ReviewGameView = ({ route }) => {
 
   useEffect(() => {
     //setMoveIndex(moveList.length-1);
-    console.log("move");
     console.log(gameInfo);
   }, [moveList]);
 
@@ -71,9 +70,6 @@ const ReviewGameView = ({ route }) => {
             board
           }}
         />
-        {/*       <View style={styles.boardContainer}> */}
-
-        {/*       </View> */}
 
         {players.length != 0 && (
           <PlayerCard player={{ name: username, rating: 800 }} />

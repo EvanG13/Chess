@@ -8,10 +8,10 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     height: "100%",
     width: "100%",
-    justifyContent: "space-evenly",
+    justifyContent: "space-evenly"
   },
   rowOne: {
-    flex: 1,
+    flex: 1
   },
   rowTwo: {
     flex: 2

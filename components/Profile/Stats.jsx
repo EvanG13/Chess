@@ -11,14 +11,16 @@ const Stats = ({ navigation }) => {
   const [userData, setUserData] = useState(null);
   const timeControls = [
     {
-      title: "Bullet",
-      time: "1+0"
+      title: "Bullet 1",
+      time: "1+0",
+      officialTitle: "BULLET_1"
     },
-    { title: "Blitz", time: "3+0" },
-    { title: "Blitz", time: "5+0" },
+    { title: "Bullet 3", time: "3+0", officialTitle: "BULLET_3" },
+    { title: "Blitz", time: "5+0", officialTitle: "BLITZ_5" },
     {
       title: "Rapid",
-      time: "10+0"
+      time: "10+0",
+      officialTitle: "RAPID_10"
     }
   ];
 
@@ -31,7 +33,8 @@ const Stats = ({ navigation }) => {
       }
 
       try {
-        setUsername(await SecureStore.getItemAsync("username"));
+        const storedUsername = await SecureStore.getItemAsync("username");
+        setUsername(storedUsername);
 
         const response = await axiosInstance.get("/stats");
         const userData = response.data;
@@ -69,7 +72,9 @@ const Stats = ({ navigation }) => {
                 title={control.title}
                 time={control.time}
                 handlePress={() =>
-                  navigation.navigate("stats", { timeControl: control.title })
+                  navigation.navigate("stats", {
+                    timeControl: control.officialTitle
+                  })
                 }
                 cardStyle={styles.cardStyle}
                 timeStyle={styles.timeStyle}
@@ -134,15 +139,16 @@ const styles = StyleSheet.create({
     color: "white"
   },
   cardStyle: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     marginLeft: 10
   },
   timeStyle: {
     display: "none"
   },
   titleStyle: {
-    fontSize: 10
+    fontSize: 10,
+    fontWeight: "bold"
   },
   secondaryHeader: {
     flexDirection: "column",

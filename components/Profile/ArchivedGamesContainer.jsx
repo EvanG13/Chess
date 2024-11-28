@@ -23,7 +23,8 @@ const ArchivedGamesContainer = ({
       sortedGames.sort(
         (game, game2) => new Date(game2.created) - new Date(game.created)
       );
-    setArchivedGames(sortedGames);
+    console.log(...sortedGames);
+    setArchivedGames([...sortedGames]);
   }, [sortCriteria]);
 
   useEffect(() => {
@@ -33,11 +34,6 @@ const ArchivedGamesContainer = ({
 
         let path = `/archivedGames/${username}`;
         if (timeControl) {
-          let format;
-          let time;
-          [format, time] = timeControl.split(" ");
-          timeControl = `${format.toUpperCase()}_${time}`;
-
           path += `?timeControl=${timeControl}`;
         }
 
