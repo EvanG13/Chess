@@ -1,14 +1,16 @@
-import { View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import styles from "./ReviewGameStyles.js";
 import React from "react";
 import Board from "../../../components/Board/Board.jsx";
 import getStartingBoard from "../../../components/Board/board.js";
 import PlayerCard from "../../../components/Board/PlayerCard.jsx";
 import ReviewGameBar from "../../../components/RightSideBar/ReviewGameBar.jsx";
+import fenToJSON from "../../../components/Board/fenToJSON.js";
 
 import axiosInstance from "../../../components/axiosInstance.js";
 import { useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const ReviewGameView = ({ route }) => {
   const [board, setBoard] = useState(getStartingBoard());
@@ -17,6 +19,7 @@ const ReviewGameView = ({ route }) => {
   const [moveList, setMoveList] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
   const [username, setUsername] = useState(null);
+  const [blackSideBoard, setBlackSideBoard] = useState(false);
 
   //Movelist and Players names fetched from backend upon component render
   let gameInfo;
@@ -31,19 +34,61 @@ const ReviewGameView = ({ route }) => {
       gameInfo = await axiosInstance.get(`/archivedGame/${gameId}`);
       setMoveList([...gameInfo.data.moveList]);
       setPlayers([...gameInfo.data.players]);
-      console.log(players);
+
+      const players = gameInfo.data.players;
+      if (players[0].username === username) {
+        setBlackSideBoard(!players[0].isWhite);
+      } else {
+        setBlackSideBoard(players[0].isWhite);
+      }
     }
     getGameInfo();
   }, []);
 
-  useEffect(() => {
-    //setMoveIndex(moveList.length-1);
-    console.log(gameInfo);
-  }, [moveList]);
+  const increment = () => {
+    if (moveIndex + 1 < moveList.length) {
+      const newIndex = moveIndex + 1;
+      setMoveIndex(newIndex);
+      const json = fenToJSON(moveList[newIndex].fen);
+      setBoard({ ...board, board: json });
+    }
+  };
+
+  const incrementToEnd = () => {
+    const newIndex = moveList.length - 1;
+    setMoveIndex(newIndex);
+    const json = fenToJSON(moveList[newIndex].fen);
+    setBoard({ ...board, board: json });
+  };
+
+  const decrement = () => {
+    if (moveIndex - 1 >= 0) {
+      const newIndex = moveIndex - 1;
+      setMoveIndex(newIndex);
+      const json = fenToJSON(moveList[newIndex].fen);
+      setBoard({ ...board, board: json });
+    } else {
+      decrementToBeginning();
+    }
+  };
+
+  const decrementToBeginning = () => {
+    const newIndex = -1;
+    setMoveIndex(newIndex);
+    const json = fenToJSON(
+      "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+    );
+    setBoard({ ...board, board: json });
+  };
+
+  const flipBoard = () => {
+    const flip = !blackSideBoard;
+    setBlackSideBoard(flip);
+  };
 
   return (
     <View style={styles.reviewView}>
-      <View style={styles.rowOne}>
+      <ScrollView style={styles.rowOne} horizontal={true}>
         <ReviewGameBar
           moveList={moveList}
           board={board}
@@ -51,7 +96,7 @@ const ReviewGameView = ({ route }) => {
           setMoveIndex={setMoveIndex}
           moveIndex={moveIndex}
         />
-      </View>
+      </ScrollView>
       <View style={styles.rowTwo}>
         {players.length != 0 && (
           <PlayerCard
@@ -59,21 +104,56 @@ const ReviewGameView = ({ route }) => {
               name:
                 players[0].username == username
                   ? players[1].username
-                  : username,
-              rating: 800
+                  : players[0].username,
+              rating:
+                players[0].username == username
+                  ? players[1].rating
+                  : players[0].rating
             }}
           />
         )}
 
         <Board
           {...{
-            board
+            board,
+            blackSideBoard,
+            setBlackSideBoard
           }}
         />
 
         {players.length != 0 && (
-          <PlayerCard player={{ name: username, rating: 800 }} />
+          <PlayerCard
+            player={{
+              name:
+                players[0].username === username
+                  ? players[0].username
+                  : players[1].username,
+              rating:
+                players[0].username === username
+                  ? players[0].rating
+                  : players[1].rating
+            }}
+          />
         )}
+      </View>
+      <View style={styles.gameReviewFooter}>
+        <View style={styles.buttonsContainer}>
+          <Pressable onPress={decrementToBeginning}>
+            <Icon name="backward" size={25} color="white" />
+          </Pressable>
+          <Pressable onPress={decrement}>
+            <Icon name="step-backward" size={25} color="white" />
+          </Pressable>
+          <Pressable onPress={flipBoard}>
+            <Icon name="retweet" size={25} color="white" />
+          </Pressable>
+          <Pressable onPress={increment}>
+            <Icon name="step-forward" size={25} color="white" />
+          </Pressable>
+          <Pressable onPress={incrementToEnd}>
+            <Icon name="forward" size={25} color="white" />
+          </Pressable>
+        </View>
       </View>
     </View>
   );

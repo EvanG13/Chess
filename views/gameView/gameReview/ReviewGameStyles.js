@@ -7,22 +7,29 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: "black",
     height: "100%",
-    width: "100%",
-    justifyContent: "space-evenly"
+    width: "100%"
   },
   rowOne: {
     flex: 1
   },
   rowTwo: {
-    flex: 2
+    flex: 3
   },
   boardContainer: {
     flexDirection: "row"
   },
-
   moveLog: {
     height: height,
     width: width / 3
+  },
+  gameReviewFooter: {
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "80%"
   }
 });
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import fenToJSON from "../Board/fenToJSON";
 
 const MoveLogItem = ({
@@ -12,20 +12,19 @@ const MoveLogItem = ({
   index
 }) => {
   const handleClick = () => {
-    console.log("HANDLING CLIC");
+    console.log("HANDLING CLICK");
     console.log(fen);
-    console.log(fenToJSON(fen));
     const json = fenToJSON(fen);
     setBoard({ ...board, board: json });
     setMoveIndex(index);
   };
 
   return (
-    <TouchableOpacity onPress={handleClick} style={styles.moveLogItem}>
+    <Pressable onPress={handleClick} style={styles.moveLogItem}>
       <Text style={isActive ? styles.activeItemText : styles.itemText}>
         {san}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
@@ -34,10 +33,10 @@ const styles = StyleSheet.create({
     margin: 3
   },
   activeItemText: {
-    color: "blue"
+    color: "gold"
   },
   itemText: {
-    color: "black"
+    color: "white"
   }
 });
 

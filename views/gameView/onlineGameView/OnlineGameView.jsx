@@ -19,13 +19,13 @@ import * as SecureStore from "expo-secure-store";
 
 const OnlineGameView = ({ route, navigation }) => {
   //game state stuff
-  const [isWhiteTurn, setIsWhiteTurn] = useState(true); // true if white's turn, false if black's turn
+  const [isWhiteTurn, setIsWhiteTurn] = useState(true);
   const [isStarted, setIsStarted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [board, setBoard] = useState(getStartingBoard());
 
-  const [blackSideBoard, setBlackSideBoard] = useState(false); //if true then black pieces are on bottom, else white pieces are on bottom
-  const [isWhite, setIsWhite] = useState(false); //true if the client is the white player
+  const [blackSideBoard, setBlackSideBoard] = useState(false);
+  const [isClientWhite, setIsClientWhite] = useState(false);
 
   //modal stuff
   const [promptType, setPromptType] = useState("");
@@ -75,8 +75,8 @@ const OnlineGameView = ({ route, navigation }) => {
             setBlackSideBoard,
             setIsWhiteTurn,
             isWhiteTurn,
-            setIsWhite,
-            isWhite,
+            setIsWhite: setIsClientWhite,
+            isWhite: isClientWhite,
             setChatLog,
             chatLog,
             setPlayer1,
@@ -139,11 +139,11 @@ const OnlineGameView = ({ route, navigation }) => {
         if (
           players[0].username === (await SecureStore.getItemAsync("username"))
         ) {
-          setIsWhite(players[0].isWhite);
+          setIsClientWhite(players[0].isWhite);
           setBlackSideBoard(!players[0].isWhite);
           setPlayer2({ name: players[1].username, rating: players[1].rating });
         } else {
-          setIsWhite(players[1].isWhite);
+          setIsClientWhite(players[1].isWhite);
           setBlackSideBoard(!players[1].isWhite);
           setPlayer2({ name: players[0].username, rating: players[0].rating });
         }
@@ -171,7 +171,10 @@ const OnlineGameView = ({ route, navigation }) => {
   //listen for player timeouts
   useEffect(() => {
     const playerTimeout = async () => {
-      if ((whiteTimer <= 0 && !isWhite) || (blackTimer <= 0 && isWhite)) {
+      if (
+        (whiteTimer <= 0 && !isClientWhite) ||
+        (blackTimer <= 0 && isClientWhite)
+      ) {
         //white reports black player timeout and vice versa
         console.log("timout detected!!!");
         socket.sendMessage({
@@ -191,10 +194,10 @@ const OnlineGameView = ({ route, navigation }) => {
           {isStarted && (
             <View style={styles.playerAndTimer}>
               <Timer
-                isWhite={!isWhite}
+                isWhite={!isClientWhite}
                 isWhiteTurn={isWhiteTurn}
-                timeRemaining={isWhite ? blackTimer : whiteTimer}
-                setTimeRemaining={isWhite ? setBlackTimer : setWhiteTimer}
+                timeRemaining={isClientWhite ? blackTimer : whiteTimer}
+                setTimeRemaining={isClientWhite ? setBlackTimer : setWhiteTimer}
                 isGameOver={isGameOver}
               />
               <PlayerCard player={player2} />
@@ -219,7 +222,7 @@ const OnlineGameView = ({ route, navigation }) => {
               isWhiteTurn,
               blackSideBoard,
               setBlackSideBoard,
-              isWhite,
+              isWhite: isClientWhite,
               socket,
               setIsWhiteTurn,
               setPromptType,
@@ -231,10 +234,10 @@ const OnlineGameView = ({ route, navigation }) => {
           {isStarted && (
             <View style={styles.playerAndTimer}>
               <Timer
-                isWhite={isWhite}
+                isWhite={isClientWhite}
                 isWhiteTurn={isWhiteTurn}
-                timeRemaining={isWhite ? whiteTimer : blackTimer}
-                setTimeRemaining={isWhite ? setWhiteTimer : setBlackTimer}
+                timeRemaining={isClientWhite ? whiteTimer : blackTimer}
+                setTimeRemaining={isClientWhite ? setWhiteTimer : setBlackTimer}
                 isGameOver={isGameOver}
               />
               <PlayerCard player={player1} />
