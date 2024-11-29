@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import axiosInstance from "../axiosInstance";
+import * as SecureStore from "expo-secure-store";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -22,9 +22,10 @@ const Login = ({ navigation }) => {
 
       if (response.status == 200) {
         const userResponse = response.data.user;
-        sessionStorage.setItem("sessionToken", response.data.token);
-        sessionStorage.setItem("username", userResponse.username);
-        sessionStorage.setItem("userId", userResponse.id);
+        await SecureStore.setItemAsync("sessionToken", response.data.token);
+        await SecureStore.setItemAsync("username", userResponse.username);
+        await SecureStore.setItemAsync("userId", userResponse.id.toString());
+
         navigation.navigate("Chess");
       }
     } catch (error) {
@@ -37,44 +38,27 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.loginContainer}>
       <View style={styles.loginCard}>
-        {/* Rainbow border */}
-        <LinearGradient
-          colors={[
-            "red",
-            "orange",
-            "yellow",
-            "green",
-            "blue",
-            "indigo",
-            "violet"
-          ]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.gradient}
-        >
-          {/* Black background inside the card */}
-          <View style={styles.innerCard}>
-            <Text style={styles.loginHeader}>Login</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-            />
+        <View style={styles.innerCard}>
+          <Text style={styles.loginHeader}>Login</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+          />
 
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-            <Button title="Login" onPress={handleLogin} />
-            {error.length > 0 ? (
-              <Text style={styles.errorCard}>{error}</Text>
-            ) : null}
-          </View>
-        </LinearGradient>
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+          <Button title="Login" onPress={handleLogin} />
+          {error.length > 0 ? (
+            <Text style={styles.errorCard}>{error}</Text>
+          ) : null}
+        </View>
       </View>
     </View>
   );

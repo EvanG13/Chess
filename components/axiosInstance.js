@@ -1,19 +1,18 @@
 import axios from "axios";
 import { BACKEND_BASE_URL } from "@env";
 const url = BACKEND_BASE_URL;
-// Create an Axios instance
+import * as SecureStore from "expo-secure-store";
+
 console.log(url);
 const axiosInstance = axios.create({
-  baseURL: url // Your base URL, typically from an env variable
+  baseURL: url
 });
 
 axiosInstance.interceptors.request.use(
-  (config) => {
-    // Get the session token from sessionStorage
-    const token = sessionStorage.getItem("sessionToken");
-    const userId = sessionStorage.getItem("userId");
+  async (config) => {
+    const token = await SecureStore.getItemAsync("sessionToken");
+    const userId = await SecureStore.getItemAsync("userId");
 
-    // If a token exists, set the Authorization header
     if (token) {
       config.headers["Authorization"] = token;
     }

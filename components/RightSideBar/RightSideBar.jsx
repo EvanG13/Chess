@@ -1,3 +1,5 @@
+import React from "react";
+
 import { View } from "react-native";
 import MoveLog from "./MoveLog";
 import GameControls from "./GameControls";

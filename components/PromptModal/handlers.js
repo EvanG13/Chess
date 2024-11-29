@@ -1,46 +1,47 @@
 import { EmitActions } from "../../types/Actions";
+import * as SecureStore from "expo-secure-store";
 
 const handlers = {
-  handleAcceptDraw: (socket) => {
+  handleAcceptDraw: async (socket) => {
     socket.sendMessage({
       action: EmitActions.OFFER_DRAW,
       drawAction: "ACCEPT",
-      gameId: sessionStorage.getItem("gameId")
+      gameId: await SecureStore.getItemAsync("gameId")
     });
   },
 
-  handleConfirmDraw: (socket) => {
+  handleConfirmDraw: async (socket) => {
     socket.sendMessage({
       action: EmitActions.OFFER_DRAW,
       drawAction: "OFFER",
-      gameId: sessionStorage.getItem("gameId")
+      gameId: await SecureStore.getItemAsync("gameId")
     });
   },
 
-  handleDeclineDraw: (socket) => {
+  handleDeclineDraw: async (socket) => {
     socket.sendMessage({
       action: EmitActions.OFFER_DRAW,
       drawAction: "DENY",
-      gameId: sessionStorage.getItem("gameId")
+      gameId: await SecureStore.getItemAsync("gameId")
     });
   },
 
-  handleConfirmForfeit: (socket) => {
+  handleConfirmForfeit: async (socket) => {
     socket.sendMessage({
       action: EmitActions.FORFEIT,
-      gameId: sessionStorage.getItem("gameId")
+      gameId: await SecureStore.getItemAsync("gameId")
     });
   },
 
   handleCancelForfeit: () => {},
 
-  handlePromote: (socket, piece, fromTo) => {
+  handlePromote: async (socket, piece, fromTo) => {
     console.log("in handlePromote " + fromTo + piece);
     socket.sendMessage({
       action: EmitActions.MOVE_MADE,
       move: fromTo + piece,
-      gameId: sessionStorage.getItem("gameId"),
-      playerId: sessionStorage.getItem("userId")
+      gameId: await SecureStore.getItemAsync("gameId"),
+      playerId: await SecureStore.getItemAsync("userId")
     });
   }
 };

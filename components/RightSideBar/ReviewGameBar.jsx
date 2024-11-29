@@ -1,7 +1,8 @@
+import React from "react";
+
 import { View } from "react-native";
 import MoveLog from "./MoveLog";
 import styles from "./RightSideBarStyles";
-import fenToJSON from "../Board/fenToJSON";
 
 const ReviewGameBar = ({
   board,

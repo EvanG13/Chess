@@ -1,12 +1,6 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  Image
-} from "react-native";
+import { View } from "react-native";
 import styles from "./ReviewGameStyles.js";
-
+import React from "react";
 import Board from "../../../components/Board/Board.jsx";
 import getStartingBoard from "../../../components/Board/board.js";
 import PlayerCard from "../../../components/Board/PlayerCard.jsx";
@@ -14,17 +8,15 @@ import ReviewGameBar from "../../../components/RightSideBar/ReviewGameBar.jsx";
 
 import axiosInstance from "../../../components/axiosInstance.js";
 import { useState, useEffect } from "react";
+import * as SecureStore from "expo-secure-store";
 
 const ReviewGameView = ({ route }) => {
   const [board, setBoard] = useState(getStartingBoard());
 
-  //modal stuff
-  const [promptType, setPromptType] = useState("");
-  const [promptVisible, setPromptVisible] = useState(false);
-
   //move log stuff
   const [moveList, setMoveList] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
+  const [username, setUsername] = useState(null);
 
   //Movelist and Players names fetched from backend upon component render
   let gameInfo;
@@ -32,10 +24,14 @@ const ReviewGameView = ({ route }) => {
 
   useEffect(() => {
     async function getGameInfo() {
+      const username = await SecureStore.getItemAsync("username");
+      setUsername(username);
+
       const gameId = route.params.gameId;
-      gameInfo = await axiosInstance.get(`/archivedGame/` + gameId);
+      gameInfo = await axiosInstance.get(`/archivedGame/${gameId}`);
       setMoveList([...gameInfo.data.moveList]);
       setPlayers([...gameInfo.data.players]);
+      console.log(players);
     }
     getGameInfo();
   }, []);
@@ -47,14 +43,23 @@ const ReviewGameView = ({ route }) => {
 
   return (
     <View style={styles.reviewView}>
-      <View style={styles.boardContainer}>
+      <View style={styles.rowOne}>
+        <ReviewGameBar
+          moveList={moveList}
+          board={board}
+          setBoard={setBoard}
+          setMoveIndex={setMoveIndex}
+          moveIndex={moveIndex}
+        />
+      </View>
+      <View style={styles.rowTwo}>
         {players.length != 0 && (
           <PlayerCard
             player={{
               name:
-                players[0].username == sessionStorage.getItem("username")
+                players[0].username == username
                   ? players[1].username
-                  : sessionStorage.getItem("username"),
+                  : username,
               rating: 800
             }}
           />
@@ -67,20 +72,8 @@ const ReviewGameView = ({ route }) => {
         />
 
         {players.length != 0 && (
-          <PlayerCard
-            player={{ name: sessionStorage.getItem("username"), rating: 800 }}
-          />
+          <PlayerCard player={{ name: username, rating: 800 }} />
         )}
-      </View>
-
-      <View style={styles.moveLog}>
-        <ReviewGameBar
-          moveList={moveList}
-          board={board}
-          setBoard={setBoard}
-          setMoveIndex={setMoveIndex}
-          moveIndex={moveIndex}
-        />
       </View>
     </View>
   );

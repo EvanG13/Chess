@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import StatsCard from "../Profile/StatsCard";
-// import { styles } from "../Profile/StatsCard";
 
 const PlayGameOptions = ({ navigation }) => {
   const timeControls = [
@@ -44,6 +43,7 @@ const PlayGameOptions = ({ navigation }) => {
               time={control.time}
               navigate={navigation.navigate}
               handlePress={() => handlePress(control.requestTitle)}
+              titleStyle={styles.titleStyles}
             />
           );
         })}
@@ -54,7 +54,6 @@ const PlayGameOptions = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

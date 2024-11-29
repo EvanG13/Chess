@@ -1,4 +1,5 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import React from "react";
+import { View, Text, Image, Pressable, StyleSheet } from "react-native";
 
 const timeIcons = {
   bullet: require("../../assets/appImages/logo.png"),
@@ -30,19 +31,15 @@ const ArchivedGameCard = ({ navigation, game, playerUsername, cardNumber }) => {
   }
 
   const reviewGame = () => {
-    //use the navigation to nav to a GameReview component also passing in the game.id as a param
     navigation.navigate("reviewGame", { gameId: game.id });
   };
 
   return (
-    <TouchableOpacity
+    <Pressable
       style={[styles.archivedCard, backgroundColor]}
       onPress={reviewGame}
     >
       <View style={styles.playersBox}>
-        <View>
-          <Image style={styles.timeIcon} source={timeIcons[iconKey]} />
-        </View>
         <View style={styles.playerRows}>
           {game.players.map((player) => {
             return (
@@ -63,11 +60,11 @@ const ArchivedGameCard = ({ navigation, game, playerUsername, cardNumber }) => {
       <View style={styles.dateContainer}>
         <Text>{game.created}</Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
-const ResultCard = ({ gameResult, reasons }) => {
+const ResultCard = ({ gameResult }) => {
   return (
     <View style={styles.resultCard}>
       <Text>{gameResult}</Text>

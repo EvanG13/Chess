@@ -4,31 +4,37 @@ import axiosInstance from "../axiosInstance";
 import React, { useState, useEffect } from "react";
 import ArchivedGamesContainer from "./ArchivedGamesContainer";
 import styles from "./GameStatStyles";
+import * as SecureStore from "expo-secure-store";
 
 const GameStat = ({ navigation }) => {
   const route = useRoute();
-  const { timeControl } = route.params || {};
+  const { timeControl } = route.params ?? {};
   const [gameStats, setGameStats] = useState(null);
+  const [username, setUsername] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
       let userData = null;
       try {
-        const response = await axiosInstance.get(`/stats`);
+        const token = await SecureStore.getItemAsync("sessionToken");
+        if (!token) {
+          navigation.navigate("login");
+          return;
+        }
 
+        const storedUsername = await SecureStore.getItemAsync("username");
+        setUsername(storedUsername);
+
+        const response = await axiosInstance.get("/stats");
         userData = response.data;
-        userData = userData[timeControl.split(" ")[0].toLowerCase()];
-
-        console.log(userData);
+        const desiredUserData =
+          userData[timeControl.split("_")[0].toLowerCase()];
+        setGameStats({ ...desiredUserData });
       } catch (error) {
         console.log(error);
       }
-      setGameStats({ ...userData });
     };
-    if (!sessionStorage.getItem("sessionToken")) {
-      navigation.navigate("login");
-      return;
-    }
+
     getData();
   }, []);
   return (
@@ -45,7 +51,7 @@ const GameStat = ({ navigation }) => {
         <Text>Loading...</Text>
       )}
       <ArchivedGamesContainer
-        playerUsername={sessionStorage.getItem("username")}
+        playerUsername={username}
         timeControl={timeControl}
       />
     </View>

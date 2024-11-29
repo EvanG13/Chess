@@ -1,5 +1,6 @@
 import { EmitActions } from "../../types/Actions";
 import King from "../../pieces/King";
+import * as SecureStore from "expo-secure-store";
 
 export const selectNewPiece = (
   board,
@@ -169,7 +170,7 @@ export const updateKingState = (
   }
 };
 
-export const emitMove = (LETTERS, selectedSquare, row, col, socket) => {
+export const emitMove = async (LETTERS, selectedSquare, row, col, socket) => {
   console.log("in emitMove");
   const fromLetter = LETTERS[selectedSquare[1] + 1];
   const toLetter = LETTERS[col + 1];
@@ -177,8 +178,8 @@ export const emitMove = (LETTERS, selectedSquare, row, col, socket) => {
   socket.sendMessage({
     action: EmitActions.MOVE_MADE,
     move: fromTo,
-    gameId: sessionStorage.getItem("gameId"),
-    playerId: sessionStorage.getItem("userId")
+    gameId: await SecureStore.getItemAsync("gameId"),
+    playerId: await SecureStore.getItemAsync("userId")
   });
 };
 

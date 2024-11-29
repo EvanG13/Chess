@@ -1,14 +1,9 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView
-} from "react-native";
-import { useState, useEffect } from "react";
+import { View, Text, Pressable, StyleSheet, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
 import ArchivedGameCard from "./ArchivedGameCard";
 import SortCriteria from "../../types/SortCriteria";
 import axiosInstance from "../axiosInstance";
+import * as SecureStore from "expo-secure-store";
 
 const ArchivedGamesContainer = ({
   navigation,
@@ -28,26 +23,21 @@ const ArchivedGamesContainer = ({
       sortedGames.sort(
         (game, game2) => new Date(game2.created) - new Date(game.created)
       );
-    setArchivedGames(sortedGames);
+    console.log(...sortedGames);
+    setArchivedGames([...sortedGames]);
   }, [sortCriteria]);
 
   useEffect(() => {
-    const username = sessionStorage.getItem("username");
-
     const getUserGames = async () => {
       try {
+        const username = await SecureStore.getItemAsync("username");
+
         let path = `/archivedGames/${username}`;
         if (timeControl) {
-          let format;
-          let time;
-          [format, time] = timeControl.split(" ");
-          timeControl = `${format.toUpperCase()}_${time}`;
-
           path += `?timeControl=${timeControl}`;
         }
 
         const response = await axiosInstance.get(path);
-        console.log(response.data);
 
         setArchivedGames([...response.data.archivedGames]);
       } catch (err) {
@@ -105,9 +95,9 @@ const GamesHeader = ({ sortCriteria, setSortCriteria }) => {
       <Text style={styles.gameHeaderText}>Moves</Text>
       <View style={styles.dateAndSort}>
         <Text style={styles.gameHeaderText}>Date</Text>
-        <TouchableOpacity onPress={handlePress}>
+        <Pressable onPress={handlePress}>
           <Text>{sortCriteria === SortCriteria.ASCENDING ? "⬇️" : "⬆️"}</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
@@ -115,17 +105,18 @@ const GamesHeader = ({ sortCriteria, setSortCriteria }) => {
 
 const styles = StyleSheet.create({
   archivedContainer: {
-    width: "48%",
+    width: "95%",
     height: "60%",
-    marginLeft: "15%",
+    marginLeft: 10,
     marginRight: "15%",
     backgroundColor: "black",
+    flexDirection: "column",
     marginBottom: 20
   },
   gameHeader: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     marginBottom: 3
   },
   gameHeaderText: {
@@ -133,10 +124,9 @@ const styles = StyleSheet.create({
     color: "white"
   },
   dateAndSort: {
-    width: "8%",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    gap: 5
   }
 });
 

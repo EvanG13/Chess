@@ -4,16 +4,20 @@ const { height, width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   reviewView: {
-    backgroundColor: "black",
-    height: height,
-    width: width,
-    flexDirection: "row"
-  },
-
-  boardContainer: {
     flexDirection: "column",
-    height: height,
-    width: (2 * width) / 3
+    backgroundColor: "black",
+    height: "100%",
+    width: "100%",
+    justifyContent: "space-evenly"
+  },
+  rowOne: {
+    flex: 1
+  },
+  rowTwo: {
+    flex: 2
+  },
+  boardContainer: {
+    flexDirection: "row"
   },
 
   moveLog: {

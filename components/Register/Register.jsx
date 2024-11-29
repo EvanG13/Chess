@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 
 import axiosInstance from "../axiosInstance";
 
-const Register = () => {
+const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +26,7 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axiosInstance.post(`/register`, {
+      const response = await axiosInstance.post("/register", {
         email,
         username,
         password
@@ -46,56 +45,40 @@ const Register = () => {
   return (
     <View style={styles.registerContainer}>
       <View style={styles.registerCard}>
-        {/* Rainbow border */}
-        <LinearGradient
-          colors={[
-            "red",
-            "orange",
-            "yellow",
-            "green",
-            "blue",
-            "indigo",
-            "violet"
-          ]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.gradient}
-        >
-          {/* Black background inside the card */}
-          <View style={styles.innerCard}>
-            <Text style={styles.registerHeader}>Register</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Username"
-              value={username}
-              onChangeText={setUsername}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              secureTextEntry
-            />
-            <Button title="Register" onPress={handleRegister} />
-            {error.length > 0 ? (
-              <Text style={styles.errorCard}>{error}</Text>
-            ) : null}
-          </View>
-        </LinearGradient>
+        {/* Black background inside the card */}
+        <View style={styles.innerCard}>
+          <Text style={styles.registerHeader}>Register</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Username"
+            value={username}
+            onChangeText={setUsername}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry
+          />
+          <Button title="Register" onPress={handleRegister} />
+          {error.length > 0 ? (
+            <Text style={styles.errorCard}>{error}</Text>
+          ) : null}
+        </View>
       </View>
     </View>
   );

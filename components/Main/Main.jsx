@@ -9,23 +9,30 @@ import {
 import MainHeader from "./MainHeader";
 import chessBoardImg from "../../assets/appImages/logo.png";
 import PlayGameOptions from "./PlayGameOptions";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
+import * as SecureStore from "expo-secure-store";
 
 const Main = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    setIsLoggedIn(sessionStorage.getItem("userId") ? true : false);
-  }, [isFocused]); // Update token state AFTER screen is focused to prevent timing issues when reading from sessionStorage
+    const isUserLoggedIn = async () => {
+      setIsLoggedIn(
+        (await SecureStore.getItemAsync("userId")) !== null ? true : false
+      );
+    };
+
+    isUserLoggedIn();
+  }, [isFocused]);
   return (
     <View style={styles.main}>
       <MainHeader navigation={navigation} />
       <View style={styles.mainBody}>
-        <Image source={chessBoardImg} style={styles.pageHero} />
         <View style={styles.rightSide}>
+          <Text style={styles.welcomeHeader}>Stock Trout</Text>
           <View style={styles.buttonContainer}>
             {isLoggedIn && <PlayGameOptions navigation={navigation} />}
             <Pressable
@@ -34,7 +41,7 @@ const Main = ({ navigation }) => {
                 navigation.navigate("localGame");
               }}
             >
-              <Text style={{ color: "white", fontSize: "20" }}>Local Game</Text>
+              <Text style={{ color: "white", fontSize: 20 }}>Local Game</Text>
             </Pressable>
           </View>
         </View>
@@ -51,18 +58,11 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%"
   },
-  siteHeader: {
-    fontSize: 30,
+  welcomeHeader: {
     color: "white",
-    marginBottom: "5%"
-  },
-  paragraphHeader: {
-    color: "white",
-    fontSize: 60,
-    marginBottom: "5%",
-    fontFamily: "Roboto",
+    fontFamily: "cursive",
     fontWeight: "bold",
-    textAlign: "center"
+    fontSize: 60
   },
   mainBody: {
     height: "80%",
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   buttonContainer: {
-    width: 0.2 * width,
+    width: 0.7 * width,
     height: height * 0.7,
     marginTop: "5%",
     marginBottom: "5%",

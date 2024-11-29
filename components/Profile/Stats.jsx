@@ -1,42 +1,50 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import MainHeader from "../Main/MainHeader";
 import StatsCard from "./StatsCard";
 import ArchivedGamesContainer from "./ArchivedGamesContainer";
-import LinearGradient from "react-native-web-linear-gradient";
+import * as SecureStore from "expo-secure-store";
 
 const Stats = ({ navigation }) => {
   const [username, setUsername] = useState(null);
   const [userData, setUserData] = useState(null);
   const timeControls = [
     {
-      title: "Bullet",
-      time: "1+0"
+      title: "Bullet 1",
+      time: "1+0",
+      officialTitle: "BULLET_1"
     },
-    { title: "Blitz", time: "3+0" },
-    { title: "Blitz", time: "5+0" },
+    { title: "Bullet 3", time: "3+0", officialTitle: "BULLET_3" },
+    { title: "Blitz", time: "5+0", officialTitle: "BLITZ_5" },
     {
-      title: "Rapid 10",
-      time: "10+0"
+      title: "Rapid",
+      time: "10+0",
+      officialTitle: "RAPID_10"
     }
   ];
 
   useEffect(() => {
     const getUserData = async () => {
-      setUsername(username);
+      const token = await SecureStore.getItemAsync("sessionToken");
+      if (!token) {
+        navigation.navigate("login");
+        return;
+      }
+
       try {
-        const response = await axiosInstance.get(`/stats`);
+        const storedUsername = await SecureStore.getItemAsync("username");
+        setUsername(storedUsername);
+
+        const response = await axiosInstance.get("/stats");
         const userData = response.data;
+
         setTotals(userData);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
-    if (!sessionStorage.getItem("sessionToken")) {
-      navigation.navigate("login");
-      return;
-    }
+
     getUserData();
   }, [navigation]);
 
@@ -54,33 +62,8 @@ const Stats = ({ navigation }) => {
   return (
     <View style={styles.stats}>
       <MainHeader navigation={navigation} />
-      <Text style={styles.usernameHeader}>
-        {sessionStorage.getItem("username")}
-      </Text>
-      <Text>{username}</Text>
-      {userData ? (
-        <LinearGradient
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          colors={["#000000", "#008000"]} // Black to Green
-          style={styles.gradient}
-        >
-          <View style={styles.rawStats}>
-            <Text style={styles.statText}>
-              Total Games won: {userData.totalWins}
-            </Text>
-            <Text style={styles.statText}>
-              Total Games lost: {userData.totalLosses}
-            </Text>
-            <Text style={styles.statText}>
-              Total Games drawn: {userData.totalDraws}
-            </Text>
-          </View>
-        </LinearGradient>
-      ) : (
-        <Text>Loading...</Text>
-      )}
-      <View style={styles.main}>
+      <View styles={styles.secondaryHeader}>
+        <Text style={styles.usernameHeader}>{username}</Text>
         <View style={styles.statCards}>
           {timeControls.map((control, index) => {
             return (
@@ -89,15 +72,32 @@ const Stats = ({ navigation }) => {
                 title={control.title}
                 time={control.time}
                 handlePress={() =>
-                  navigation.navigate("stats", { timeControl: control.title })
+                  navigation.navigate("stats", {
+                    timeControl: control.officialTitle
+                  })
                 }
+                cardStyle={styles.cardStyle}
+                timeStyle={styles.timeStyle}
+                titleStyle={styles.titleStyle}
               />
             );
           })}
         </View>
+        {/*     TODO : convert username to a passed in argument   */}
+        {userData ? (
+          <View style={styles.rawStats}>
+            <Text style={styles.statText}>Win: {userData.totalWins}</Text>
+            <Text style={styles.statText}>Loss: {userData.totalLosses}</Text>
+            <Text style={styles.statText}>Draw: {userData.totalDraws}</Text>
+          </View>
+        ) : (
+          <Text>Loading...</Text>
+        )}
+      </View>
+      <View style={styles.main}>
         <ArchivedGamesContainer
           navigation={navigation}
-          playerUsername={sessionStorage.getItem("username")}
+          playerUsername={username}
         />
       </View>
     </View>
@@ -121,32 +121,38 @@ const styles = StyleSheet.create({
   rawStats: {
     color: "white",
     flexDirection: "row",
-    width: "40%",
-    marginLeft: "50%",
-    marginRight: "50%",
-    alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginLeft: 10,
+    width: "90%"
   },
-
   statText: {
     color: "white",
     fontSize: 18
   },
-
   statCards: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    flexWrap: "wrap",
-    width: "30%",
-    height: "50%",
-    padding: 10,
-    marginLeft: "5%"
+    flexDirection: "row"
   },
   usernameHeader: {
     textAlign: "left",
     margin: 10,
-    fontSize: 35,
+    fontSize: 20,
     color: "white"
+  },
+  cardStyle: {
+    width: 50,
+    height: 50,
+    marginLeft: 10
+  },
+  timeStyle: {
+    display: "none"
+  },
+  titleStyle: {
+    fontSize: 10,
+    fontWeight: "bold"
+  },
+  secondaryHeader: {
+    flexDirection: "column",
+    width: "80%"
   }
 });
 
