@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
     height: "55%",
     width: "100%",
     backgroundColor: "black",
-    marginTop: 10
+    marginTop: 10,
+    color: "white"
   },
   log: {
     height: "100%",
     width: "100%",
-    backgroundColor: "white",
     flexDirection: "row",
     flexWrap: "wrap",
     padding: 3

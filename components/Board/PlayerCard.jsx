@@ -4,7 +4,6 @@ import { View, Text, StyleSheet } from "react-native";
 const PlayerCard = ({ player }) => {
   return (
     <View style={styles.playerCard}>
-      {/* <Image source={{ uri: player.avatar }} style={styles.playerAvatar} /> */}
       <Text style={styles.playerName}>{player.name}</Text>
       <Text style={styles.playerRating}>{player.rating}</Text>
     </View>
@@ -13,7 +12,7 @@ const PlayerCard = ({ player }) => {
 
 const styles = StyleSheet.create({
   playerCard: {
-    backgroundColor: "white",
+    backgroundColor: "black",
     borderRadius: 10,
     padding: 10,
     display: "flex",
@@ -33,11 +32,11 @@ const styles = StyleSheet.create({
   playerName: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "black"
+    color: "white"
   },
   playerRating: {
     fontSize: 16,
-    color: "#666"
+    color: "white"
   }
 });
 
