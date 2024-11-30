@@ -21,6 +21,9 @@ const ReviewGameView = ({ route }) => {
   const [username, setUsername] = useState(null);
   const [blackSideBoard, setBlackSideBoard] = useState(false);
 
+  let [topPlayerData, setTopPlayerData] = useState();
+  let [bottomPlayerData, setBottomPlayerData] = useState();
+
   //Movelist and Players names fetched from backend upon component render
   let gameInfo;
   const [players, setPlayers] = useState([]);
@@ -37,8 +40,24 @@ const ReviewGameView = ({ route }) => {
 
       const players = gameInfo.data.players;
       if (players[0].username === username) {
+        setBottomPlayerData({
+          username: players[0].username,
+          rating: players[0].rating
+        });
+        setTopPlayerData({
+          username: players[1].username,
+          rating: players[1].rating
+        });
         setBlackSideBoard(!players[0].isWhite);
       } else {
+        setBottomPlayerData({
+          username: players[1].username,
+          rating: players[1].rating
+        });
+        setTopPlayerData({
+          username: players[0].username,
+          rating: players[0].rating
+        });
         setBlackSideBoard(players[0].isWhite);
       }
     }
@@ -83,6 +102,11 @@ const ReviewGameView = ({ route }) => {
 
   const flipBoard = () => {
     const flip = !blackSideBoard;
+    const top = topPlayerData;
+    const bottom = bottomPlayerData;
+
+    setTopPlayerData(bottom);
+    setBottomPlayerData(top);
     setBlackSideBoard(flip);
   };
 
@@ -101,14 +125,8 @@ const ReviewGameView = ({ route }) => {
         {players.length != 0 && (
           <PlayerCard
             player={{
-              name:
-                players[0].username == username
-                  ? players[1].username
-                  : players[0].username,
-              rating:
-                players[0].username == username
-                  ? players[1].rating
-                  : players[0].rating
+              name: topPlayerData.username,
+              rating: topPlayerData.rating
             }}
           />
         )}
@@ -124,14 +142,8 @@ const ReviewGameView = ({ route }) => {
         {players.length != 0 && (
           <PlayerCard
             player={{
-              name:
-                players[0].username === username
-                  ? players[0].username
-                  : players[1].username,
-              rating:
-                players[0].username === username
-                  ? players[0].rating
-                  : players[1].rating
+              name: bottomPlayerData.username,
+              rating: bottomPlayerData.rating
             }}
           />
         )}
