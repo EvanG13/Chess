@@ -1,3 +1,4 @@
+import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { View, StyleSheet, Text } from "react-native";
@@ -5,17 +6,18 @@ import MainHeader from "../Main/MainHeader";
 import StatsCard from "./StatsCard";
 import ArchivedGamesContainer from "./ArchivedGamesContainer";
 import * as SecureStore from "expo-secure-store";
+// TODO : put ratings in stats statscard
 
-const Stats = ({ navigation }) => {
-  const [username, setUsername] = useState(null);
+const Profile = ({ navigation }) => {
+  const route = useRoute();
+  const { username } = route.params;
   const [userData, setUserData] = useState(null);
   const timeControls = [
     {
-      title: "Bullet 1",
+      title: "Bullet",
       time: "1+0",
       officialTitle: "BULLET_1"
     },
-    { title: "Bullet 3", time: "3+0", officialTitle: "BULLET_3" },
     { title: "Blitz", time: "5+0", officialTitle: "BLITZ_5" },
     {
       title: "Rapid",
@@ -33,10 +35,7 @@ const Stats = ({ navigation }) => {
       }
 
       try {
-        const storedUsername = await SecureStore.getItemAsync("username");
-        setUsername(storedUsername);
-
-        const response = await axiosInstance.get("/stats");
+        const response = await axiosInstance.get(`/stats/${username}`);
         const userData = response.data;
 
         setTotals(userData);
@@ -83,7 +82,7 @@ const Stats = ({ navigation }) => {
             );
           })}
         </View>
-        {/*     TODO : convert username to a passed in argument   */}
+
         {userData ? (
           <View style={styles.rawStats}>
             <Text style={styles.statText}>Win: {userData.totalWins}</Text>
@@ -156,4 +155,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Stats;
+export default Profile;

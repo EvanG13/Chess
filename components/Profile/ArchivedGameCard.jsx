@@ -1,16 +1,10 @@
 import React from "react";
 import { View, Text, Image, Pressable, StyleSheet } from "react-native";
-
-const timeIcons = {
-  bullet: require("../../assets/appImages/logo.png"),
-  blitz: require("../../assets/appImages/logo.png"),
-  rapid: require("../../assets/appImages/logo.png"),
-  classical: require("../../assets/appImages/logo.png")
-};
+import Ionicons from "@expo/vector-icons/Ionicons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 const ArchivedGameCard = ({ navigation, game, playerUsername, cardNumber }) => {
-  let backgroundColor =
-    Number(cardNumber) % 2 != 0 ? styles.oddBackground : styles.evenBackground;
   let iconKey = game.timeControl.split("_")[0].toLowerCase();
   let result = "draw";
   let player =
@@ -30,54 +24,52 @@ const ArchivedGameCard = ({ navigation, game, playerUsername, cardNumber }) => {
     }
   }
 
+  const opponentPlayerData =
+    game.players[0].username === playerUsername
+      ? game.players[1]
+      : game.players[0];
+
   const reviewGame = () => {
     navigation.navigate("reviewGame", { gameId: game.id });
   };
 
+  const getTime = (date) => {
+    if (!date || !date.includes(",")) return "";
+    return date.split(",").slice(0, 2).join(",");
+  };
+
   return (
-    <Pressable
-      style={[styles.archivedCard, backgroundColor]}
-      onPress={reviewGame}
-    >
+    <Pressable style={styles.archivedCard} onPress={reviewGame}>
       <View style={styles.playersBox}>
-        <View style={styles.playerRows}>
-          {game.players.map((player) => {
-            return (
-              <PlayerInfoRow
-                isWhite={player.isWhite}
-                username={player.username}
-                rating={player.rating}
-                key={player.username}
-              />
-            );
-          })}
+        <PlayerInfoRow
+          isWhite={opponentPlayerData.isWhite}
+          username={opponentPlayerData.username}
+          rating={opponentPlayerData.rating}
+          key={opponentPlayerData.username}
+        />
+      </View>
+
+      <View style={styles.container}>
+        <View style={styles.resultAndNumMoves}>
+          <Text style={styles.text}>{result}</Text>
+          <Text style={styles.text}>{game.numMoves}</Text>
         </View>
-      </View>
-      <ResultCard reason={game.resultReason} gameResult={result} />
-      <View style={styles.numMovesContainer}>
-        <Text>{game.numMoves}</Text>
-      </View>
-      <View style={styles.dateContainer}>
-        <Text>{game.created}</Text>
       </View>
     </Pressable>
   );
 };
 
-const ResultCard = ({ gameResult }) => {
-  return (
-    <View style={styles.resultCard}>
-      <Text>{gameResult}</Text>
-    </View>
-  );
-};
-
-const PlayerInfoRow = ({ isWhite, username, rating }) => {
+const PlayerInfoRow = ({ timeControl, username, rating }) => {
   return (
     <View style={styles.playerRow}>
-      <View style={isWhite ? styles.whiteSquare : styles.blackSquare}></View>
-      <Text>{username}</Text>
-      <Text>{`(${rating})`}</Text>
+      {(timeControl === "BULLET_1" || "BULLET_3") && (
+        <MaterialCommunityIcons name="bullet" size={40} color="yellow" />
+      )}
+      {timeControl === "BLITZ_5" && (
+        <FontAwesome name="bolt" size={40} color="yellow" />
+      )}
+      <Text style={styles.text}>{username}</Text>
+      <Text style={styles.text}>{`(${rating})`}</Text>
     </View>
   );
 };
@@ -87,59 +79,41 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    alignItems: "center",
-    borderColor: "black",
     borderBottomWidth: 2,
-    marginBottom: 2
+    marginBottom: 2,
+    alignItems: "center",
+    backgroundColor: "#141414"
   },
-  evenBackground: {
-    backgroundColor: "grey"
+  text: {
+    color: "white"
   },
-
-  oddBackground: {
-    backgroundColor: "white"
-  },
-
-  timeIcon: {
-    margin: 4,
-    width: 30,
-    height: 30
-  },
-  playersBox: {
-    width: "15%",
+  container: {
+    width: "30%",
     flexDirection: "row",
-    alignItems: "center"
+    justifyContent: "flex-start"
   },
-  playerRows: {
-    flexDirection: "column",
-    width: "70%"
+  resultAndNumMoves: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    width: "100%",
+    marginLeft: 5,
+    gap: 50
   },
   playerRow: {
-    width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: "100%",
+    marginLeft: 5,
+    gap: 10
+  },
+
+  playersBox: {
+    flexDirection: "row",
+    width: "70%",
+    justifyContent: "flex-start",
     alignItems: "center"
-  },
-  numMovesContainer: {},
-  dateContainer: {
-    // width: "25%"
-  },
-  whiteSquare: {
-    backgroundColor: "white",
-    height: 10,
-    width: 10,
-    borderRadius: 3
-  },
-  blackSquare: {
-    backgroundColor: "black",
-    height: 10,
-    width: 10,
-    borderRadius: 3
-  },
-  resultCard: {
-    textAlign: "center"
-    // width: "25%",
-    // height: "100%"
   }
 });
 
