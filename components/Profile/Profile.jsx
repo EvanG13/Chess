@@ -8,7 +8,7 @@ import ArchivedGamesContainer from "./ArchivedGamesContainer";
 import * as SecureStore from "expo-secure-store";
 // TODO : put ratings in stats statscard
 
-const Stats = ({ navigation }) => {
+const Profile = ({ navigation }) => {
   const route = useRoute();
   const { username } = route.params;
   const [userData, setUserData] = useState(null);
@@ -155,4 +155,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Stats;
+export default Profile;

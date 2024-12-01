@@ -8,7 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Register from "./components/Register/Register.jsx";
 import Login from "./components/Login/Login.jsx";
-import Stats from "./components/Profile/Stats.jsx";
+import Profile from "./components/Profile/Profile.jsx";
 import GameStat from "./components/Profile/GameStat.jsx";
 import OnlineGameView from "./views/gameView/onlineGameView/OnlineGameView.jsx";
 import ReviewGameView from "./views/gameView/gameReview/ReviewGameView.jsx";
@@ -33,7 +33,7 @@ export default function App() {
         <Stack.Screen name="reviewGame" component={ReviewGameView} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="register" component={Register} />
-        <Stack.Screen name="profile" component={Stats} />
+        <Stack.Screen name="profile" component={Profile} />
         <Stack.Screen name="stats" component={GameStat} />
         {/* <Stack.Screen name="reviewGame" component={GameReview} /> */}
       </Stack.Navigator>
