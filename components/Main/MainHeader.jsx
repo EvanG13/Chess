@@ -46,7 +46,7 @@ const MainHeader = ({ navigation }) => {
     if (option === "logout") {
       handleLogout();
     } else if (option === "profile") {
-      navigation.navigate("profile");
+      navigation.navigate("profile", { username });
     }
   };
 

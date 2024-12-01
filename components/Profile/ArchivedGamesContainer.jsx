@@ -10,22 +10,7 @@ const ArchivedGamesContainer = ({
   playerUsername,
   timeControl
 }) => {
-  const [sortCriteria, setSortCriteria] = useState(SortCriteria.DESCENDING);
   const [archivedGames, setArchivedGames] = useState([]);
-
-  useEffect(() => {
-    let sortedGames = [...archivedGames];
-    if (sortCriteria === SortCriteria.DESCENDING)
-      sortedGames.sort(
-        (game, game2) => new Date(game.created) - new Date(game2.created)
-      );
-    else
-      sortedGames.sort(
-        (game, game2) => new Date(game2.created) - new Date(game.created)
-      );
-    console.log(...sortedGames);
-    setArchivedGames([...sortedGames]);
-  }, [sortCriteria]);
 
   useEffect(() => {
     const getUserGames = async () => {
@@ -57,10 +42,7 @@ const ArchivedGamesContainer = ({
 
   return (
     <View style={styles.archivedContainer}>
-      <GamesHeader
-        sortCriteria={sortCriteria}
-        setSortCriteria={setSortCriteria}
-      />
+      <GamesHeader />
 
       <ScrollView>
         {archivedGames.map((game, index) => {
@@ -79,25 +61,13 @@ const ArchivedGamesContainer = ({
   );
 };
 
-const GamesHeader = ({ sortCriteria, setSortCriteria }) => {
-  const handlePress = () => {
-    if (sortCriteria === SortCriteria.ASCENDING) {
-      setSortCriteria(SortCriteria.DESCENDING);
-    } else {
-      setSortCriteria(SortCriteria.ASCENDING);
-    }
-  };
-
+const GamesHeader = () => {
   return (
     <View style={styles.gameHeader}>
-      <Text style={styles.gameHeaderText}>Players</Text>
-      <Text style={styles.gameHeaderText}>Result</Text>
-      <Text style={styles.gameHeaderText}>Moves</Text>
-      <View style={styles.dateAndSort}>
-        <Text style={styles.gameHeaderText}>Date</Text>
-        <Pressable onPress={handlePress}>
-          <Text>{sortCriteria === SortCriteria.ASCENDING ? "⬇️" : "⬆️"}</Text>
-        </Pressable>
+      <Text style={styles.gameHeaderText}>Opponent</Text>
+      <View style={styles.resultAndMoves}>
+        <Text style={styles.gameHeaderText}>Result</Text>
+        <Text style={styles.gameHeaderText}>Moves</Text>
       </View>
     </View>
   );
@@ -105,19 +75,17 @@ const GamesHeader = ({ sortCriteria, setSortCriteria }) => {
 
 const styles = StyleSheet.create({
   archivedContainer: {
-    width: "95%",
+    width: "100%",
     height: "60%",
-    marginLeft: 10,
-    marginRight: "15%",
-    backgroundColor: "black",
     flexDirection: "column",
     marginBottom: 20
   },
   gameHeader: {
-    width: "100%",
+    width: "95%",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 3
+    marginBottom: 3,
+    marginLeft: 10
   },
   gameHeaderText: {
     fontSize: 20,
@@ -127,6 +95,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 5
+  },
+  resultAndMoves: {
+    flexDirection: "row",
+    gap: 15
   }
 });
 
