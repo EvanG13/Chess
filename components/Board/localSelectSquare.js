@@ -2,7 +2,7 @@ import { getNumberFromLetter } from "../Board/board.js";
 import { LETTERS } from "../Board/board.js";
 import King from "../../pieces/King.js";
 import convertToChessNotation from "../Logger/toChessNotation.js";
-import { EmitActions } from "../../types/Actions.js";
+import { EmitActions } from "../../constants/Actions.js";
 import {
   isValidMove,
   selectDifferentPiece,

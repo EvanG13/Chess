@@ -1,35 +1,25 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  Pressable,
-  Image,
-  Dimensions //TODO: use the window listener to update the width and height of the page if user changes the window size
-} from "react-native";
-import MainHeader from "./MainHeader";
-import chessBoardImg from "../../assets/appImages/logo.png";
-import PlayGameOptions from "./PlayGameOptions";
+import { View, StyleSheet, Text, Pressable, Dimensions } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
 import * as SecureStore from "expo-secure-store";
+import Header from "../../components/Header/Header";
+import PlayGameOptions from "./PlayGameOptions";
 
-const Main = ({ navigation }) => {
+const HomeScreen = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const isFocused = useIsFocused();
 
   useEffect(() => {
     const isUserLoggedIn = async () => {
-      setIsLoggedIn(
-        (await SecureStore.getItemAsync("userId")) !== null ? true : false
-      );
+      setIsLoggedIn((await SecureStore.getItemAsync("userId")) !== null);
     };
 
     isUserLoggedIn();
   }, [isFocused]);
   return (
     <View style={styles.main}>
-      <MainHeader navigation={navigation} />
+      <Header navigation={navigation} />
       <View style={styles.mainBody}>
         <View style={styles.rightSide}>
           <Text style={styles.welcomeHeader}>Stock Trout</Text>
@@ -124,4 +114,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Main;
+export default HomeScreen;

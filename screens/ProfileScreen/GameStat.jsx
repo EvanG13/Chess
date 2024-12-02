@@ -1,9 +1,9 @@
 import { useRoute } from "@react-navigation/native";
 import { View, Text } from "react-native";
-import axiosInstance from "../axiosInstance";
+import axiosInstance from "../../components/axiosInstance";
 import React, { useState, useEffect } from "react";
 import ArchivedGamesContainer from "./ArchivedGamesContainer";
-import styles from "./GameStatStyles";
+import styles from "./gameStatStyles";
 import * as SecureStore from "expo-secure-store";
 
 const GameStat = ({ navigation }) => {

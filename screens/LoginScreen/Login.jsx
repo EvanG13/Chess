@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import axiosInstance from "../axiosInstance";
+import axiosInstance from "../../components/axiosInstance";
 import * as SecureStore from "expo-secure-store";
+import loginStyles from "./loginStyles";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ const Login = ({ navigation }) => {
         password
       });
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         const userResponse = response.data.user;
         await SecureStore.setItemAsync("sessionToken", response.data.token);
         await SecureStore.setItemAsync("username", userResponse.username);
@@ -36,19 +37,19 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.loginContainer}>
-      <View style={styles.loginCard}>
-        <View style={styles.innerCard}>
-          <Text style={styles.loginHeader}>Login</Text>
+    <View style={loginStyles.loginContainer}>
+      <View style={loginStyles.loginCard}>
+        <View style={loginStyles.innerCard}>
+          <Text style={loginStyles.loginHeader}>Login</Text>
           <TextInput
-            style={styles.input}
+            style={loginStyles.input}
             placeholder="Email"
             value={email}
             onChangeText={setEmail}
           />
 
           <TextInput
-            style={styles.input}
+            style={loginStyles.input}
             placeholder="Password"
             value={password}
             onChangeText={setPassword}
@@ -56,53 +57,12 @@ const Login = ({ navigation }) => {
           />
           <Button title="Login" onPress={handleLogin} />
           {error.length > 0 ? (
-            <Text style={styles.errorCard}>{error}</Text>
+            <Text style={loginStyles.errorCard}>{error}</Text>
           ) : null}
         </View>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  loginHeader: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginBottom: 10,
-    color: "white"
-  },
-  loginContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "black"
-  },
-  loginCard: {
-    borderRadius: 10,
-    overflow: "hidden", // Ensure the inner gradient doesn't overflow
-    width: "60%"
-  },
-  gradient: {
-    flex: 1,
-    borderRadius: 10,
-    borderWidth: 2, // Add borderWidth to create a border
-    borderColor: "transparent" // Set initial borderColor to transparent
-  },
-  innerCard: {
-    backgroundColor: "black",
-    padding: 20
-  },
-  input: {
-    backgroundColor: "white",
-    marginBottom: 10,
-    padding: 10,
-    borderRadius: 5
-  },
-  errorCard: {
-    color: "white",
-    fontSize: 20,
-    borderRadius: 10
-  }
-});
 
 export default Login;

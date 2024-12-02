@@ -1,4 +1,4 @@
-import Actions from "../types/Actions";
+import Actions from "../constants/Actions";
 import {
   handleGameStart,
   handleMoveMade,

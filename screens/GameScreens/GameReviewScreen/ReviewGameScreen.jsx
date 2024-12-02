@@ -1,18 +1,17 @@
 import { Pressable, ScrollView, View } from "react-native";
-import styles from "./ReviewGameStyles.js";
 import React from "react";
 import Board from "../../../components/Board/Board.jsx";
 import getStartingBoard from "../../../components/Board/board.js";
 import PlayerCard from "../../../components/Board/PlayerCard.jsx";
 import ReviewGameBar from "../../../components/RightSideBar/ReviewGameBar.jsx";
 import fenToJSON from "../../../components/Board/fenToJSON.js";
-
+import styles from "./styles";
 import axiosInstance from "../../../components/axiosInstance.js";
 import { useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const ReviewGameView = ({ route }) => {
+const ReviewGameScreen = ({ route }) => {
   const [board, setBoard] = useState(getStartingBoard());
 
   //move log stuff
@@ -171,4 +170,4 @@ const ReviewGameView = ({ route }) => {
   );
 };
 
-export default ReviewGameView;
+export default ReviewGameScreen;

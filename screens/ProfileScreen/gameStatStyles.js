@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%"
   },
-
   diagnosticsText: {
     color: "white",
     fontSize: 20
@@ -15,7 +14,6 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     margin: 20
   },
-
   timeControlTitle: {
     color: "white",
     textAlign: "center",

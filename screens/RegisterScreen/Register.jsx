@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 
-import axiosInstance from "../axiosInstance";
+import axiosInstance from "../../components/axiosInstance";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -31,12 +31,11 @@ const Register = ({ navigation }) => {
         username,
         password
       });
-      console.log(response);
-      if (response.status == 200) {
+      if (response.status === 200) {
         navigation.navigate("login");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setError(error.response.data);
       setTimeout(() => setError(""), 2000);
     }
@@ -45,7 +44,6 @@ const Register = ({ navigation }) => {
   return (
     <View style={styles.registerContainer}>
       <View style={styles.registerCard}>
-        {/* Black background inside the card */}
         <View style={styles.innerCard}>
           <Text style={styles.registerHeader}>Register</Text>
           <TextInput

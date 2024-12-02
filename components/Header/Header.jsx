@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, Pressable, Image } from "react-native";
-import logo from "../../assets/appImages/logo.png";
+import { View, Text, Pressable } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import axiosInstance from "../axiosInstance";
 import * as SecureStore from "expo-secure-store";
 import { Dropdown } from "react-native-element-dropdown";
 import Icon from "react-native-vector-icons/FontAwesome";
+import styles from "./headerStyles";
 
-const MainHeader = ({ navigation }) => {
+const Header = ({ navigation }) => {
   const [sessionToken, setSessionToken] = useState(null);
   const [username, setUsername] = useState(null);
   const isFocused = useIsFocused();
@@ -107,40 +107,4 @@ const MainHeader = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  mainHeader: {
-    flexDirection: "row",
-    backgroundColor: "green",
-    height: "10%",
-    width: "100%",
-    alignItems: "center"
-  },
-  navBar: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    width: "100%"
-  },
-  navItem: {
-    backgroundColor: "green",
-    marginTop: 40
-  },
-  texts: {
-    color: "white",
-    fontSize: 20
-  },
-  dropdownContainer: {
-    flexDirection: "column",
-    justifyContent: "center"
-  },
-  dropdown: {
-    marginTop: 40,
-    width: "40%",
-    fontSize: 20
-  },
-  placeholderStyle: {
-    color: "white"
-  }
-});
-
-export default MainHeader;
+export default Header;

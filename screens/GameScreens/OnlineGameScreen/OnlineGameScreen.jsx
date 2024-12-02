@@ -1,10 +1,9 @@
 import { View, Text, Image } from "react-native";
-import loaderGif from "../../../assets/appImages/loader.gif";
 import React from "react";
-import styles from "./OnlineGameStyles.js";
+import styles from "./styles.js";
 import RightSideBar from "../../../components/RightSideBar/RightSideBar.jsx";
 import Timer from "../../../components/Timer/Timer.jsx";
-import TimeControls from "../../../types/TimeControls.js";
+import TimeControls from "../../../constants/TimeControls.js";
 import Board from "../../../components/Board/Board.jsx";
 import { useState, useEffect } from "react";
 import getStartingBoard from "../../../components/Board/board.js";
@@ -17,7 +16,7 @@ import PromptModal from "../../../components/PromptModal/PromptModal.jsx";
 import GameOverModal from "../../../components/gameOverModal/GameOverModal.jsx";
 import * as SecureStore from "expo-secure-store";
 
-const OnlineGameView = ({ route, navigation }) => {
+const OnlineGameScreen = ({ route, navigation }) => {
   //game state stuff
   const [isWhiteTurn, setIsWhiteTurn] = useState(true);
   const [isStarted, setIsStarted] = useState(false);
@@ -275,4 +274,4 @@ const OnlineGameView = ({ route, navigation }) => {
     </View>
   );
 };
-export default OnlineGameView;
+export default OnlineGameScreen;

@@ -1,4 +1,4 @@
-import { EmitActions } from "../../types/Actions";
+import { EmitActions } from "../../constants/Actions";
 import King from "../../pieces/King";
 import * as SecureStore from "expo-secure-store";
 

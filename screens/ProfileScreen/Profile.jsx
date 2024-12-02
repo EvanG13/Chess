@@ -1,11 +1,11 @@
 import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import axiosInstance from "../axiosInstance";
+import axiosInstance from "../../components/axiosInstance";
 import { View, StyleSheet, Text } from "react-native";
-import MainHeader from "../Main/MainHeader";
 import StatsCard from "./StatsCard";
 import ArchivedGamesContainer from "./ArchivedGamesContainer";
 import * as SecureStore from "expo-secure-store";
+import Header from "../../components/Header/Header";
 // TODO : put ratings in stats statscard
 
 const Profile = ({ navigation }) => {
@@ -60,7 +60,7 @@ const Profile = ({ navigation }) => {
   };
   return (
     <View style={styles.stats}>
-      <MainHeader navigation={navigation} />
+      <Header navigation={navigation} />
       <View styles={styles.secondaryHeader}>
         <Text style={styles.usernameHeader}>{username}</Text>
         <View style={styles.statCards}>

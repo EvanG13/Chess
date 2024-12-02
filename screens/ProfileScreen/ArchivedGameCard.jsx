@@ -1,11 +1,9 @@
 import React from "react";
-import { View, Text, Image, Pressable, StyleSheet } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-const ArchivedGameCard = ({ navigation, game, playerUsername, cardNumber }) => {
-  let iconKey = game.timeControl.split("_")[0].toLowerCase();
+const ArchivedGameCard = ({ navigation, game, playerUsername }) => {
   let result = "draw";
   let player =
     game.players[0].username === playerUsername

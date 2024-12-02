@@ -1,7 +1,7 @@
 import React from "react";
 
 import { View, StyleSheet } from "react-native";
-import StatsCard from "../Profile/StatsCard";
+import StatsCard from "../ProfileScreen/StatsCard";
 
 const PlayGameOptions = ({ navigation }) => {
   const timeControls = [
@@ -28,7 +28,6 @@ const PlayGameOptions = ({ navigation }) => {
   ];
 
   const handlePress = (requestTitle) => {
-    console.log(requestTitle);
     navigation.navigate("onlineGame", { timeControl: requestTitle });
   };
 

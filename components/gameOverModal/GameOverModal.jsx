@@ -1,6 +1,5 @@
-import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
-import { EmitActions } from "../../types/Actions.js";
-import styles from "../PromptModal/PromptModalStyles.js";
+import { View, Text, Pressable, SafeAreaView } from "react-native";
+import styles from "../PromptModal/promptModalStyles.js";
 
 const GameOverModal = ({
   isVisible,
@@ -21,20 +20,20 @@ const GameOverModal = ({
   return (
     <View style={styles.modalContainer}>
       <SafeAreaView style={styles.modal}>
-        <TouchableOpacity
+        <Pressable
           style={styles.closeButton}
           onPress={() => setIsVisible(false)}
         >
           <Text>X</Text>
-        </TouchableOpacity>
+        </Pressable>
         <Text style={styles.messageText}>{message}</Text>
         <View style={styles.buttonBox}>
-          <TouchableOpacity onPress={handleRematch}>
+          <Pressable onPress={handleRematch}>
             <Text style={styles.buttonText}>Rematch</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleNewGame}>
+          </Pressable>
+          <Pressable onPress={handleNewGame}>
             <Text style={styles.buttonText}>New Game</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </SafeAreaView>
     </View>
