@@ -150,19 +150,19 @@ const ReviewGameScreen = ({ route }) => {
       <View style={styles.gameReviewFooter}>
         <View style={styles.buttonsContainer}>
           <Pressable onPress={decrementToBeginning}>
-            <Icon name="backward" size={25} color="white" />
+            <Icon name="step-backward" size={25} color="white" />
           </Pressable>
           <Pressable onPress={decrement}>
-            <Icon name="step-backward" size={25} color="white" />
+            <Icon name="backward" size={25} color="white" />
           </Pressable>
           <Pressable onPress={flipBoard}>
             <Icon name="retweet" size={25} color="white" />
           </Pressable>
           <Pressable onPress={increment}>
-            <Icon name="step-forward" size={25} color="white" />
+            <Icon name="forward" size={25} color="white" />
           </Pressable>
           <Pressable onPress={incrementToEnd}>
-            <Icon name="forward" size={25} color="white" />
+            <Icon name="step-forward" size={25} color="white" />
           </Pressable>
         </View>
       </View>

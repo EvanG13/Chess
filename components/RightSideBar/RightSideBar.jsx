@@ -1,7 +1,7 @@
 import React from "react";
 
 import { View } from "react-native";
-import MoveLog from "./MoveLog";
+import MoveLog from "../MoveLog/MoveLog";
 import GameControls from "./GameControls";
 import ChatContainer from "../Chat/ChatContainer";
 import styles from "./RightSideBarStyles";

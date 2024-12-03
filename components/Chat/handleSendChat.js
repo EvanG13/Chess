@@ -1,4 +1,4 @@
-import { EmitActions } from "../../constants/Actions";
+import { EmitActions } from "@/constants/Actions";
 import * as SecureStore from "expo-secure-store";
 
 const handleSendChat = async (socket, message) => {

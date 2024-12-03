@@ -1,7 +1,7 @@
 import React from "react";
 
 import { View } from "react-native";
-import MoveLog from "./MoveLog";
+import MoveLog from "../MoveLog/MoveLog";
 import styles from "./RightSideBarStyles";
 
 const ReviewGameBar = ({
