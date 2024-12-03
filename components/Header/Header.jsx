@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Pressable } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
-import axiosInstance from "../axiosInstance";
 import * as SecureStore from "expo-secure-store";
 import { Dropdown } from "react-native-element-dropdown";
 import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "./headerStyles";
+import axiosInstance from "@/services/axios/axiosInstance";
 
 const Header = ({ navigation }) => {
   const [sessionToken, setSessionToken] = useState(null);

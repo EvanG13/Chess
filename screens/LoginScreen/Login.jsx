@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import axiosInstance from "../../components/axiosInstance";
+import { View, Text, TextInput, Button } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import loginStyles from "./loginStyles";
+import axiosInstance from "@/services/axios/axiosInstance";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");

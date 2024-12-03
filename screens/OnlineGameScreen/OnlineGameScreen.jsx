@@ -1,20 +1,20 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
-import styles from "./styles.js";
-import RightSideBar from "../../../components/RightSideBar/RightSideBar.jsx";
-import Timer from "../../../components/Timer/Timer.jsx";
-import TimeControls from "../../../constants/TimeControls.js";
-import Board from "../../../components/Board/Board.jsx";
+import styles from "./onlineGameScreenStyles.js";
+import RightSideBar from "@/components/RightSideBar/RightSideBar.jsx";
+import TimeControls from "@/constants/TimeControls.js";
+import Board from "@/components/Board/Board.jsx";
 import { useState, useEffect } from "react";
-import getStartingBoard from "../../../components/Board/board.js";
-import PlayerCard from "../../../components/Board/PlayerCard.jsx";
-import createSocket from "../../../socket/websocket.js";
-import socketHandler from "../../../socket/socketHandler.js";
-import axiosInstance from "../../../components/axiosInstance.js";
-import fenToJSON from "../../../components/Board/fenToJSON.js";
-import PromptModal from "../../../components/PromptModal/PromptModal.jsx";
-import GameOverModal from "../../../components/gameOverModal/GameOverModal.jsx";
+import getStartingBoard from "@/components/Board/board.js";
+import PlayerCard from "@/components/Board/PlayerCard.jsx";
+import createSocket from "@/services/socket/websocket.js";
+import socketHandler from "@/services/socket/socketHandler.js";
+import axiosInstance from "@/services/axios/axiosInstance.js";
+import fenToJSON from "@/components/Board/fenToJSON.js";
+import PromptModal from "@/components/PromptModal/PromptModal.jsx";
+import Timer from "@/components/Timer/Timer";
 import * as SecureStore from "expo-secure-store";
+import GameOverModal from "./GameOverModal";
 
 const OnlineGameScreen = ({ route, navigation }) => {
   //game state stuff
@@ -206,7 +206,7 @@ const OnlineGameScreen = ({ route, navigation }) => {
           {isStarted ? null : (
             <View style={styles.loaderContainer}>
               <Image
-                source={require("../../../assets/appImages/loader.gif")}
+                source={require("../../assets/appImages/loader.gif")}
                 style={styles.gif}
               />
               <Text style={{ color: "white", margin: 10, fontSize: 30 }}>

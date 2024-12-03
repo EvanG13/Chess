@@ -3,7 +3,6 @@ import { BACKEND_BASE_URL } from "@env";
 const url = BACKEND_BASE_URL;
 import * as SecureStore from "expo-secure-store";
 
-console.log(url);
 const axiosInstance = axios.create({
   baseURL: url
 });

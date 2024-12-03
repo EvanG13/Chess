@@ -1,6 +1,6 @@
 import Piece from "./Piece.js";
-const whiteQueenSource = require("../assets/gothicPieces/wq.png");
-const blackQueenSource = require("../assets/gothicPieces/bq.png");
+const whiteQueenSource = require("../../assets/gothicPieces/wq.png");
+const blackQueenSource = require("../../assets/gothicPieces/bq.png");
 
 class Queen extends Piece {
   constructor(color, letter, number) {

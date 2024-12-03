@@ -1,5 +1,5 @@
 import { EmitActions } from "../../constants/Actions";
-import King from "../../pieces/King";
+import King from "../../services/pieces/King";
 import * as SecureStore from "expo-secure-store";
 
 export const selectNewPiece = (

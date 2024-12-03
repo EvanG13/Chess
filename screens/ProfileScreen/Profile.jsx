@@ -1,12 +1,12 @@
 import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import axiosInstance from "../../components/axiosInstance";
 import { View, StyleSheet, Text } from "react-native";
 import StatsCard from "./StatsCard";
 import ArchivedGamesContainer from "./ArchivedGamesContainer";
 import * as SecureStore from "expo-secure-store";
-import Header from "../../components/Header/Header";
-// TODO : put ratings in stats statscard
+import Header from "@/components/Header/Header";
+import axiosInstance from "@/services/axios/axiosInstance";
+// TODO : put ratings in stats stats card
 
 const Profile = ({ navigation }) => {
   const route = useRoute();

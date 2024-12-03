@@ -1,10 +1,10 @@
 import Piece from "./Piece.js";
-const whiteKingSource = require("../assets/gothicPieces/wk.png");
-const blackKingSource = require("../assets/gothicPieces/bk.png");
+const whiteKingSource = require("../../assets/gothicPieces/wk.png");
+const blackKingSource = require("../../assets/gothicPieces/bk.png");
 import Knight from "./Knight.js";
 import Bishop from "./Bishop.js";
 import Rook from "./Rook.js";
-import { LETTERS } from "../components/Board/board.js";
+import { LETTERS } from "../../components/Board/board.js";
 
 class King extends Piece {
   constructor(color, letter, number) {

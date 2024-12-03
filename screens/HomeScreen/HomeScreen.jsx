@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
 import * as SecureStore from "expo-secure-store";
-import Header from "../../components/Header/Header";
 import PlayGameOptions from "./PlayGameOptions";
+import Header from "@/components/Header/Header";
 
 const HomeScreen = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

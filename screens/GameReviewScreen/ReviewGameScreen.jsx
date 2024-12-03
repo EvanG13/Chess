@@ -1,20 +1,20 @@
 import { Pressable, ScrollView, View } from "react-native";
 import React from "react";
-import Board from "../../../components/Board/Board.jsx";
-import getStartingBoard from "../../../components/Board/board.js";
-import PlayerCard from "../../../components/Board/PlayerCard.jsx";
-import ReviewGameBar from "../../../components/RightSideBar/ReviewGameBar.jsx";
-import fenToJSON from "../../../components/Board/fenToJSON.js";
-import styles from "./styles";
-import axiosInstance from "../../../components/axiosInstance.js";
+import styles from "./reviewGameScreenStyles";
 import { useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import Icon from "react-native-vector-icons/FontAwesome";
+import ReviewGameBar from "@/components/RightSideBar/ReviewGameBar";
+import PlayerCard from "@/components/Board/PlayerCard";
+import Board from "@/components/Board/Board";
+import getStartingBoard from "@/components/Board/board";
+import fenToJSON from "@/components/Board/fenToJSON";
+import axiosInstance from "@/services/axios/axiosInstance";
 
 const ReviewGameScreen = ({ route }) => {
   const [board, setBoard] = useState(getStartingBoard());
 
-  //move log stuff
+  // move log stuff
   const [moveList, setMoveList] = useState([]);
   const [moveIndex, setMoveIndex] = useState(-1);
   const [username, setUsername] = useState(null);
@@ -23,7 +23,7 @@ const ReviewGameScreen = ({ route }) => {
   let [topPlayerData, setTopPlayerData] = useState();
   let [bottomPlayerData, setBottomPlayerData] = useState();
 
-  //Movelist and Players names fetched from backend upon component render
+  // Move list and Players names fetched from backend upon component render
   let gameInfo;
   const [players, setPlayers] = useState([]);
 

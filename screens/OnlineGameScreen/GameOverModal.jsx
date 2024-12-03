@@ -1,5 +1,5 @@
 import { View, Text, Pressable, SafeAreaView } from "react-native";
-import styles from "../PromptModal/promptModalStyles.js";
+import styles from "@/components/PromptModal/promptModalStyles.js";
 
 const GameOverModal = ({
   isVisible,

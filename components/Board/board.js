@@ -1,9 +1,9 @@
-import Pawn from "../../pieces/Pawn";
-import Rook from "../../pieces/Rook";
-import Knight from "../../pieces/Knight";
-import Bishop from "../../pieces/Bishop";
-import Queen from "../../pieces/Queen";
-import King from "../../pieces/King";
+import Pawn from "../../services/pieces/Pawn";
+import Rook from "../../services/pieces/Rook";
+import Knight from "../../services/pieces/Knight";
+import Bishop from "../../services/pieces/Bishop";
+import Queen from "../../services/pieces/Queen";
+import King from "../../services/pieces/King";
 
 const blackSquareSource = require("../../assets/board/blacksquare.jpg");
 const whiteSquareSource = require("../../assets/board/whitesquare.jpg");

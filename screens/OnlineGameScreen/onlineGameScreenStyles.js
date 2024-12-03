@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly"
   },
-
   playerAndTimer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -19,7 +18,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     height: "fit-content"
   },
-
   loaderContainer: {
     position: "absolute",
     top: 0,

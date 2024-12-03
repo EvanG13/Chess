@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import ArchivedGameCard from "./ArchivedGameCard";
-import axiosInstance from "../../components/axiosInstance";
 import * as SecureStore from "expo-secure-store";
+import axiosInstance from "@/services/axios/axiosInstance";
 
 const ArchivedGamesContainer = ({
   navigation,

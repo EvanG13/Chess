@@ -1,12 +1,11 @@
 import Piece from "./Piece.js";
-const whiteRookSource = require("../assets/gothicPieces/wr.png");
-const blackRookSource = require("../assets/gothicPieces/br.png");
+const whiteBishopSource = require("../../assets/gothicPieces/wb.png");
+const blackBishopSource = require("../../assets/gothicPieces/bb.png");
 
-class Rook extends Piece {
+class Bishop extends Piece {
   constructor(color, letter, number) {
-    const src = color === "black" ? blackRookSource : whiteRookSource;
-    super(color, src, letter, number, "rook");
-    this.hasMoved = false;
+    const src = color === "black" ? blackBishopSource : whiteBishopSource;
+    super(color, src, letter, number, "bishop");
   }
 
   getValidMoves(board, kingSquare) {
@@ -15,10 +14,10 @@ class Rook extends Piece {
     let validMoves = [];
 
     const dirs = [
-      [1, 0],
-      [-1, 0],
-      [0, 1],
-      [0, -1]
+      [-1, -1],
+      [-1, 1],
+      [1, -1],
+      [1, 1]
     ];
     let newRow;
     let newCol;
@@ -70,14 +69,9 @@ class Rook extends Piece {
 
   getAllMoves(board) {
     const col = this.convertLetterToNumber(this.letter);
-    const row = this.number;
     let validMoves = [];
 
     const dirs = [
-      [1, 0],
-      [-1, 0],
-      [0, 1],
-      [0, -1],
       [-1, -1],
       [-1, 1],
       [1, -1],
@@ -87,7 +81,7 @@ class Rook extends Piece {
     let newCol;
 
     for (let i = 0; i < dirs.length; i++) {
-      newRow = row + dirs[i][0];
+      newRow = this.number + dirs[i][0];
       newCol = col + dirs[i][1];
 
       while (
@@ -113,4 +107,4 @@ class Rook extends Piece {
   }
 }
 
-export default Rook;
+export default Bishop;

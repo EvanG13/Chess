@@ -5,13 +5,13 @@ import { StyleSheet } from "react-native";
 import Board from "./components/Board/Board.jsx";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import OnlineGameScreen from "./screens/GameScreens/OnlineGameScreen/OnlineGameScreen";
+import OnlineGameScreen from "./screens/OnlineGameScreen/OnlineGameScreen";
 import Login from "./screens/LoginScreen/Login";
 import Register from "./screens/RegisterScreen/Register";
 import Profile from "./screens/ProfileScreen/Profile";
 import GameStat from "./screens/ProfileScreen/GameStat";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
-import ReviewGameScreen from "./screens/GameScreens/GameReviewScreen/ReviewGameScreen";
+import ReviewGameScreen from "./screens/GameReviewScreen/ReviewGameScreen";
 
 const Stack = createStackNavigator();
 

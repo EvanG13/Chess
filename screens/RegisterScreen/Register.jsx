@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-
-import axiosInstance from "../../components/axiosInstance";
+import axiosInstance from "@/services/axios/axiosInstance";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");

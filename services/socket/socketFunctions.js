@@ -1,4 +1,4 @@
-import fenToJSON from "../components/Board/fenToJSON";
+import fenToJSON from "../../components/Board/fenToJSON";
 import * as SecureStore from "expo-secure-store";
 
 export const handleGameStart = async (setters, data) => {
