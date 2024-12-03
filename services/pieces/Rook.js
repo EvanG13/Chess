@@ -77,11 +77,7 @@ class Rook extends Piece {
       [1, 0],
       [-1, 0],
       [0, 1],
-      [0, -1],
-      [-1, -1],
-      [-1, 1],
-      [1, -1],
-      [1, 1]
+      [0, -1]
     ];
     let newRow;
     let newCol;
