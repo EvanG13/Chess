@@ -29,10 +29,10 @@ const Header = ({ navigation }) => {
 
   const handleLogout = async () => {
     try {
+      await axiosInstance.post("/logout");
       await SecureStore.deleteItemAsync("sessionToken");
       await SecureStore.deleteItemAsync("username");
       await SecureStore.deleteItemAsync("userId");
-      await axiosInstance.post("/logout");
     } catch (error) {
       console.error("Error during logout:", error);
     }
