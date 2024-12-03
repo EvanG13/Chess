@@ -1,11 +1,11 @@
-import whiteSquareSource from "../../assets/board/whitesquare.jpg";
-import Rook from "../../pieces/Rook";
-import blackSquareSource from "../../assets/board/blacksquare.jpg";
-import Knight from "../../pieces/Knight";
-import Bishop from "../../pieces/Bishop";
-import Queen from "../../pieces/Queen";
-import King from "../../pieces/King";
-import Pawn from "../../pieces/Pawn";
+import whiteSquareSource from "@/assets/board/whitesquare.jpg";
+import Rook from "@/services/pieces/Rook";
+import blackSquareSource from "@/assets/board/blacksquare.jpg";
+import Knight from "@/services/pieces/Knight";
+import Bishop from "@/services/pieces/Bishop";
+import Queen from "@/services/pieces/Queen";
+import King from "@/services/pieces/King";
+import Pawn from "@/services/pieces/Pawn";
 
 const FEN_Util = {
   getBoard: (FEN) => FEN.split(" ")[0],

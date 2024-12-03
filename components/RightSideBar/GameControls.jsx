@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
+import { View, Pressable, StyleSheet, Text } from "react-native";
 
 const GameControls = ({ setPromptType, setPromptVisible }) => {
   const handleForfeit = () => {
@@ -14,12 +14,12 @@ const GameControls = ({ setPromptType, setPromptVisible }) => {
 
   return (
     <View style={styles.gameControls}>
-      <TouchableOpacity style={styles.controlButton} onPress={handleForfeit}>
+      <Pressable style={styles.controlButton} onPress={handleForfeit}>
         <Text style={styles.buttonText}>Forfeit</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.controlButton} onPress={handleOfferDraw}>
+      </Pressable>
+      <Pressable style={styles.controlButton} onPress={handleOfferDraw}>
         <Text style={styles.buttonText}>Offer Draw</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

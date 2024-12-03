@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 
-import styles from "./PromptModalStyles.js";
+import styles from "./promptModalStyles.js";
 import handlers from "./handlers.js";
 
 const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
