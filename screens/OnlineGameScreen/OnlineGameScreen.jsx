@@ -53,7 +53,7 @@ const OnlineGameScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     const playerData = async () => {
-      const username = await SecureStore.setItemAsync("username");
+      const username = await SecureStore.getItemAsync("username");
 
       setPlayer1({ name: username, rating: 100 });
     };
@@ -226,7 +226,8 @@ const OnlineGameScreen = ({ route, navigation }) => {
               setIsWhiteTurn,
               setPromptType,
               setPromptVisible,
-              isGameOver
+              isGameOver,
+              canPlayMoves: true
             }}
           />
 

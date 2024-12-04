@@ -134,7 +134,8 @@ const ReviewGameScreen = ({ route }) => {
           {...{
             board,
             blackSideBoard,
-            setBlackSideBoard
+            setBlackSideBoard,
+            canPlayMoves: false
           }}
         />
 
