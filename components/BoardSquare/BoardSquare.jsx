@@ -14,12 +14,14 @@ export const BoardSquare = ({
   isSelected,
   selectSquare,
   isHighlighted,
-  flipped
+  flipped,
+  canPlayMoves
 }) => {
   return (
     <Pressable
       style={styles.square}
       onPress={() => selectSquare(number, letter)}
+      disabled={!canPlayMoves}
     >
       <View
         style={[
