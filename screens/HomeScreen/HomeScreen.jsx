@@ -5,6 +5,9 @@ const { width, height } = Dimensions.get("window");
 import * as SecureStore from "expo-secure-store";
 import PlayGameOptions from "./PlayGameOptions";
 import Header from "@/components/Header/Header";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import * as NavigationBar from "expo-navigation-bar";
 
 const HomeScreen = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,51 +20,46 @@ const HomeScreen = ({ navigation }) => {
 
     isUserLoggedIn();
   }, [isFocused]);
+
   return (
-    <View style={styles.main}>
-      <Header navigation={navigation} />
-      <View style={styles.mainBody}>
-        <View style={styles.rightSide}>
-          <Text style={styles.welcomeHeader}>Stock Trout</Text>
-          <View style={styles.buttonContainer}>
-            {isLoggedIn && <PlayGameOptions navigation={navigation} />}
-            <Pressable
-              style={styles.localGameButton}
-              onPress={() => {
-                navigation.navigate("localGame");
-              }}
-            >
-              <Text style={{ color: "white", fontSize: 20 }}>Local Game</Text>
-            </Pressable>
+    <>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#252525" }}>
+          <Header navigation={navigation} />
+        <View style={styles.mainBody}>
+          <View>
+            <Text style={styles.welcomeHeader}>Stock Trout</Text>
+            <View style={styles.buttonContainer}>
+              {isLoggedIn && <PlayGameOptions navigation={navigation} />}
+              <Pressable
+                style={styles.localGameButton}
+                onPress={() => {
+                  navigation.navigate("localGame");
+                }}
+              >
+                <Text style={{ color: "white", fontSize: 20 }}>Local Game</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
-      </View>
-    </View>
+
+      </SafeAreaView>
+      <StatusBar style="light" backgroundColor="#121212"/>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  main: {
+  mainBody: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-    height: "100%",
-    width: "100%"
+    flexDirection: "row",
+    justifyContent: "space-evenly"
   },
   welcomeHeader: {
     color: "white",
     fontFamily: "cursive",
     fontWeight: "bold",
     fontSize: 60
-  },
-  mainBody: {
-    height: "80%",
-    width: "100%",
-    backgroundColor: "black",
-    flex: 1,
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-evenly"
   },
   rightSide: {
     alignItems: "center"
@@ -71,7 +69,6 @@ const styles = StyleSheet.create({
     height: height * 0.7,
     marginTop: "5%",
     marginBottom: "5%",
-    backgroundColor: "black",
     padding: 10,
     borderRadius: 10,
     alignItems: "center",
@@ -80,21 +77,10 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: "column"
   },
-  tutorial: {
-    width: width * 0.28,
-    height: width * 0.28
-  },
-  tutorialImage: {
-    width: "80%",
-    height: "80%"
-  },
-  pageHero: {
-    marginBottom: "2%"
-  },
   localGameButton: {
     height: 50,
     width: 200,
-    backgroundColor: "green",
+    backgroundColor: "#121212",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
@@ -108,7 +94,7 @@ const styles = StyleSheet.create({
   },
   cardHeader: {
     color: "white",
-    fontSize: 20,
+    fontSize: 21,
     textAlign: "center",
     marginBottom: "5%"
   }
