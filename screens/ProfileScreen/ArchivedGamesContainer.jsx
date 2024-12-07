@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import ArchivedGameCard from "./ArchivedGameCard";
-import * as SecureStore from "expo-secure-store";
 import axiosInstance from "@/services/axios/axiosInstance";
 
 const ArchivedGamesContainer = ({
@@ -14,9 +13,7 @@ const ArchivedGamesContainer = ({
   useEffect(() => {
     const getUserGames = async () => {
       try {
-        const username = await SecureStore.getItemAsync("username");
-
-        let path = `/archivedGames/${username}`;
+        let path = `/archivedGames/${playerUsername}`;
         if (timeControl) {
           path += `?timeControl=${timeControl}`;
         }
@@ -30,7 +27,7 @@ const ArchivedGamesContainer = ({
     };
 
     getUserGames();
-  }, []);
+  }, [playerUsername, timeControl]);
 
   if (archivedGames.length === 0)
     return (

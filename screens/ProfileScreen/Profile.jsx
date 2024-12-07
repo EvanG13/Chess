@@ -72,7 +72,9 @@ const Profile = ({ navigation }) => {
                 time={control.time}
                 handlePress={() =>
                   navigation.navigate("stats", {
-                    timeControl: control.officialTitle
+                    timeControl: control.officialTitle,
+                    title: control.title,
+                    username: username
                   })
                 }
                 cardStyle={styles.cardStyle}

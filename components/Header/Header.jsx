@@ -52,7 +52,6 @@ const Header = ({ navigation }) => {
 
   return (
     <View style={styles.mainHeader}>
-      <View style={styles.paddingLeft}></View>
       <View style={styles.navBar}>
         <Pressable
           style={styles.navItem}

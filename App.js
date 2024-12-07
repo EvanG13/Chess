@@ -9,9 +9,9 @@ import OnlineGameScreen from "./screens/OnlineGameScreen/OnlineGameScreen";
 import Login from "./screens/LoginScreen/Login";
 import Register from "./screens/RegisterScreen/Register";
 import Profile from "./screens/ProfileScreen/Profile";
-import GameStat from "./screens/ProfileScreen/GameStat";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import ReviewGameScreen from "./screens/GameReviewScreen/ReviewGameScreen";
+import GameStat from "@/screens/CategoryStats/GameStat";
 
 const Stack = createStackNavigator();
 

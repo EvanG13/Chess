@@ -6,12 +6,12 @@ const styles = StyleSheet.create({
     backgroundColor: "green",
     height: "10%",
     width: "100%",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center"
   },
   navBar: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    alignItems: "center",
     width: "100%"
   },
   navItem: {
