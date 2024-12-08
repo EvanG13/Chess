@@ -24,7 +24,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <>
       <SafeAreaView style={{ flex: 1, backgroundColor: "#252525" }}>
-          <Header navigation={navigation} />
+        <Header navigation={navigation} />
         <View style={styles.mainBody}>
           <View>
             <Text style={styles.welcomeHeader}>Stock Trout</Text>
@@ -41,9 +41,8 @@ const HomeScreen = ({ navigation }) => {
             </View>
           </View>
         </View>
-
       </SafeAreaView>
-      <StatusBar style="light" backgroundColor="#121212"/>
+      <StatusBar style="light" backgroundColor="#121212" />
     </>
   );
 };
