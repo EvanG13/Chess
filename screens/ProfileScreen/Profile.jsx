@@ -1,12 +1,14 @@
 import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import StatsCard from "./StatsCard";
-import ArchivedGamesContainer from "./ArchivedGamesContainer";
 import * as SecureStore from "expo-secure-store";
 import Header from "@/components/Header/Header";
 import axiosInstance from "@/services/axios/axiosInstance";
-// TODO : put ratings in stats stats card
+import { SafeAreaView } from "react-native-safe-area-context";
+import TimeCategoryRecordCards from "@/components/TimeCategoryRecordCards/TimeCategoryRecordCards";
+import ArchivedGamesContainer from "@/components/ArchivedGamesContainer/ArchivedGamesContainer";
+import styles from "./profileStyling";
+import StatsCard from "@/components/StatsCard/StatsCard";
 
 const Profile = ({ navigation }) => {
   const route = useRoute();
@@ -59,7 +61,7 @@ const Profile = ({ navigation }) => {
     }
   };
   return (
-    <View style={styles.stats}>
+    <SafeAreaView style={styles.stats}>
       <Header navigation={navigation} />
       <View styles={styles.secondaryHeader}>
         <Text style={styles.usernameHeader}>{username}</Text>
@@ -72,7 +74,9 @@ const Profile = ({ navigation }) => {
                 time={control.time}
                 handlePress={() =>
                   navigation.navigate("stats", {
-                    timeControl: control.officialTitle
+                    timeControl: control.officialTitle,
+                    title: control.title,
+                    username: username
                   })
                 }
                 cardStyle={styles.cardStyle}
@@ -84,75 +88,37 @@ const Profile = ({ navigation }) => {
         </View>
 
         {userData ? (
-          <View style={styles.rawStats}>
-            <Text style={styles.statText}>Win: {userData.totalWins}</Text>
-            <Text style={styles.statText}>Loss: {userData.totalLosses}</Text>
-            <Text style={styles.statText}>Draw: {userData.totalDraws}</Text>
-          </View>
+          <TimeCategoryRecordCards
+            wins={userData.totalWins}
+            draws={userData.totalDraws}
+            losses={userData.totalLosses}
+          />
         ) : (
           <Text>Loading...</Text>
         )}
       </View>
       <View style={styles.main}>
+        <GamesHeader />
+
         <ArchivedGamesContainer
           navigation={navigation}
           playerUsername={username}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  stats: {
-    backgroundColor: "black",
-    color: "white",
-    height: "100%",
-    width: "100%"
-  },
-
-  main: {
-    flexDirection: "row",
-    height: "80%",
-    marginTop: "4%"
-  },
-
-  rawStats: {
-    color: "white",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginLeft: 10,
-    width: "90%"
-  },
-  statText: {
-    color: "white",
-    fontSize: 18
-  },
-  statCards: {
-    flexDirection: "row"
-  },
-  usernameHeader: {
-    textAlign: "left",
-    margin: 10,
-    fontSize: 20,
-    color: "white"
-  },
-  cardStyle: {
-    width: 50,
-    height: 50,
-    marginLeft: 10
-  },
-  timeStyle: {
-    display: "none"
-  },
-  titleStyle: {
-    fontSize: 10,
-    fontWeight: "bold"
-  },
-  secondaryHeader: {
-    flexDirection: "column",
-    width: "80%"
-  }
-});
+const GamesHeader = () => {
+  return (
+    <View style={styles.gameHeader}>
+      <Text style={styles.gameHeaderText}>Opponent</Text>
+      <View style={styles.resultAndMoves}>
+        <Text style={styles.gameHeaderText}>Result</Text>
+        <Text style={styles.gameHeaderText}>Moves</Text>
+      </View>
+    </View>
+  );
+};
 
 export default Profile;

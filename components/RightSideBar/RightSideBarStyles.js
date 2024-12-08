@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     height: "25%",
     width: "100%",
     justifyContent: "space-evenly",
-    backgroundColor: "black",
+    backgroundColor: "#252525",
     marginTop: "10%"
   }
 });

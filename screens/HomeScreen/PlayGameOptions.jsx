@@ -1,7 +1,8 @@
 import React from "react";
 
-import { View, StyleSheet } from "react-native";
-import StatsCard from "../ProfileScreen/StatsCard";
+import { View } from "react-native";
+import StatsCard from "@/components/StatsCard/StatsCard";
+import styles from "./playGameOptionsStyles";
 
 const PlayGameOptions = ({ navigation }) => {
   const timeControls = [
@@ -50,14 +51,5 @@ const PlayGameOptions = ({ navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    flexWrap: "wrap"
-  }
-});
 
 export default PlayGameOptions;

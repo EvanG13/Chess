@@ -121,7 +121,7 @@ const ReviewGameScreen = ({ route }) => {
         />
       </ScrollView>
       <View style={styles.rowTwo}>
-        {players.length != 0 && (
+        {players.length !== 0 && (
           <PlayerCard
             player={{
               name: topPlayerData.username,
@@ -139,7 +139,7 @@ const ReviewGameScreen = ({ route }) => {
           }}
         />
 
-        {players.length != 0 && (
+        {players.length !== 0 && (
           <PlayerCard
             player={{
               name: bottomPlayerData.username,

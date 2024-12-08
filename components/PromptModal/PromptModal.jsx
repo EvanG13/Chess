@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
+import { View, Text, Pressable, SafeAreaView } from "react-native";
 
 import styles from "./promptModalStyles.js";
 import handlers from "./handlers.js";
@@ -34,15 +34,15 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
   return (
     <View style={styles.modalContainer}>
       <SafeAreaView style={styles.modal}>
-        <TouchableOpacity
+        <Pressable
           style={styles.closeButton}
           onPress={() => setIsVisible(false)}
         >
           <Text>X</Text>
-        </TouchableOpacity>
+        </Pressable>
         <Text style={styles.messageText}>{message}</Text>
         <View style={styles.buttonBox}>
-          <TouchableOpacity
+          <Pressable
             onPress={() => {
               if (type === "offerDraw") {
                 handlers.handleConfirmDraw(socket);
@@ -64,9 +64,9 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
                   ? "Accept"
                   : "Queen"}
             </Text>
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity
+          <Pressable
             onPress={() => {
               if (type === "acceptDraw") {
                 handlers.handleDeclineDraw(socket);
@@ -86,7 +86,7 @@ const PromptModal = ({ isVisible, setIsVisible, type, socket }) => {
                   ? "Decline"
                   : "Knight"}
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </SafeAreaView>
     </View>

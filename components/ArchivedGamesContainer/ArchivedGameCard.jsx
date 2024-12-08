@@ -31,11 +31,6 @@ const ArchivedGameCard = ({ navigation, game, playerUsername }) => {
     navigation.navigate("reviewGame", { gameId: game.id });
   };
 
-  const getTime = (date) => {
-    if (!date || !date.includes(",")) return "";
-    return date.split(",").slice(0, 2).join(",");
-  };
-
   return (
     <Pressable style={styles.archivedCard} onPress={reviewGame}>
       <View style={styles.playersBox}>
@@ -61,10 +56,10 @@ const PlayerInfoRow = ({ timeControl, username, rating }) => {
   return (
     <View style={styles.playerRow}>
       {(timeControl === "BULLET_1" || "BULLET_3") && (
-        <MaterialCommunityIcons name="bullet" size={40} color="yellow" />
+        <MaterialCommunityIcons name="bullet" size={30} color="yellow" />
       )}
       {timeControl === "BLITZ_5" && (
-        <FontAwesome name="bolt" size={40} color="yellow" />
+        <FontAwesome name="bolt" size={30} color="yellow" />
       )}
       <Text style={styles.text}>{username}</Text>
       <Text style={styles.text}>{`(${rating})`}</Text>
@@ -80,7 +75,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     marginBottom: 2,
     alignItems: "center",
-    backgroundColor: "#141414"
+    backgroundColor: "#121212"
   },
   text: {
     color: "white"
@@ -103,10 +98,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     width: "100%",
-    marginLeft: 5,
+    padding: 7,
     gap: 10
   },
-
   playersBox: {
     flexDirection: "row",
     width: "70%",

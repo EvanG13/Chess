@@ -2,7 +2,8 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   board: {
-    flexDirection: "column"
+    flexDirection: "column",
+    backgroundColor: "#252525"
   },
   fill: {
     flex: 1
@@ -23,12 +24,12 @@ const styles = StyleSheet.create({
   boardContainer: {
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "black"
+    backgroundColor: "#252525"
   },
   boardAndLogger: {
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "#252525",
     gap: 10
   },
   letters: {
@@ -36,7 +37,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     width: "90%",
     marginLeft: 40,
-    color: "white"
+    color: "white",
+    backgroundColor: "#252525"
   },
   boardWithNumbers: {
     flexDirection: "row",
@@ -45,18 +47,14 @@ const styles = StyleSheet.create({
   flipped: {
     transform: [{ rotate: "180deg" }]
   },
-
-  //chat
   chatSendContainer: {
     height: "4%",
     width: "100%",
     flexDirection: "row"
   },
-
   chatBox: {
     backgroundColor: "yellow"
   },
-
   sendMessageButton: {
     backgroundColor: "green",
     alignItems: "center",
