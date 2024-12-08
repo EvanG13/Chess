@@ -21,7 +21,7 @@
         "backgroundColor": "#ffffff"
       }
     },
-p    "androidNavigationBar": {
+    "androidNavigationBar": {
       "backgroundColor": "#252525",
       "barStyle": "light-content"
     },
