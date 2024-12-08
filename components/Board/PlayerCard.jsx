@@ -12,8 +12,7 @@ const PlayerCard = ({ player }) => {
 
 const styles = StyleSheet.create({
   playerCard: {
-    backgroundColor: "black",
-    borderRadius: 10,
+    backgroundColor: "#121212",
     padding: 10,
     display: "flex",
     flexDirection: "row",
@@ -22,12 +21,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     height: 50,
     width: "100%"
-  },
-  playerAvatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-    marginRight: 10
   },
   playerName: {
     fontSize: 20,

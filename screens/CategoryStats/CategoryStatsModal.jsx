@@ -2,11 +2,7 @@ import React from "react";
 import { Modal, View, Text, Pressable } from "react-native";
 import styles from "./CategoryStatsModalStyling";
 
-const CategoryStatsModal = ({
-  setIsModalVisible,
-  category,
-  setCategory,
-}) => {
+const CategoryStatsModal = ({ setIsModalVisible, category, setCategory }) => {
   const timeCategories = [
     {
       name: "rapid",

@@ -2,21 +2,26 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   GameStat: {
-    backgroundColor: "black",
-    height: "100%",
-    width: "100%"
+    backgroundColor: "#252525",
+    flex: 1
   },
   diagnosticsText: {
     color: "white",
-    fontSize: 20
+    fontSize: 30,
+    fontWeight: "bold"
   },
   diagnostics: {
-    margin: 20
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+    marginTop: 15,
+    marginBottom: 15
   },
   timeControlTitle: {
     color: "white",
     textAlign: "center",
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 20,
     marginTop: 20
@@ -24,27 +29,31 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    gap: 20,
+    gap: 10,
     alignItems: "center"
-  },
-  headerDropDown: {
-    alignItems: "center", // Center text inside button
-    justifyContent: "center"
   },
   usernameHeader: {
     color: "white",
     fontSize: 30,
-    marginLeft: 10
-  },
-  todoButtonText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "bold"
+    alignSelf: "center"
   },
   archivedGamesHeader: {
     color: "white",
-    fontSize: 30,
-    marginLeft: 10
+    fontSize: 20,
+    padding: 5,
+    alignSelf: "center"
+  },
+  ratingContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  statLabel: {
+    color: "lightgray",
+    fontSize: 12
+  },
+  ratingText: {
+    fontSize: 40
   }
 });
 

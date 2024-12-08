@@ -3,11 +3,11 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   mainHeader: {
     flexDirection: "row",
-    backgroundColor: "green",
-    height: "10%",
+    backgroundColor: "#121212",
     width: "100%",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    paddingTop: 10
   },
   navBar: {
     flexDirection: "row",
@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   navItem: {
-    backgroundColor: "green",
-    marginTop: 40
+    marginBottom: 15,
+    alignItems: "center"
   },
   texts: {
     color: "white",
@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   dropdown: {
-    marginTop: 40,
     width: "40%",
-    fontSize: 20
+    fontSize: 20,
+    marginBottom: 15
   },
   placeholderStyle: {
     color: "white"

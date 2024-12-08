@@ -5,9 +5,9 @@ const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   reviewView: {
     flexDirection: "column",
-    backgroundColor: "black",
+    backgroundColor: "#252525",
     height: "100%",
-    width: "100%"
+    width: "100%",
   },
   rowOne: {
     flex: 1

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   moveLog: {
     height: "55%",
     width: "100%",
-    backgroundColor: "black",
+    backgroundColor: "#252525",
     marginTop: 10,
     color: "white"
   },
@@ -39,8 +39,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     flexDirection: "row",
-    flexWrap: "wrap",
-    padding: 3
+    flexWrap: "wrap"
   }
 });
 
