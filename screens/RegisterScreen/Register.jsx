@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import axiosInstance from "@/services/axios/axiosInstance";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -41,7 +42,7 @@ const Register = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.registerContainer}>
+    <SafeAreaView style={styles.registerContainer}>
       <View style={styles.registerCard}>
         <View style={styles.innerCard}>
           <Text style={styles.registerHeader}>Register</Text>
@@ -77,7 +78,7 @@ const Register = ({ navigation }) => {
           ) : null}
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -92,21 +93,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black"
+    backgroundColor: "#252525"
   },
   registerCard: {
     borderRadius: 10,
-    overflow: "hidden", // Ensure the inner gradient doesn't overflow
+    overflow: "hidden",
     width: "60%"
   },
   gradient: {
     flex: 1,
     borderRadius: 10,
-    borderWidth: 2, // Add borderWidth to create a border
-    borderColor: "transparent" // Set initial borderColor to transparent
+    borderWidth: 2,
+    borderColor: "transparent"
   },
   innerCard: {
-    backgroundColor: "black",
+    backgroundColor: "#121212",
     padding: 20
   },
   input: {
