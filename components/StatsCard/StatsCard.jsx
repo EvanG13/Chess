@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Pressable } from "react-native";
-import styles from "./statsCardStyling"
+import styles from "./statsCardStyling";
 
 const StatsCard = ({
   title,

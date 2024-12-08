@@ -55,8 +55,10 @@ const GameStat = ({ navigation }) => {
       return <FontAwesome name="bolt" size={25} color="yellow" />;
     }
 
-    return <MaterialCommunityIcons name="timer-outline" size={25} color="green" />
-  }
+    return (
+      <MaterialCommunityIcons name="timer-outline" size={25} color="green" />
+    );
+  };
 
   return (
     <SafeAreaView style={styles.GameStat}>

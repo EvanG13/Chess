@@ -2,7 +2,7 @@ import React from "react";
 
 import { View } from "react-native";
 import StatsCard from "@/components/StatsCard/StatsCard";
-import styles from "./playGameOptionsStyles"
+import styles from "./playGameOptionsStyles";
 
 const PlayGameOptions = ({ navigation }) => {
   const timeControls = [

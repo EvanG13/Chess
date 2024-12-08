@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button } from "react-native";
 import axiosInstance from "@/services/axios/axiosInstance";
 import { SafeAreaView } from "react-native-safe-area-context";
-import styles from "./registerStyling"
+import styles from "./registerStyling";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");

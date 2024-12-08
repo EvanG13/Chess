@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     width: "90%",
     marginLeft: 40,
     color: "white",
-    backgroundColor: "#252525",
+    backgroundColor: "#252525"
   },
   boardWithNumbers: {
     flexDirection: "row",

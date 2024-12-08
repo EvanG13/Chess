@@ -7,7 +7,7 @@ import axiosInstance from "@/services/axios/axiosInstance";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TimeCategoryRecordCards from "@/components/TimeCategoryRecordCards/TimeCategoryRecordCards";
 import ArchivedGamesContainer from "@/components/ArchivedGamesContainer/ArchivedGamesContainer";
-import styles from "./profileStyling"
+import styles from "./profileStyling";
 import StatsCard from "@/components/StatsCard/StatsCard";
 
 const Profile = ({ navigation }) => {
@@ -120,6 +120,5 @@ const GamesHeader = () => {
     </View>
   );
 };
-
 
 export default Profile;

@@ -16,7 +16,7 @@ const loginStyles = StyleSheet.create({
   loginCard: {
     borderRadius: 10,
     overflow: "hidden",
-    width: "60%",
+    width: "60%"
   },
   innerCard: {
     backgroundColor: "#121212",
