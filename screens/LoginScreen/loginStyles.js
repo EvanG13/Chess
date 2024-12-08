@@ -11,21 +11,15 @@ const loginStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black"
+    backgroundColor: "#252525"
   },
   loginCard: {
     borderRadius: 10,
-    overflow: "hidden", // Ensure the inner gradient doesn't overflow
-    width: "60%"
-  },
-  gradient: {
-    flex: 1,
-    borderRadius: 10,
-    borderWidth: 2, // Add borderWidth to create a border
-    borderColor: "transparent" // Set initial borderColor to transparent
+    overflow: "hidden",
+    width: "60%",
   },
   innerCard: {
-    backgroundColor: "black",
+    backgroundColor: "#121212",
     padding: 20
   },
   input: {

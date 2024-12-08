@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import loginStyles from "./loginStyles";
 import axiosInstance from "@/services/axios/axiosInstance";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -37,7 +38,7 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <View style={loginStyles.loginContainer}>
+    <SafeAreaView style={loginStyles.loginContainer}>
       <View style={loginStyles.loginCard}>
         <View style={loginStyles.innerCard}>
           <Text style={loginStyles.loginHeader}>Login</Text>
@@ -61,7 +62,7 @@ const Login = ({ navigation }) => {
           ) : null}
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
