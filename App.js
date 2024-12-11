@@ -25,6 +25,7 @@ export default function App() {
           screenOptions={{
             headerShown: false
           }}
+          id="stackNavigator"
         >
           <Stack.Screen name="Chess" component={HomeScreen} />
           <Stack.Screen
