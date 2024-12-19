@@ -5,7 +5,7 @@ import selectSquare from "./selectSquare.js";
 import { Switch } from "react-native-switch";
 
 import styles from "./BoardStyles.js";
-import { getNumberFromLetter } from "./board.js";
+import { getNumberFromLetter } from "@/components/Board/board.js";
 
 const Board = ({
   board,

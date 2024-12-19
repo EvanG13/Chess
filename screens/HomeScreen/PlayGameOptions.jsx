@@ -8,28 +8,40 @@ const PlayGameOptions = ({ navigation }) => {
   const timeControls = [
     {
       title: "Bullet",
-      requestTitle: "BULLET_1",
+      timeControl: {
+        base: 60,
+        increment: 0
+      },
       time: "1+0"
     },
     {
       title: "Bullet",
-      requestTitle: "BULLET_3",
+      timeControl: {
+        base: 180,
+        increment: 0
+      },
       time: "3+0"
     },
     {
       title: "Blitz",
-      requestTitle: "BLITZ_5",
+      timeControl: {
+        base: 300,
+        increment: 0
+      },
       time: "5+0"
     },
     {
       title: "Rapid",
-      requestTitle: "BLITZ_10",
+      timeControl: {
+        base: 600,
+        increment: 0
+      },
       time: "10+0"
     }
   ];
 
-  const handlePress = (requestTitle) => {
-    navigation.navigate("onlineGame", { timeControl: requestTitle });
+  const handlePress = (timeControl) => {
+    navigation.navigate("onlineGame", { timeControl });
   };
 
   return (
@@ -42,7 +54,7 @@ const PlayGameOptions = ({ navigation }) => {
               title={control.title}
               time={control.time}
               navigate={navigation.navigate}
-              handlePress={() => handlePress(control.requestTitle)}
+              handlePress={() => handlePress(control.timeControl)}
               titleStyle={styles.titleStyles}
             />
           );
