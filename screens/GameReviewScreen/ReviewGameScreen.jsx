@@ -33,7 +33,7 @@ const ReviewGameScreen = ({ route }) => {
       setUsername(username);
 
       const gameId = route.params.gameId;
-      gameInfo = await axiosInstance.get(`/archivedGame/${gameId}`);
+      gameInfo = await axiosInstance.get(`/game/${gameId}`);
       setMoveList([...gameInfo.data.moveList]);
       setPlayers([...gameInfo.data.players]);
 

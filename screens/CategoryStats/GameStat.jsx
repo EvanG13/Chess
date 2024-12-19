@@ -15,7 +15,7 @@ import ArchivedGamesContainer from "@/components/ArchivedGamesContainer/Archived
 
 const GameStat = ({ navigation }) => {
   const route = useRoute();
-  const { timeControl, username, title } = route.params ?? {};
+  const { username, title } = route.params ?? {};
   const [gameStats, setGameStats] = useState(null);
   const [category, setCategory] = useState(title.toLowerCase());
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -93,7 +93,7 @@ const GameStat = ({ navigation }) => {
 
       <ArchivedGamesContainer
         playerUsername={username}
-        timeControl={timeControl}
+        timeControl={category}
         navigation={navigation}
       />
 

@@ -35,10 +35,10 @@ const ArchivedGameCard = ({ navigation, game, playerUsername }) => {
     <Pressable style={styles.archivedCard} onPress={reviewGame}>
       <View style={styles.playersBox}>
         <PlayerInfoRow
-          isWhite={opponentPlayerData.isWhite}
           username={opponentPlayerData.username}
           rating={opponentPlayerData.rating}
           key={opponentPlayerData.username}
+          timeControl={game.gameMode}
         />
       </View>
 
@@ -55,12 +55,14 @@ const ArchivedGameCard = ({ navigation, game, playerUsername }) => {
 const PlayerInfoRow = ({ timeControl, username, rating }) => {
   return (
     <View style={styles.playerRow}>
-      {(timeControl === "BULLET_1" || "BULLET_3") && (
-        <MaterialCommunityIcons name="bullet" size={30} color="yellow" />
-      )}
-      {timeControl === "BLITZ_5" && (
-        <FontAwesome name="bolt" size={30} color="yellow" />
-      )}
+      <View style={styles.iconContainer}>
+        {timeControl === "BULLET" && (
+          <MaterialCommunityIcons name="bullet" size={30} color="yellow" />
+        )}
+        {timeControl === "BLITZ" && (
+          <FontAwesome name="bolt" size={30} color="yellow" />
+        )}
+      </View>
       <Text style={styles.text}>{username}</Text>
       <Text style={styles.text}>{`(${rating})`}</Text>
     </View>
@@ -72,18 +74,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    borderBottomWidth: 2,
-    marginBottom: 2,
     alignItems: "center",
-    backgroundColor: "#121212"
+    backgroundColor: "#121212",
+    marginBottom: 2
   },
   text: {
     color: "white"
   },
+  iconContainer: {
+    width: 30,
+    justifyContent: "center",
+    alignItems: "center"
+  },
   container: {
     width: "30%",
     flexDirection: "row",
-    justifyContent: "flex-start"
+    justifyContent: "center"
   },
   resultAndNumMoves: {
     flexDirection: "row",

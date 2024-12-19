@@ -2,7 +2,6 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import styles from "./onlineGameScreenStyles.js";
 import RightSideBar from "@/components/RightSideBar/RightSideBar.jsx";
-import TimeControls from "@/constants/TimeControls.js";
 import Board from "@/components/Board/Board.jsx";
 import { useState, useEffect } from "react";
 import getStartingBoard from "@/components/Board/board.js";
@@ -38,8 +37,8 @@ const OnlineGameScreen = ({ route, navigation }) => {
 
   //timers stuff
   const { timeControl } = route.params;
-  const [whiteTimer, setWhiteTimer] = useState(TimeControls[timeControl]); //time remaining in seconds
-  const [blackTimer, setBlackTimer] = useState(TimeControls[timeControl]);
+  const [whiteTimer, setWhiteTimer] = useState(timeControl.base);
+  const [blackTimer, setBlackTimer] = useState(timeControl.base);
 
   //chat stuff
   const [chatLog, setChatLog] = useState([]);

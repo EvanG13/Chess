@@ -13,9 +13,9 @@ const ArchivedGamesContainer = ({
   useEffect(() => {
     const getUserGames = async () => {
       try {
-        let path = `/archivedGames/${playerUsername}`;
+        let path = `/games/${playerUsername}`;
         if (timeControl) {
-          path += `?timeControl=${timeControl}`;
+          path += `?gameMode=${timeControl}`;
         }
 
         const response = await axiosInstance.get(path);
@@ -37,28 +37,25 @@ const ArchivedGamesContainer = ({
     );
 
   return (
-    <View style={styles.archivedContainer}>
-      <ScrollView>
-        {archivedGames.map((game, index) => {
-          return (
-            <ArchivedGameCard
-              navigation={navigation}
-              game={game}
-              key={index}
-              cardNumber={index}
-              playerUsername={playerUsername}
-            />
-          );
-        })}
-      </ScrollView>
-    </View>
+    <ScrollView style={styles.archivedContainer}>
+      {archivedGames.map((game, index) => {
+        return (
+          <ArchivedGameCard
+            navigation={navigation}
+            game={game}
+            key={index}
+            cardNumber={index}
+            playerUsername={playerUsername}
+          />
+        );
+      })}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   archivedContainer: {
-    width: "100%",
-    flexDirection: "column"
+    width: "100%"
   }
 });
 

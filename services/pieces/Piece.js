@@ -1,4 +1,4 @@
-import { getNumberFromLetter } from "../../components/Board/Board";
+import { getNumberFromLetter } from "@/components/Board/board.js";
 
 class Piece {
   constructor(color, src, letter, number, name) {
